@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<hrc version="take5" xmlns="http://colorer.sf.net/2003/hrc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://colorer.sf.net/2003/hrc http://colorer.sf.net/2003/hrc.xsd">
+
+  <prototype name="Python" group="main" description="Python advanced syntax">
+    <filename weight='3'>/\.(py|pyw|pys|pyx|pxd)$/i</filename>
+    <firstline weight='1'>/#!\s+python/</firstline>
+    <firstline weight='1'>/#!\s+python[23]/</firstline>
+    <parameters>
+    </parameters>
+  </prototype>
+  <package name="python26" description="base python 2.x package">
+  </package>
+  <package name="python27" description="python 2.7 package">
+  </package>
+  <package name="python34" description="base python 3.x package">
+  </package>
+  <package name="python35" description="python 3.5 package">
+  </package>
+  <package name="python36" description="python 3.6 package">
+  </package>
+  <type name="python26">
+
+    <region name="PairStart" parent="def:PairStart" description="Paired struct start"/>
+    <region name="PairEnd"  parent="def:PairEnd" description="Paired struct end"/>
+    <region name="Outlined" parent="def:Outlined" description="Outlined region"/>
+
+    <region name="Comment" parent="def:Comment"/>
+    <region name="LineComment" parent="def:LineComment"/>
+    <region name="CommentEdge" parent="def:CommentEdge"/>
+    <region name="CommentDoc" parent="def:CommentDoc" description="In-Source Documentation comments"/>
+    <region name="CommentDocContent" parent="def:CommentDocContent" description="In-Source Documentation Elements"/>
+    <region name="CommentDocEdge" parent="def:CommentDocEdge" description="In-Source Documentation Edges"/>
+
+    <region name="NAME" parent="def:Identifier"/>
+    <region name="Identifier" parent="def:Identifier"/>
+    <region name="String" parent="def:String" description="Common string"/>
+    <region name="StringEdge" parent="def:StringEdge" description="String edges"/>
+    <region name="StringEscape" parent="def:StringContent" description="Tokens in String Content"/>
+    <region name="NumberPrefix" parent="def:NumberPrefix" description="Number Prefix"/>
+    <region name="NumberSuffix" parent="def:NumberSuffix" description="Number Suffix"/>
+    <region name="NumberDec" parent="def:NumberDec" description="Decimal Number"/>
+    <region name="NumberHex" parent="def:NumberHex" description="Hexadecimal Number"/>
+    <region name="NumberBin" parent="def:NumberBin" description="Binary Number"/>
+    <region name="NumberOct" parent="def:NumberOct" description="Octal Number"/>
+    <region name="NumberFloat" parent="def:NumberFloat" description="Float Number"/>
+    <region name="Constant" parent="def:Constant"/>
+    <region name="BooleanConstant" parent="def:BooleanConstant"/>
+
+    <region name="Keyword" parent="def:Keyword"/>
+    <region name="ClassKeyword"   parent="Keyword" description="Class object Keywords"/>
+    <region name="FunctionKeyword"  parent="Keyword" description="Function object Keyword"/>
+    <region name="Delimiter" parent="def:Symbol"/>
+    <region name="Operator" parent="def:Operator" description="Symbolic or Literal Operator"/>
+    <region name="Prefix" parent="def:Prefix" description="Prefix"/>
+
+    <region name="Directive" parent="def:Directive" description="Compiler/Preprocessor directive"/>
+    <region name="DirectiveContent" parent="def:DirectiveContent" description="Internal directive text"/>
+    <region name="DirectiveEdge"    parent="def:DirectiveEdge" description="Directive edges"/>
+    <region name="Parameter" parent="def:Parameter" description="Parameter declaration"/>
+
+    <region name="Error" parent="def:Error"/>
+
+    <entity name="name" value="[&quot;']?~1\b(?{def:Var}[a-zA-Z_]\w*)\b[&quot;']?!"/>
+    <entity name="identifier" value="[&quot;']?~1\b(?{def:Var}[a-zA-Z_]\w*)\b[&quot;']?!"/>
+
+    <entity name="digit" value="\d"/>
+    <entity name="hexdigit" value="[\da-fA-F]"/>
+    <entity name="bindigit" value="[01]"/>
+    <entity name="octdigit" value="[0-7]"/>
+    <entity name="nonzerodigit" value="[1-9]"/>
+    <entity name="bininteger" value="(?{NumberPrefix}0[bB])(?{NumberBin}%bindigit;+)"/>
+    <entity name="hexinteger" value="(?{NumberPrefix}0[xX])(?{NumberHex}%hexdigit;+)"/>
+    <entity name="octinteger" value="(?{NumberPrefix}0[oO]?)(?{NumberOct}%octdigit;+)"/>
+    <entity name="decimalinteger" value="(?{NumberDec}%nonzerodigit;%digit;*|0)"/>
+    <entity name="integer" value="(%hexinteger;)|(%bininteger;)|(%octinteger;)|(%decimalinteger;)"/>
+    <entity name="longinteger" value="(%integer;)(?{NumberSuffix}[lL])"/>
+
+    <entity name="exponent" value="(?{NumberSuffix}[eE])(?{Operator}[+\-]?)%digit;+"/>
+    <entity name="fraction" value="\.%digit;+"/>
+    <entity name="intpart" value="%digit;+"/>
+    <entity name="pointfloat" value="(%intpart;)?%fraction;|%intpart;\."/>
+    <entity name="exponentfloat" value="((%pointfloat;)|%intpart;)%exponent;"/>
+    <entity name="floatnumber" value="%exponentfloat;|(%pointfloat;)"/>
+    <entity name="imagnumber" value="((%floatnumber;)|%intpart;)(?{NumberSuffix}[jJ])"/>
+
+    <entity name="strEscapeSequences" value="(?{NumberOct}%octdigit;{1,3})|x(?{NumberHex}%hexdigit;{2})"/>
+    <entity name="unicodeEscapeCodes" value="u(?{NumberHex}%hexdigit;{4})|U(?{NumberHex}%hexdigit;{8})"/>
+    <entity name="unicodeEscapeSequences" value="%strEscapeSequences;|N(?{Delimiter}\{)(?{identifier}%name;)(?{Delimiter}\})|%unicodeEscapeCodes;"/>
+
+    <scheme name="Comments">
+      <block start="/#/" end="/$/" region="LineComment" region00="CommentEdge" scheme="def:Comment"/>
+    </scheme>
+
+    <scheme name="Number">
+      <regexp match="/%integer;/"/>
+    </scheme>
+
+    <scheme name="NAME">
+      <regexp match="/%name;/"/>
+    </scheme>
+
+    <scheme name="rawstrbody">
+      <regexp match="/\\./" region="String"/>
+    </scheme>
+
+    <scheme name="rawstrbodyNoPrefix">
+      <inherit scheme="rawstrbody"/>
+    </scheme>
+
+    <scheme name="strbodyescapes">
+      <regexp match="/\\(%strEscapeSequences;)/" region="StringEscape" region1="Parameter"/>
+      <regexp match="/\\(x.{0,2})/" region="StringEscape" region1="Error"/>
+    </scheme>
+
+    <scheme name="unicodebodyescapes">
+      <regexp match="/\\(%unicodeEscapeSequences;)/" region="python26:StringEscape" region1="python26:Parameter"/>
+      <regexp match="/\\(x.{0,2}|N(\{.*?(\}|$))?|u.{0,4}|U.{0,8})/" region="python26:StringEscape" region1="python26:Error"/>
+    </scheme>
+
+    <scheme name="rawunicodebody">
+      <regexp match="/\\(%unicodeEscapeCodes;)/" region="StringEscape" region1="Parameter"/>
+      <inherit scheme="rawstrbody"/>
+    </scheme>
+
+    <scheme name="rawunicodebodyNoPrefix">
+      <inherit scheme="rawunicodebody"/>
+    </scheme>
+
+    <scheme name="strbody">
+      <regexp match="/\\$/" region="StringEscape"/>
+      <inherit scheme="strbodyescapes"/>
+      <regexp match="/\\([\\'&quot;])/" region="StringEscape" region1="String"/>
+      <regexp match="/\\([abfnrtv])/" region="StringEscape" region1="Parameter"/>
+      <inherit scheme="rawstrbody"/>
+    </scheme>
+
+    <scheme name="strbodyNoPrefix">
+      <inherit scheme="strbody"/>
+    </scheme>
+
+    <scheme name="unicodebody">
+      <inherit scheme="strbody">
+        <virtual scheme="strbodyescapes" subst-scheme="unicodebodyescapes"/>
+      </inherit>
+    </scheme>
+
+    <scheme name="unicodebodyNoPrefix">
+      <inherit scheme="unicodebody"/>
+    </scheme>
+
+    <scheme name="strNoPrefix">
+      <block start="/(?{Prefix}\b[rR])(?{StringEdge}([&quot;']{3}))/" end="/(?{StringEdge}\y1)/" scheme="rawstrbody" region="String" region00="PairStart" region10="PairEnd"/>
+      <block start="/(?{Prefix}\b[rR])(?{StringEdge}([&quot;']))/" end="/(?{StringEdge}\y1)/" scheme="rawstrbody" region="String" region00="PairStart" region10="PairEnd"/>
+      <block start="/(?{StringEdge}([&quot;']{3}))/" end="/(?{StringEdge}\y1)/" scheme="strbody" region="String" region00="PairStart" region10="PairEnd"/>
+      <block start="/(?{StringEdge}([&quot;']))/" end="/(?{StringEdge}\y1)/" scheme="strbody" region="String" region00="PairStart" region10="PairEnd"/>
+    </scheme>
+
+    <scheme name="unicode_literals_future">
+      <inherit scheme="python26:strNoPrefix">
+        <virtual scheme="python26:rawstrbody" subst-scheme="python26:rawunicodebody"/>
+        <virtual scheme="python26:strbody" subst-scheme="python26:unicodebody"/>
+      </inherit>
+    </scheme>
+
+    <scheme name="str">
+      <block start="/(?{Prefix}\b[bB][rR])(?{StringEdge}([&quot;']{3}))/" end="/(?{StringEdge}\y1)/" scheme="rawstrbody" region="String" region00="PairStart" region10="PairEnd"/>
+      <block start="/(?{Prefix}\b[bB][rR])(?{StringEdge}([&quot;']))/" end="/(?{StringEdge}\y1)/" scheme="rawstrbody" region="String" region00="PairStart" region10="PairEnd"/>
+      <block start="/(?{Prefix}\b[bB])(?{StringEdge}([&quot;']{3}))/" end="/(?{StringEdge}\y1)/" scheme="strbody" region="String" region00="PairStart" region10="PairEnd"/>
+      <block start="/(?{Prefix}\b[bB])(?{StringEdge}([&quot;']))/" end="/(?{StringEdge}\y1)/" scheme="strbody" region="String" region00="PairStart" region10="PairEnd"/>
+    </scheme>
+
+    <scheme name="unicode">
+      <block start="/(?{Prefix}\b[uU][rR])(?{StringEdge}([&quot;']{3}))/" end="/(?{StringEdge}\y1)/" scheme="rawunicodebody" region="String" region00="PairStart" region10="PairEnd"/>
+      <block start="/(?{Prefix}\b[uU][rR])(?{StringEdge}([&quot;']))/" end="/(?{StringEdge}\y1)/" scheme="rawunicodebody" region="String" region00="PairStart" region10="PairEnd"/>
+      <block start="/(?{Prefix}\b[uU])(?{StringEdge}([&quot;']{3}))/" end="/(?{StringEdge}\y1)/" scheme="unicodebody" region="String" region00="PairStart" region10="PairEnd"/>
+      <block start="/(?{Prefix}\b[uU])(?{StringEdge}([&quot;']))/" end="/(?{StringEdge}\y1)/" scheme="unicodebody" region="String" region00="PairStart" region10="PairEnd"/>
+    </scheme>
+
+    <scheme name="stringliteral">
+      <inherit scheme="str"/>
+      <inherit scheme="unicode"/>
+      <inherit scheme="strNoPrefix"/>
+    </scheme>
+
+    <scheme name="STRING">
+      <inherit scheme="stringliteral"/>
+    </scheme>
+
+    <scheme name="printbody">
+      <!-- <regexp match="/([&quot;'])?#1\s*\M[bur]?[&quot;']/"/> -->
+      <!-- <regexp match="/^\s*[bur]?[&quot;']/"/> -->
+    </scheme>
+
+    <scheme name="expression">
+      <inherit scheme="STRING"/>
+    </scheme>
+
+    <scheme name="print_stmtbody">
+      <regexp match="/~\s*&gt;&gt;\s*/" region="Delimiter"/>
+      <regexp match="/~(?{Error},)/"/>
+      <regexp match="/\s*,\s*(?{Error},)?/" region="Delimiter"/>
+      <inherit scheme="expression"/>
+      <regexp match="/\s*\\$/" region="StringEscape"/>
+      <regexp match="/./" region="Error" priority="low"/>
+    </scheme>
+
+    <scheme name="print_stmt">
+      <block start="/(print)\b\s*/" end="/(\\)?~1$/" scheme="print_stmtbody" region00="PairStart" region01="Keyword" region10="PairEnd"/>
+    </scheme>
+
+    <scheme name="no_print">
+      <regexp match="/(print)\b\s*(\()?!\M\S/" region1="Error"/>
+    </scheme>
+
+    <scheme name="python26">
+      <regexp match="/^\t+/" region="Error"/>
+      <inherit scheme="Comments"/>
+      <inherit scheme="print_stmt"/>
+      <inherit scheme="STRING"/>
+    </scheme>
+  </type>
+
+  <type name="python34">
+    <scheme name="strNoPrefix">
+      <inherit scheme="python26:strNoPrefix">
+        <virtual scheme="python26:strbody" subst-scheme="python26:unicodebody"/>
+      </inherit>
+    </scheme>
+
+    <scheme name="str">
+      <regexp match="/[uU][rR]([&quot;']+).*?(\1|$)/" region="python26:Error"/>
+      <inherit scheme="python26:unicode"/>
+    </scheme>
+
+    <scheme name="python34">
+      <inherit scheme="python26:python26">
+        <virtual scheme="python26:unicode" subst-scheme="str"/>
+        <virtual scheme="python26:strNoPrefix" subst-scheme="strNoPrefix"/>
+        <virtual scheme="python26:print_stmt" subst-scheme="python26:no_print"/>
+      </inherit>
+    </scheme>
+  </type>
+
+  <type name="python35">
+    <scheme name="python35">
+      <inherit scheme="python34:python34"/>
+    </scheme>
+  </type>
+
+  <type name="python36">
+    <scheme name="python36">
+      <inherit scheme="python35:python35">
+      </inherit>
+    </scheme>
+  </type>
+
+  <type name="Python">
+    <scheme name="No_Future">
+      <inherit scheme="python26:python26"/>
+    </scheme>
+
+    <scheme name="print_function">
+      <inherit scheme="Future_loop">
+        <virtual scheme="python26:print_stmt" subst-scheme="python26:no_print"/>
+      </inherit>
+    </scheme>
+
+    <scheme name="unicode_literals">
+      <inherit scheme="Future_loop">
+        <virtual scheme="python26:strNoPrefix" subst-scheme="python26:unicode_literals_future"/>
+      </inherit>
+    </scheme>
+
+    <scheme name="absolute_import">
+      <inherit scheme="Future_loop">
+      </inherit>
+    </scheme>
+
+    <scheme name="Future_loop">
+      <block start="/print_function/" end="/%def:neverMatch;/" scheme="print_function" region00="python26:Keyword"/>
+      <block start="/unicode_literals/" end="/%def:neverMatch;/" scheme="unicode_literals" region00="python26:Keyword"/>
+      <block start="/absolute_import/" end="/%def:neverMatch;/" scheme="absolute_import" region00="python26:Keyword"/>
+      <block start="/^(($|\s*#))?!/" end="/%def:neverMatch;/" scheme="No_Future"/>
+    </scheme>
+
+    <scheme name="Future">
+      <block start="/from __future__ import\s*/" end="/%def:neverMatch;/" scheme="Future_loop" region00="python26:Keyword"/>
+      <block start="/^(($|\s*#))?!/" end="/%def:neverMatch;/" scheme="No_Future"/>
+    </scheme>
+
+    <scheme name="DocStringBody">
+    </scheme>
+
+    <scheme name="DocString">
+      <block start="/~([&quot;']{3})/" end="/\y1/" scheme="DocStringBody" region="python26:CommentDoc" region00="python26:CommentDocEdge" region10="python26:CommentDocEdge"/>
+      <block start="/~([&quot;'])/" end="/\y1/" scheme="DocStringBody" region="python26:CommentDoc" region00="python26:CommentDocEdge" region10="python26:CommentDocEdge"/>
+      <block start="/([&quot;']{3})/" end="/\y1/" scheme="def:Comment" region="python26:Comment" region00="python26:CommentEdge" region10="python26:CommentEdge"/>
+      <block start="/([&quot;'])/" end="/\y1/" scheme="def:Comment" region="python26:Comment" region00="python26:CommentEdge" region10="python26:CommentEdge"/>
+      <inherit scheme="python26:Comments"/>
+    </scheme>
+
+    <scheme name="Encoding">
+      <block start="/^\s*([&quot;'])?=/" end="/^(\s*$|\s*#|\s*[&quot;'])?!/" scheme="DocString"/>
+      <inherit scheme="Future"/>
+    </scheme>
+
+    <scheme name="Python_File_Encoding">
+      <block start="/^(#).*(coding)([=:])\s*(ascii|utf-8).*$/" end="/%def:neverMatch;/" scheme="Encoding" region00="python26:LineComment" region01="python26:CommentEdge" region02="python26:Keyword" region03="python26:Delimiter" region04="python26:Parameter"/>
+      <inherit scheme="Encoding"/>
+    </scheme>
+
+    <scheme name="Python_File_Header">
+      <block start="/(#!) (python3)/" end="/%def:neverMatch;/" scheme="python36" region00="python26:Directive" region01="python26:DirectiveEdge" region02="python26:DirectiveContent"/>
+      <block start="/(#!) (python2)/" end="/%def:neverMatch;/" scheme="python26" region00="python26:Directive" region01="python26:DirectiveEdge" region02="python26:DirectiveContent"/>
+      <block start="/(#!) (python)/" end="/%def:neverMatch;/" scheme="python26" region00="python26:Directive" region01="python26:DirectiveEdge" region02="python26:DirectiveContent"/>
+      <inherit scheme="Python_File_Encoding"/>
+    </scheme>
+
+    <scheme name="python26">
+      <inherit scheme="Python_File_Encoding"/>
+    </scheme>
+
+    <scheme name="python36">
+      <inherit scheme="Python_File_Encoding">
+        <virtual scheme="python26:python26" subst-scheme="python36:python36"/>
+      </inherit>
+    </scheme>
+
+    <scheme name="Python">
+      <inherit scheme="Python_File_Header"/>
+    </scheme>
+  </type>
+</hrc>
