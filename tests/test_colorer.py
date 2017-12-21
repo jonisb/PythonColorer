@@ -5,6 +5,7 @@ from threading import Thread
 from queue import Queue, Empty
 import subprocess
 from pathlib import Path
+import hashlib
 import regex
 
 testfileQueue = Queue()
@@ -84,7 +85,7 @@ def getTestData():
             try:
                 if file is None:
                     break
-                VerifyData = ReadRst(str(File))
+                VerifyData = ReadRst(str(file))
                 TestData = CallColorer(VerifyData['python'])
                 testQueue.put_nowait((file, TestData, VerifyData['html']))
             finally:
@@ -150,5 +151,59 @@ def tearDownModule():
     for t in threads:
         t.join()
 
+def ReadTestSyntax():
+    with open("Syntax_test.py", 'r') as f:
+        buffer = None
+        for line in f:
+            result = regex.match(r"^#\s*(?<test>Testing:\s*(?<testing>\S+)?\s*(?:pyver:\s*(?<pyver>\S+))?)", line)
+            if result is not None:
+                if result.group('test') is not None:
+                    if buffer:
+                        yield buffer, testing, pyver
+                    buffer = ""
+                    testing = result.group('testing') or ''
+                    pyver = result.group('pyver') or ''
+                    continue
+            if buffer is not None:
+                buffer += line
+        if buffer:
+            yield buffer, testing, pyver
+
+
+def WriteRst(Filename, Python, HTML):
+    Python = "\n".join([f"    {line}" for line in Python.splitlines()])
+    HTML = "\n".join([f"    {line}" for line in HTML.splitlines()])
+    Code = f"""\
+.. code:: python
+{Python}
+
+.. code:: html
+{HTML}
+"""
+    Filename.parent.mkdir(parents=True, exist_ok=True)
+    Filename.write_text(Code, encoding='utf8')
+
+
+def build_tests():
+    for Syntax, testing, pyver in ReadTestSyntax():
+        proc = subprocess.Popen(ColorerCommand, stdin=subprocess.PIPE, stdout=subprocess.PIPE, universal_newlines=True)
+        TestData = proc.communicate(Syntax)[0]
+        Filename = hashlib.sha256(Syntax.encode('utf8')).hexdigest()
+        VerifyData = None
+        for filepath in ("Reference", "Pending"):
+            try:
+                VerifyData = ReadRst(f"{filepath}/{pyver}/{testing}/{Filename}.rst")
+            except IOError:
+                continue
+            break
+        if VerifyData is not None:
+            if TestData.replace('\r\n', '\n') == VerifyData['html']:
+                continue
+        print(Filename)
+        print(Syntax)
+        WriteRst(Path(f"{'Pending'}/{pyver}/{testing}/{Filename}.rst"), Syntax, TestData)
+
+
 if __name__ == '__main__':
+    build_tests()
     unittest.main()
