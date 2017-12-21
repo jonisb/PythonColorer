@@ -23,6 +23,6 @@
 
 	<scheme name="python36">
 		<inherit scheme="NUMBER"/>
-		<regexp match="/./" region="def:Error" priority="low"/>
+		<regexp match="/\S/" region="def:Error" priority="low"/>
 	</scheme>
 </type>
