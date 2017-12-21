@@ -1,0 +1,5 @@
+.. code:: python
+    0xBeef
+
+.. code:: html
+    <span class='python36-NumberPrefix def-NumberPrefix def-Number'>0x</span><span class='python36-NumberHex def-NumberHex def-Number'>Beef</span>

@@ -1,0 +1,5 @@
+.. code:: python
+    0o1337
+
+.. code:: html
+    <span class='python36-NumberPrefix def-NumberPrefix def-Number'>0o</span><span class='python36-NumberOct def-NumberOct def-Number'>1337</span>
