@@ -1,0 +1,12 @@
+    <region name="Identifier" parent="def:Identifier"/>
+
+<!--
+A non-normative HTML file listing all valid identifier characters for Unicode 4.1 can be found at https://www.dcl.hpi.uni-potsdam.de/home/loewis/table-3131.html.
+ -->
+    <entity name="id_start" value="[{Lu}][{Ll}][{Lt}][{Lm}][{Lo}][{Nl}]_[{Other_ID_Start}]"/>
+    <entity name="id_continue" value="%id_start;[{Mn}][{Mc}][{Nd}][{Pc}][{Other_ID_Continue}]"/>
+    <entity name="identifier" value="(?{Identifier}[%id_start;][%id_continue;]*)"/>
+
+    <scheme name="NAME">
+      <regexp match="/%identifier;/"/>
+    </scheme>

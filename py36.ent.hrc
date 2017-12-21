@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <type name="python36">
 	&py36NUMBER;
+	&py36NAME;
 
 <!--atom:
 (
@@ -15,6 +16,7 @@
 -->
     <scheme name="atom">
 		<inherit scheme="NUMBER"/>
+		<inherit scheme="NAME"/>
     </scheme>
 
 	<scheme name="python36">
