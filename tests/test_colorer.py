@@ -17,9 +17,9 @@ ColorerCommand = ['colorer.exe', r'-cColorer\catalog.xml', '-ijonib', '-ht', '-d
 
 
 def getTests():
-    ref_dir = 'Reference'
+    ref_dir = Path('Reference')
     try:
-        for ver in Path(ref_dir).iterdir():
+        for ver in ref_dir.iterdir():
             if ver.is_dir():
                 try:
                     float(ver.name)
@@ -46,7 +46,7 @@ def getTests():
 
 
 def ReadRst(Filename):
-    with open(Filename, 'r') as f:
+    with Filename.open('r',encoding='utf8') as f:
         Code = {}
         buffer = None
         Filename = None
@@ -85,7 +85,7 @@ def getTestData():
             try:
                 if file is None:
                     break
-                VerifyData = ReadRst(str(file))
+                VerifyData = ReadRst(file)
                 TestData = CallColorer(VerifyData['python'])
                 testQueue.put_nowait((file, TestData, VerifyData['html']))
             finally:
@@ -152,7 +152,7 @@ def tearDownModule():
         t.join()
 
 def ReadTestSyntax():
-    with open("Syntax_test.py", 'r') as f:
+    with Path("Syntax_test.py").open('r', encoding='utf8') as f:
         buffer = None
         for line in f:
             result = regex.match(r"^#\s*(?<test>Testing:\s*(?<testing>\S+)?\s*(?:pyver:\s*(?<pyver>\S+))?)", line)
@@ -192,7 +192,7 @@ def build_tests():
         VerifyData = None
         for filepath in ("Reference", "Pending"):
             try:
-                VerifyData = ReadRst(f"{filepath}/{pyver}/{testing}/{Filename}.rst")
+                VerifyData = ReadRst(Path(f"{filepath}/{pyver}/{testing}/{Filename}.rst"))
             except IOError:
                 continue
             break
