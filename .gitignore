@@ -1,3 +1,4 @@
 tests/Colorer/
+tests/Pending/
 *.bak
 *.log
