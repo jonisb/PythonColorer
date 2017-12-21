@@ -15,6 +15,21 @@
 <entity name="decimalinteger" value="(?{NumberDec}%nonzerodigit;%digit;*|0)"/>
 <entity name="integer" value="(%hexinteger;)|(%bininteger;)|(%octinteger;)|(%decimalinteger;)"/>
 
+<region name="NumberSuffix" parent="def:NumberSuffix" description="Number Suffix"/>
+<region name="NumberExponent" parent="def:NumberSuffix" description="Number Exponent"/>
+<region name="NumberFloat" parent="def:NumberFloat" description="Float Number"/>
+<region name="NumberImaginary" parent="def:NumberFloat" description="Imaginary Number"/>
+
+<entity name="exponent" value="(?{NumberExponent}[eE])(?{Operator}[+\-]?)%digit;+"/>
+<entity name="fraction" value="\.%digit;+"/>
+<entity name="intpart" value="%digit;+"/>
+<entity name="pointfloat" value="(%intpart;)?%fraction;|%intpart;\."/>
+<entity name="exponentfloat" value="((%pointfloat;)|%intpart;)%exponent;"/>
+<entity name="floatnumber" value="%exponentfloat;|%pointfloat;"/>
+<entity name="imagnumber" value="(?{NumberImaginary}%floatnumber;|%intpart;)(?{NumberSuffix}[jJ])"/>
+
 <scheme name="NUMBER">
+	<regexp match="/%imagnumber;/"/>
+	<regexp match="/(?{NumberFloat}%floatnumber;)/"/>
 	<regexp match="/%integer;/"/>
 </scheme>
