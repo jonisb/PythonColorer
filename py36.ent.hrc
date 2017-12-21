@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <type name="python36">
+    <region name="NumberPrefix" parent="def:NumberPrefix" description="Number Prefix"/>
+    <region name="NumberDec" parent="def:NumberDec" description="Decimal Number"/>
+    <region name="NumberHex" parent="def:NumberHex" description="Hexadecimal Number"/>
+    <region name="NumberBin" parent="def:NumberBin" description="Binary Number"/>
+    <region name="NumberOct" parent="def:NumberOct" description="Octal Number"/>
+
+    <entity name="digit" value="\d"/>
+    <entity name="hexdigit" value="[%digit;a-fA-F]"/>
+    <entity name="bindigit" value="[01]"/>
+    <entity name="octdigit" value="[0-7]"/>
+    <entity name="nonzerodigit" value="[1-9]"/>
+    <entity name="bininteger" value="(?{NumberPrefix}0[bB])(?{NumberBin}%bindigit;+)"/>
+    <entity name="hexinteger" value="(?{NumberPrefix}0[xX])(?{NumberHex}%hexdigit;+)"/>
+    <entity name="octinteger" value="(?{NumberPrefix}0[oO]?)(?{NumberOct}%octdigit;+)"/>
+    <entity name="decimalinteger" value="(?{NumberDec}%nonzerodigit;%digit;*|0)"/>
+    <entity name="integer" value="(%hexinteger;)|(%bininteger;)|(%octinteger;)|(%decimalinteger;)"/>
+
+    <scheme name="NUMBER">
+      <regexp match="/%integer;/"/>
+    </scheme>
+
 	<scheme name="python36">
+		<inherit scheme="NUMBER"/>
+		<regexp match="/./" region="def:Error" priority="low"/>
 	</scheme>
 </type>
