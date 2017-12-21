@@ -31,5 +31,5 @@
 <scheme name="NUMBER">
 	<regexp match="/%imagnumber;/"/>
 	<regexp match="/(?{NumberFloat}%floatnumber;)/"/>
-	<regexp match="/%integer;/"/>
+	<regexp match="/\b(?:%integer;)\b/"/>
 </scheme>
