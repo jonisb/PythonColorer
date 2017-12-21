@@ -2,8 +2,23 @@
 <type name="python36">
 	&py36NUMBER;
 
-	<scheme name="python36">
+<!--atom:
+(
+	'(' [yield_expr|testlist_comp] ')'
+	|
+	'[' [testlist_comp] ']'
+	|
+	'{' [dictorsetmaker] '}'
+	|
+	NAME | NUMBER | STRING+ | '...'
+)
+-->
+    <scheme name="atom">
 		<inherit scheme="NUMBER"/>
+    </scheme>
+
+	<scheme name="python36">
+		<inherit scheme="atom"/>
 		<regexp match="/\S/" region="def:Error" priority="low"/>
 	</scheme>
 </type>
