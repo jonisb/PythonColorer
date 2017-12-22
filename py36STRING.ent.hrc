@@ -1,6 +1,7 @@
 <region name="String" parent="def:String" description="Common string"/>
 <region name="StringEdge" parent="def:StringEdge" description="String edges"/>
 <region name="StringEscape" parent="def:StringContent" description="Tokens in String Content"/>
+<region name="StringPrefix" parent="def:Prefix"/>
 
 <entity name="strEscapeSequences" value="(?{NumberOct}%octdigit;{1,3})|x(?{NumberHex}%hexdigit;{2})"/>
 <entity name="unicodeEscapeCodes" value="u(?{NumberHex}%hexdigit;{4})|U(?{NumberHex}%hexdigit;{8})"/>
@@ -13,8 +14,8 @@
 </scheme>
 
 <scheme name="stringliteral">
-	<block start="/(?{Prefix}\b[rR])(?{StringEdge}(%StringQuots;))/" end="/(?{StringEdge}\y1)/" scheme="rawstrbody" region="String" region00="PairStart" region10="PairEnd"/>
-	<block start="/(?{Prefix}\b[uU])?(?{StringEdge}(%StringQuots;))/" end="/(?{StringEdge}\y1)/" scheme="strbody" region="String" region00="PairStart" region10="PairEnd"/>
+	<block start="/(?{StringPrefix}\b[rR])(?{StringEdge}(%StringQuots;))/" end="/(?{StringEdge}\y1)/" scheme="rawstrbody" region="String" region00="PairStart" region10="PairEnd"/>
+	<block start="/(?{StringPrefix}\b[uU])?(?{StringEdge}(%StringQuots;))/" end="/(?{StringEdge}\y1)/" scheme="strbody" region="String" region00="PairStart" region10="PairEnd"/>
 </scheme>
 
 <scheme name="strbody">
