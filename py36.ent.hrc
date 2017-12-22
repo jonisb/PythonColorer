@@ -28,6 +28,7 @@
       	<inherit scheme="py36_body"/>
     </scheme>
 
+<!--Shebang (Unix): https://en.wikipedia.org/wiki/Shebang_%28Unix%29-->
 <!-- PEP 397: Python launcher for Windows: https://www.python.org/dev/peps/pep-0397/-->
     <scheme name="shebang">
       	<block start="/(#!)\s*(\S*)\s*(python(3(\.\d+(-32)?)?)?).*/" end="/%code_end;/" scheme="py36_body" region00="Directive" region01="DirectiveEdge" region02="DirectiveContent" content-priority="low"/>
