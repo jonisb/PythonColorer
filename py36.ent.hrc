@@ -6,6 +6,7 @@
     <region name="PairStart" parent="def:PairStart" description="Paired struct start"/>
     <region name="PairEnd"  parent="def:PairEnd" description="Paired struct end"/>
     <region name="Parameter" parent="def:Parameter" description="Parameter declaration"/>
+    <region name="Delimiter" parent="def:Symbol"/>
 
 	&py36NUMBER;
 	&py36NAME;

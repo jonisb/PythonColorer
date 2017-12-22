@@ -12,6 +12,7 @@
 <scheme name="STRING">
 	<inherit scheme="stringliteral"/>
 	<inherit scheme="bytesliteral"/>
+	<inherit scheme="f_string"/>  <!-- Python 3 formatted string literal -->
 </scheme>
 
 <scheme name="stringliteral">
@@ -58,4 +59,41 @@
 <scheme name="rawbytesbody">
 	<regexp match="/\\./" region="String"/>
 	<regexp match="/[\x80-\xFF]/" region="Error"/>
+</scheme>
+
+<scheme name="f_string">
+	<block start="/(?{StringPrefix}\b(?:[rR][fF]|[fF][rR]))(?{StringEdge}(%StringQuots;))/" end="/(?{StringEdge}\y1)/" scheme="rawf_stringbody" region="String" region00="PairStart" region10="PairEnd"/>
+	<block start="/(?{StringPrefix}\b[fF])(?{StringEdge}(%StringQuots;))/" end="/(?{StringEdge}\y1)/" scheme="f_stringbody" region="String" region00="PairStart" region10="PairEnd"/>
+</scheme>
+
+<scheme name="f_stringbody">
+	<regexp match="/([\{\}])\1/" region1="StringEscape" region="String"/>
+	<inherit scheme="replacement_field"/>
+	<inherit scheme="strbody"/>
+</scheme>
+
+<scheme name="rawf_stringbody">
+	<regexp match="/([\{\}])\1/" region1="StringEscape" region="String"/>
+	<inherit scheme="replacement_field"/>
+	<inherit scheme="rawstrbody"/>
+</scheme>
+
+<scheme name="replacement_field">
+	<block start="/(\{)/" end="/(\}|(['&quot;])?=)/" scheme="replacement_fieldbody" region="def:Text" region01="Delimiter" region11="Delimiter" region00="PairStart" region10="PairEnd" priority="low"/>
+</scheme>
+
+<scheme name="replacement_fieldbody">
+	<regexp match="/\\/" region="Error"/>
+	<regexp match="/(!)[sra]/" region="Parameter" region1="Delimiter"/>
+	<block start="/(:)/" end="/\M\}/" scheme="format_spec" region01="Delimiter"/>
+	<inherit scheme="f_expression"/>
+</scheme>
+
+<scheme name="format_spec">
+	<inherit scheme="replacement_field"/>
+	<inherit scheme="strbody"/>
+</scheme>
+
+<scheme name="f_expression">
+	<inherit scheme="test"/>
 </scheme>
