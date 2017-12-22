@@ -1,0 +1,5 @@
+.. code:: python
+    "string""string"
+
+.. code:: html
+    <span class='python36-StringEdge def-StringEdge def-String'>"</span><span class='python36-String def-String'>string</span><span class='python36-StringEdge def-StringEdge def-String'>"</span><span class='python36-StringEdge def-StringEdge def-String'>"</span><span class='python36-String def-String'>string</span><span class='python36-StringEdge def-StringEdge def-String'>"</span>
