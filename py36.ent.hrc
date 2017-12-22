@@ -14,6 +14,12 @@
 	&py36STRING;
 	&py36COMMENT;
 
+	<scheme name="python36">
+		<inherit scheme="COMMENT"/>
+		<inherit scheme="atom"/>
+		<regexp match="/\S/" region="Error" priority="low"/>
+	</scheme>
+
 <!--atom:
 (
 	'(' [yield_expr|testlist_comp] ')'
@@ -30,10 +36,4 @@
 		<inherit scheme="STRING"/>
 		<inherit scheme="NAME"/>
     </scheme>
-
-	<scheme name="python36">
-		<inherit scheme="COMMENT"/>
-		<inherit scheme="atom"/>
-		<regexp match="/\S/" region="Error" priority="low"/>
-	</scheme>
 </type>
