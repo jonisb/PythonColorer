@@ -2,6 +2,7 @@
 <type name="python36">
     <region name="Error" parent="def:Error"/>
     <region name="Deprecated" parent="def:Debug" description="Show deprecated Python feature that will be removed in a later version"/>
+    <region name="PEP8" parent="def:Debug" description="PEP 8 -- Style Guide for Python Code"/>
 
     <region name="PairStart" parent="def:PairStart" description="Paired struct start"/>
     <region name="PairEnd"  parent="def:PairEnd" description="Paired struct end"/>
@@ -11,6 +12,7 @@
 	&py36NUMBER;
 	&py36NAME;
 	&py36STRING;
+	&py36COMMENT;
 
 <!--atom:
 (
@@ -30,6 +32,7 @@
     </scheme>
 
 	<scheme name="python36">
+		<inherit scheme="COMMENT"/>
 		<inherit scheme="atom"/>
 		<regexp match="/\S/" region="Error" priority="low"/>
 	</scheme>

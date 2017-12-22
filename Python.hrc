@@ -5,6 +5,7 @@
 <!ENTITY py36NUMBER SYSTEM "types\py36NUMBER.ent.hrc">
 <!ENTITY py36NAME SYSTEM "types\py36NAME.ent.hrc">
 <!ENTITY py36STRING SYSTEM "types\py36STRING.ent.hrc">
+<!ENTITY py36COMMENT SYSTEM "types\py36COMMENT.ent.hrc">
 ]>
 <hrc version="take5" xmlns="http://colorer.sf.net/2003/hrc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://colorer.sf.net/2003/hrc http://colorer.sf.net/2003/hrc.xsd">
 

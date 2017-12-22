@@ -1,0 +1,7 @@
+<region name="Comment" parent="def:Comment"/>
+<region name="LineComment" parent="def:LineComment"/>
+<region name="CommentEdge" parent="def:CommentEdge"/>
+
+<scheme name="COMMENT">
+	<block start="/(?:^|\s{2})(?{CommentEdge}#)\s|(?{PEP8}(?{CommentEdge}#))/" end="/$/" region="LineComment" scheme="def:Comment"/>
+</scheme>
