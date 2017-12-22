@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <type name="python36">
+    <region name="Error" parent="def:Error"/>
+    <region name="Deprecated" parent="def:Debug" description="Show deprecated Python feature that will be removed in a later version"/>
+
+    <region name="PairStart" parent="def:PairStart" description="Paired struct start"/>
+    <region name="PairEnd"  parent="def:PairEnd" description="Paired struct end"/>
+    <region name="Parameter" parent="def:Parameter" description="Parameter declaration"/>
+
 	&py36NUMBER;
 	&py36NAME;
+	&py36STRING;
 
 <!--atom:
 (
@@ -16,11 +24,12 @@
 -->
     <scheme name="atom">
 		<inherit scheme="NUMBER"/>
+		<inherit scheme="STRING"/>
 		<inherit scheme="NAME"/>
     </scheme>
 
 	<scheme name="python36">
 		<inherit scheme="atom"/>
-		<regexp match="/\S/" region="def:Error" priority="low"/>
+		<regexp match="/\S/" region="Error" priority="low"/>
 	</scheme>
 </type>
