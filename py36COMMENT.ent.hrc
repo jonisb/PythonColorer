@@ -13,7 +13,7 @@
 <scheme name="DocString">
 	<block start="/~(%StringQuots;)/" end="/\y1/" scheme="DocStringBody" region="CommentDoc" region01="CommentDocEdge" region10="CommentDocEdge"/>
 	<inherit scheme="COMMENT"/>
-	<inherit scheme="StringsAsComment"/>
+	<inherit scheme="StringAsComment"/>
 </scheme>
 
 <scheme name="DocStringBody">  <!-- TODO: implement -->
