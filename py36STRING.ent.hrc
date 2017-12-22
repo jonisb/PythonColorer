@@ -11,6 +11,7 @@
 
 <scheme name="STRING">
 	<inherit scheme="stringliteral"/>
+	<inherit scheme="bytesliteral"/>
 </scheme>
 
 <scheme name="stringliteral">
@@ -34,3 +35,27 @@
 <scheme name="rawstrbody">
 	<regexp match="/\\./" region="String"/>
 </scheme>
+
+    <scheme name="bytesliteral">
+    	<block start="/(?{StringPrefix}\b(?:[rR][bB]|[bB][rR]))(?{StringEdge}(%StringQuots;))/" end="/(?{StringEdge}\y1)/" scheme="rawbytesbody" region="String" region00="PairStart" region10="PairEnd"/>
+    	<block start="/(?{StringPrefix}\b[bB])(?{StringEdge}(%StringQuots;))/" end="/(?{StringEdge}\y1)/" scheme="bytesbody" region="String" region00="PairStart" region10="PairEnd"/>
+    </scheme>
+
+    <scheme name="bytesbody">
+      	<regexp match="/\\$/" region="StringEscape"/>
+    	<inherit scheme="bytesbodyescapes"/>
+      	<regexp match="/\\([\\'&quot;])/" region="StringEscape" region1="String"/>
+      	<regexp match="/\\([abfnrtv])/" region="StringEscape" region1="Parameter"/>
+      	<regexp match="/(\\.)/" region1="String" region="Deprecated"/>
+    	<inherit scheme="rawbytesbody"/>
+    </scheme>
+
+    <scheme name="bytesbodyescapes">
+      	<regexp match="/\\(%strEscapeSequences;)/" region="StringEscape" region1="Parameter"/>
+      	<regexp match="/\\(x.{0,2})/" region="StringEscape" region1="Error"/>
+    </scheme>
+
+    <scheme name="rawbytesbody">
+      	<regexp match="/\\./" region="String"/>
+      	<regexp match="/[\x80-\xFF]/" region="Error"/>
+    </scheme>

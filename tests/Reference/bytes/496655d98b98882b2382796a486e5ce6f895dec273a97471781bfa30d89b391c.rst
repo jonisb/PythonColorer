@@ -1,0 +1,5 @@
+.. code:: python
+    b"string"rb"string"
+
+.. code:: html
+    <span class='python36-StringPrefix def-Prefix'>b</span><span class='python36-StringEdge def-StringEdge def-String'>"</span><span class='python36-String def-String'>string</span><span class='python36-StringEdge def-StringEdge def-String'>"</span><span class='python36-StringPrefix def-Prefix'>rb</span><span class='python36-StringEdge def-StringEdge def-String'>"</span><span class='python36-String def-String'>string</span><span class='python36-StringEdge def-StringEdge def-String'>"</span>
