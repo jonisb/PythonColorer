@@ -2,6 +2,23 @@
 <region name="LineComment" parent="def:LineComment"/>
 <region name="CommentEdge" parent="def:CommentEdge"/>
 
+<region name="CommentDoc" parent="def:CommentDoc" description="In-Source Documentation comments"/>
+<region name="CommentDocEdge" parent="def:CommentDocEdge" description="In-Source Documentation Edges"/>
+<region name="CommentDocContent" parent="def:CommentDocContent" description="In-Source Documentation Elements"/>
+
 <scheme name="COMMENT">
 	<block start="/(?:^|\s{2})(?{CommentEdge}#)\s|(?{PEP8}(?{CommentEdge}#))/" end="/$/" region="LineComment" scheme="def:Comment"/>
+</scheme>
+
+<scheme name="DocString">
+	<block start="/~(%StringQuots;)/" end="/\y1/" scheme="DocStringBody" region="CommentDoc" region01="CommentDocEdge" region10="CommentDocEdge"/>
+	<inherit scheme="COMMENT"/>
+	<inherit scheme="StringsAsComment"/>
+</scheme>
+
+<scheme name="DocStringBody">  <!-- TODO: implement -->
+</scheme>
+
+<scheme name="StringAsComment">
+	<block start="/(?:\b(?:[rR]|[uU]))?(%StringQuots;)/" end="/\y1/" scheme="def:Comment" region="Comment" region00="CommentEdge" region10="CommentEdge"/>
 </scheme>
