@@ -12,7 +12,7 @@
     <region name="Parameter" parent="def:Parameter" description="Parameter declaration"/>
     <region name="Delimiter" parent="def:Symbol"/>
 
-    <entity name="code_end" value="(%def:neverMatch;)"/>
+    <entity name="code_end" value="\M(^\.\. code|%def:neverMatch;)"/>
 
 	&py36NUMBER;
 	&py36NAME;
