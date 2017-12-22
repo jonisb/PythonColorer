@@ -1,0 +1,5 @@
+.. code:: python
+    #!/usr/bin/python3 -i
+
+.. code:: html
+    <span class='python36-DirectiveEdge def-DirectiveEdge def-DirectiveContent def-Directive'>#!</span><span class='python36-DirectiveContent def-DirectiveContent def-Directive'>/usr/bin/</span><span class='python36-Directive def-Directive'>python3 -i</span>

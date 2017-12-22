@@ -1,0 +1,5 @@
+.. code:: python
+    #! python3
+
+.. code:: html
+    <span class='python36-DirectiveEdge def-DirectiveEdge def-DirectiveContent def-Directive'>#!</span><span class='python36-Directive def-Directive'> </span><span class='python36-Directive def-Directive'>python3</span>

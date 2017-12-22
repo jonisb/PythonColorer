@@ -6,8 +6,13 @@
 
     <region name="PairStart" parent="def:PairStart" description="Paired struct start"/>
     <region name="PairEnd"  parent="def:PairEnd" description="Paired struct end"/>
+    <region name="Directive" parent="def:Directive" description="Compiler/Preprocessor directive"/>
+    <region name="DirectiveContent" parent="def:DirectiveContent" description="Internal directive text"/>
+    <region name="DirectiveEdge"    parent="def:DirectiveEdge" description="Directive edges"/>
     <region name="Parameter" parent="def:Parameter" description="Parameter declaration"/>
     <region name="Delimiter" parent="def:Symbol"/>
+
+    <entity name="code_end" value="(%def:neverMatch;)"/>
 
 	&py36NUMBER;
 	&py36NAME;
@@ -15,6 +20,20 @@
 	&py36COMMENT;
 
 	<scheme name="python36">
+      	<inherit scheme="Python_File_Header"/>
+	</scheme>
+
+    <scheme name="Python_File_Header">
+      	<inherit scheme="shebang"/>
+      	<inherit scheme="py36_body"/>
+    </scheme>
+
+<!-- PEP 397: Python launcher for Windows: https://www.python.org/dev/peps/pep-0397/-->
+    <scheme name="shebang">
+      	<block start="/(#!)\s*(\S*)\s*(python(3(\.\d+(-32)?)?)?).*/" end="/%code_end;/" scheme="py36_body" region00="Directive" region01="DirectiveEdge" region02="DirectiveContent" content-priority="low"/>
+    </scheme>
+
+	<scheme name="py36_body">
 		<inherit scheme="COMMENT"/>
 		<inherit scheme="atom"/>
 		<regexp match="/\S/" region="Error" priority="low"/>
