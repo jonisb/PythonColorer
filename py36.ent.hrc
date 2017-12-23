@@ -21,11 +21,12 @@
 
 	<scheme name="python36">
       	<inherit scheme="Python_File_Header"/>
+      	<inherit scheme="py36_body"/>
 	</scheme>
 
     <scheme name="Python_File_Header">
       	<inherit scheme="shebang"/>
-      	<inherit scheme="py36_body"/>
+      	<inherit scheme="File_Encoding"/>
     </scheme>
 
 <!--Shebang (Unix): https://en.wikipedia.org/wiki/Shebang_%28Unix%29-->
@@ -36,9 +37,14 @@
 
 	<scheme name="py36_body">
 		<inherit scheme="COMMENT"/>
-		<inherit scheme="atom"/>
+		<inherit scheme="test"/>
 		<regexp match="/\S/" region="Error" priority="low"/>
 	</scheme>
+
+<!--test: or_test ['if' or_test 'else' test] | lambdef-->
+    <scheme name="test">
+		<inherit scheme="atom"/>
+    </scheme>
 
 <!--atom:
 (
