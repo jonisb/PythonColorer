@@ -3,3 +3,4 @@ tests/Colorer/
 tests/Pending/
 *.bak
 *.log
+tests/test_colorer.py
