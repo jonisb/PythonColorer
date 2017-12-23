@@ -49,8 +49,14 @@
 
 <!--test: or_test ['if' or_test 'else' test] | lambdef-->
     <scheme name="test">
-		<inherit scheme="atom"/>
+		<block start="//" end="//" scheme="atom_expr"/>
     </scheme>
+
+<!--atom_expr: [AWAIT] atom trailer*-->
+	<scheme name="atom_expr">
+		<block start="/~\s*/" end="//" scheme="atom"/>
+		<inherit scheme="trailer"/>
+	</scheme>
 
 <!--atom:
 (
@@ -64,8 +70,30 @@
 )
 -->
     <scheme name="atom">
+		<block start="/~(?{PairStart}(\())/" end="/(?{PairEnd}\))/" scheme="yield_expr_testlist_comp" region01="Delimiter" region10="Delimiter"/>
 		<inherit scheme="NUMBER"/>
 		<inherit scheme="STRING"/>
 		<inherit scheme="NAME"/>
     </scheme>
+
+	<scheme name="yield_expr_testlist_comp">
+		<inherit scheme="test"/>
+  	</scheme>
+
+<!--trailer: '(' [arglist] ')' | '[' subscriptlist ']' | '.' NAME-->
+	<scheme name="trailer">
+		<block start="/\\$/" end="/^\s*/" scheme="def:empty"/>
+		<block start="/\.\b/" end="//" scheme="NAME" region00="Delimiter"/>
+		<block start="/\s*(?{PairStart}(\())/" end="/(?{PairEnd}\))/" scheme="arglist" region01="Delimiter" region10="Delimiter"/>
+		<block start="/\s*(?{PairStart}(\[))/" end="/(?{PairEnd}\])/" scheme="subscriptlist" region01="Delimiter" region10="Delimiter"/>
+	</scheme>
+
+	<scheme name="arglist">
+		<inherit scheme="test"/>
+	</scheme>
+
+<!--subscriptlist: subscript (',' subscript)* [',']-->
+	<scheme name="subscriptlist">
+		<inherit scheme="test"/>
+	</scheme>
 </type>
