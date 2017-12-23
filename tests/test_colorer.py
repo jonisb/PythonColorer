@@ -6,11 +6,14 @@ from queue import Queue, Empty
 import subprocess
 from pathlib import Path
 import hashlib
+from html.parser import HTMLParser
 import regex
+import ColorerColors
+from ColorerColors import ResetAnsiColor
 
 testfileQueue = Queue()
 testQueue = Queue()
-num_worker_threads = 2
+num_worker_threads = 16
 threads = []
 Format = "Python"
 ColorerCommand = ['colorer.exe', r'-cColorer\catalog.xml', '-ijonib', '-ht', '-dc', '-dh', '-db', '-en', '-elWARNING', '-t{0}'.format(Format)]
@@ -119,8 +122,8 @@ class TestSequenceMeta(type):
                     pass
                 else:
                     #print(TestData, VerifyData)
-                    #self.assertEqual(TestData, VerifyData, DisplayError(TestData, VerifyData))
-                    self.assertEqual(TestData, VerifyData)
+                    self.assertEqual(TestData, VerifyData, DisplayError(TestData, VerifyData))
+                    #self.assertEqual(TestData, VerifyData)
             return test
 
         for (ver, group, file) in getTests():
@@ -204,6 +207,44 @@ def build_tests():
         WriteRst(Path(f"{'Pending'}/{pyver}/{testing}/{Filename}.rst"), Syntax, TestData)
 
 
+def DisplayError(TestData, VerifyData):
+    parser = MyHTMLParser()
+    parser.Result = ''
+    parser.feed(VerifyData)
+    VerifyDataColor = ColorerColors.SetAnsiColor('def-Text') + parser.Result + ResetAnsiColor()
+
+    parser = MyHTMLParser()
+    parser.Result = ''
+    parser.feed(TestData)
+    TestDataColor = ColorerColors.SetAnsiColor('def-Text') + parser.Result + ResetAnsiColor()
+
+    return f"\nReference:\n{VerifyDataColor}\nresult:\n{TestDataColor}"
+
+
+class MyHTMLParser(HTMLParser):
+    def handle_starttag(self, tag, attrs):
+        for _ in attrs:
+            if _[0] == 'class':
+                for region in _[1].split():
+                    try:
+                        self.Result += ColorerColors.SetAnsiColor(region)
+                    except:
+                        pass
+                    else:
+                        break
+                else:
+                    pass
+                break
+
+    def handle_endtag(self, tag):
+        pass
+
+    def handle_data(self, data):
+        self.Result += data
+
+
 if __name__ == '__main__':
+    ColorerColors.initColors()
+
     build_tests()
     unittest.main()
