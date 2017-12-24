@@ -8,6 +8,7 @@
     <region name="PairEnd"  parent="def:PairEnd" description="Paired struct end"/>
     <region name="Keyword" parent="def:Keyword"/>
     <region name="Parameter" parent="def:Parameter" description="Parameter declaration"/>
+    <region name="Operator" parent="def:Operator" description="Symbolic or Literal Operator"/>
     <region name="Delimiter" parent="def:Symbol"/>
     <region name="Directive" parent="def:Directive" description="Compiler/Preprocessor directive"/>
     <region name="DirectiveContent" parent="def:DirectiveContent" description="Internal directive text"/>
@@ -48,9 +49,19 @@
 	</scheme>
 
 <!--test: or_test ['if' or_test 'else' test] | lambdef-->
-    <scheme name="test">
+	<scheme name="test">
 		<block start="//" end="//" scheme="atom_expr"/>
-    </scheme>
+	</scheme>
+
+<!-- star_expr: '*' expr -->
+	<scheme name="star_expr">
+		<block start="/(\*)/" end="//" scheme="expr" region01="Operator"/>
+	</scheme>
+
+	<scheme name="test_star_expr">
+		<inherit scheme="star_expr"/>
+		<inherit scheme="test"/>
+	</scheme>
 
 <!--atom_expr: [AWAIT] atom trailer*-->
 	<scheme name="atom_expr">
@@ -77,6 +88,7 @@
     </scheme>
 
 	<scheme name="yield_expr_testlist_comp">
+		<inherit scheme="yield_expr"/>
 		<inherit scheme="test"/>
   	</scheme>
 
@@ -96,4 +108,15 @@
 	<scheme name="subscriptlist">
 		<inherit scheme="test"/>
 	</scheme>
+
+<!-- yield_expr: 'yield' [yield_arg] -->
+    <scheme name="yield_expr">
+      	<block start="/(yield)\s*/" end="//" scheme="yield_arg" region01="Keyword"/>
+    </scheme>
+
+<!-- yield_arg: 'from' test | testlist -->
+    <scheme name="yield_arg">
+      	<block start="/~(from)\s*/" end="//" scheme="test" region01="Keyword"/>
+      	<inherit scheme="testlist"/>
+    </scheme>
 </type>

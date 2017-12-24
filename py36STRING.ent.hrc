@@ -92,6 +92,22 @@
 	<inherit scheme="strbody"/>
 </scheme>
 
+<!--
+(
+	test
+	|
+	star_expr
+)
+(
+	"," test
+	|
+	"," star_expr
+)* [","]
+|
+yield_expr
+-->
 <scheme name="f_expression">
-	<inherit scheme="test"/>
+	<inherit scheme="yield_expr"/>
+	<block start="/(,)/" end="//" scheme="test_star_expr" region01="Delimiter"/>
+	<inherit scheme="test_star_expr"/>
 </scheme>
