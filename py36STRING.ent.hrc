@@ -8,16 +8,34 @@
 <entity name="unicodeEscapeSequences" value="%strEscapeSequences;|N(?{Delimiter}\{)(?{identifier}%identifier;)(?{Delimiter}\})|%unicodeEscapeCodes;"/>
 
 <entity name="StringQuots" value="([&quot;'])(\2{2})?"/>
+<entity name="StringQuotDouble" value="(&quot;)(\2{2})?"/>
+<entity name="StringQuotSingle" value="(')(\2{2})?"/>
 
 <scheme name="STRING">
-	<inherit scheme="stringliteral"/>
-	<inherit scheme="bytesliteral"/>
-	<inherit scheme="f_string"/>  <!-- Python 3 formatted string literal -->
+	<inherit scheme="STRINGdouble"/>
+	<inherit scheme="STRINGsingle"/>
 </scheme>
 
-<scheme name="stringliteral">
-	<block start="/(?{StringPrefix}\b[rR])(?{StringEdge}(%StringQuots;))/" end="/(?{StringEdge}\y1)/" scheme="rawstrbody" region="String" region00="PairStart" region10="PairEnd"/>
-	<block start="/(?{StringPrefix}\b[uU])?(?{StringEdge}(%StringQuots;))/" end="/(?{StringEdge}\y1)/" scheme="strbody" region="String" region00="PairStart" region10="PairEnd"/>
+<scheme name="STRINGdouble">
+	<inherit scheme="stringliteraldouble"/>
+	<inherit scheme="bytesliteraldouble"/>
+	<inherit scheme="f_stringdouble"/>  <!-- Python 3 formatted string literal -->
+</scheme>
+
+<scheme name="STRINGsingle">
+	<inherit scheme="stringliteralsingle"/>
+	<inherit scheme="bytesliteralsingle"/>
+	<inherit scheme="f_stringsingle"/>  <!-- Python 3 formatted string literal -->
+</scheme>
+
+<scheme name="stringliteraldouble">
+	<block start="/(?{StringPrefix}\b[rR])(?{StringEdge}(%StringQuotDouble;))/" end="/(?{StringEdge}\y1)/" scheme="rawstrbody" region="String" region00="PairStart" region10="PairEnd"/>
+	<block start="/(?{StringPrefix}\b[uU])?(?{StringEdge}(%StringQuotDouble;))/" end="/(?{StringEdge}\y1)/" scheme="strbody" region="String" region00="PairStart" region10="PairEnd"/>
+</scheme>
+
+<scheme name="stringliteralsingle">
+	<block start="/(?{StringPrefix}\b[rR])(?{StringEdge}(%StringQuotSingle;))/" end="/(?{StringEdge}\y1)/" scheme="rawstrbody" region="String" region00="PairStart" region10="PairEnd"/>
+	<block start="/(?{StringPrefix}\b[uU])?(?{StringEdge}(%StringQuotSingle;))/" end="/(?{StringEdge}\y1)/" scheme="strbody" region="String" region00="PairStart" region10="PairEnd"/>
 </scheme>
 
 <scheme name="strbody">
@@ -37,9 +55,14 @@
 	<regexp match="/\\./" region="String"/>
 </scheme>
 
-<scheme name="bytesliteral">
-	<block start="/(?{StringPrefix}\b(?:[rR][bB]|[bB][rR]))(?{StringEdge}(%StringQuots;))/" end="/(?{StringEdge}\y1)/" scheme="rawbytesbody" region="String" region00="PairStart" region10="PairEnd"/>
-	<block start="/(?{StringPrefix}\b[bB])(?{StringEdge}(%StringQuots;))/" end="/(?{StringEdge}\y1)/" scheme="bytesbody" region="String" region00="PairStart" region10="PairEnd"/>
+<scheme name="bytesliteraldouble">
+	<block start="/(?{StringPrefix}\b(?:[rR][bB]|[bB][rR]))(?{StringEdge}(%StringQuotDouble;))/" end="/(?{StringEdge}\y1)/" scheme="rawbytesbody" region="String" region00="PairStart" region10="PairEnd"/>
+	<block start="/(?{StringPrefix}\b[bB])(?{StringEdge}(%StringQuotDouble;))/" end="/(?{StringEdge}\y1)/" scheme="bytesbody" region="String" region00="PairStart" region10="PairEnd"/>
+</scheme>
+
+<scheme name="bytesliteralsingle">
+	<block start="/(?{StringPrefix}\b(?:[rR][bB]|[bB][rR]))(?{StringEdge}(%StringQuotSingle;))/" end="/(?{StringEdge}\y1)/" scheme="rawbytesbody" region="String" region00="PairStart" region10="PairEnd"/>
+	<block start="/(?{StringPrefix}\b[bB])(?{StringEdge}(%StringQuotSingle;))/" end="/(?{StringEdge}\y1)/" scheme="bytesbody" region="String" region00="PairStart" region10="PairEnd"/>
 </scheme>
 
 <scheme name="bytesbody">
@@ -59,9 +82,14 @@
 	<inherit scheme="rawstrbody"/>
 </scheme>
 
-<scheme name="f_string">
-	<block start="/(?{StringPrefix}\b(?:[rR][fF]|[fF][rR]))(?{StringEdge}(%StringQuots;))/" end="/(?{StringEdge}\y1)/" scheme="rawf_stringbody" region="String" region00="PairStart" region10="PairEnd"/>
-	<block start="/(?{StringPrefix}\b[fF])(?{StringEdge}(%StringQuots;))/" end="/(?{StringEdge}\y1)/" scheme="f_stringbody" region="String" region00="PairStart" region10="PairEnd"/>
+<scheme name="f_stringdouble">
+	<block start="/(?{StringPrefix}\b(?:[rR][fF]|[fF][rR]))(?{StringEdge}(%StringQuotDouble;))/" end="/(?{StringEdge}\y1)/" scheme="rawf_stringbodydouble" region="String" region00="PairStart" region10="PairEnd"/>
+	<block start="/(?{StringPrefix}\b[fF])(?{StringEdge}(%StringQuotDouble;))/" end="/(?{StringEdge}\y1)/" scheme="f_stringbodydouble" region="String" region00="PairStart" region10="PairEnd"/>
+</scheme>
+
+<scheme name="f_stringsingle">
+	<block start="/(?{StringPrefix}\b(?:[rR][fF]|[fF][rR]))(?{StringEdge}(%StringQuotSingle;))/" end="/(?{StringEdge}\y1)/" scheme="rawf_stringbodysingle" region="String" region00="PairStart" region10="PairEnd"/>
+	<block start="/(?{StringPrefix}\b[fF])(?{StringEdge}(%StringQuotSingle;))/" end="/(?{StringEdge}\y1)/" scheme="f_stringbodysingle" region="String" region00="PairStart" region10="PairEnd"/>
 </scheme>
 
 <scheme name="f_stringbody">
@@ -70,10 +98,34 @@
 	<inherit scheme="strbody"/>
 </scheme>
 
+<scheme name="f_stringbodydouble">
+	<inherit scheme="f_stringbody">
+		<virtual scheme="STRINGdouble" subst-scheme="def:empty"/>
+	</inherit>
+</scheme>
+
+<scheme name="f_stringbodysingle">
+	<inherit scheme="f_stringbody">
+		<virtual scheme="STRINGsingle" subst-scheme="def:empty"/>
+	</inherit>
+</scheme>
+
 <scheme name="rawf_stringbody">
 	<regexp match="/([\{\}])\1/" region1="StringEscape" region="String"/>
 	<inherit scheme="replacement_field"/>
 	<inherit scheme="rawstrbody"/>
+</scheme>
+
+<scheme name="rawf_stringbodydouble">
+	<inherit scheme="rawf_stringbody">
+		<virtual scheme="STRINGdouble" subst-scheme="def:empty"/>
+	</inherit>
+</scheme>
+
+<scheme name="rawf_stringbodysingle">
+	<inherit scheme="rawf_stringbody">
+		<virtual scheme="STRINGsingle" subst-scheme="def:empty"/>
+	</inherit>
 </scheme>
 
 <scheme name="replacement_field">
@@ -84,7 +136,10 @@
 	<inherit scheme="NoEscape"/>
 	<regexp match="/(!)([sra])/" region1="Delimiter" region2="Parameter"/>
 	<block start="/(:)/" end="/\M\}/" scheme="format_spec" region01="Delimiter"/>
-	<inherit scheme="f_expression"/>
+	<inherit scheme="f_expression">
+		<virtual scheme="strbody" subst-scheme="NoEscape"/>
+		<virtual scheme="rawstrbody" subst-scheme="NoEscape"/>
+	</inherit>
 </scheme>
 
 <scheme name="NoEscape">

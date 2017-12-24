@@ -108,12 +108,20 @@
 
 	<scheme name="arglist">
 		<inherit scheme="test"/>
+		<regexp match="/\S/" region="Error" priority="low"/>
 	</scheme>
 
 <!--subscriptlist: subscript (',' subscript)* [',']-->
 	<scheme name="subscriptlist">
 		<inherit scheme="test"/>
+		<regexp match="/\S/" region="Error" priority="low"/>
 	</scheme>
+
+<!--testlist: test (',' test)* [',']-->
+    <scheme name="testlist">
+		<block start="/\s*(,)\s*/" end="//" scheme="test" region01="Delimiter"/>
+      	<inherit scheme="test"/>
+    </scheme>
 
 <!-- yield_expr: 'yield' [yield_arg] -->
     <scheme name="yield_expr">
