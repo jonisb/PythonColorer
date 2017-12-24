@@ -43,12 +43,10 @@
 </scheme>
 
 <scheme name="bytesbody">
-	<regexp match="/\\$/" region="StringEscape"/>
-	<inherit scheme="bytesbodyescapes"/>
-	<regexp match="/\\([\\'&quot;])/" region="StringEscape" region1="String"/>
-	<regexp match="/\\([abfnrtv])/" region="StringEscape" region1="Parameter"/>
-	<regexp match="/(\\.)/" region1="String" region="Deprecated"/>
-	<inherit scheme="rawbytesbody"/>
+	<regexp match="/[^\x00-\x7F]/" region="Error"/>
+	<inherit scheme="strbody">
+		<virtual scheme="strbodyescapes" subst-scheme="bytesbodyescapes"/>
+	</inherit>
 </scheme>
 
 <scheme name="bytesbodyescapes">
@@ -57,8 +55,8 @@
 </scheme>
 
 <scheme name="rawbytesbody">
-	<regexp match="/\\./" region="String"/>
-	<regexp match="/[\x80-\xFF]/" region="Error"/>
+	<regexp match="/[^\x00-\x7F]/" region="Error"/>
+	<inherit scheme="rawstrbody"/>
 </scheme>
 
 <scheme name="f_string">
