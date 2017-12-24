@@ -9,10 +9,10 @@
 <entity name="bindigit" value="[01]"/>
 <entity name="octdigit" value="[0-7]"/>
 <entity name="nonzerodigit" value="[1-9]"/>
-<entity name="bininteger" value="(?{NumberPrefix}0[bB])(?{NumberBin}%bindigit;+)"/>
-<entity name="hexinteger" value="(?{NumberPrefix}0[xX])(?{NumberHex}%hexdigit;+)"/>
-<entity name="octinteger" value="(?{NumberPrefix}0[oO]?)(?{NumberOct}%octdigit;+)"/>
-<entity name="decimalinteger" value="(?{NumberDec}%nonzerodigit;%digit;*|0)"/>
+<entity name="bininteger" value="(?{NumberPrefix}0[bB])(?{NumberBin}(?:_?%bindigit;)+)"/>
+<entity name="hexinteger" value="(?{NumberPrefix}0[xX])(?{NumberHex}(?:_?%hexdigit;)+)"/>
+<entity name="octinteger" value="(?{NumberPrefix}0[oO]?)(?{NumberOct}(?:_?%octdigit;)+)"/>
+<entity name="decimalinteger" value="(?{NumberDec}%nonzerodigit;(?:_?%digit;)*|_?0)"/>
 <entity name="integer" value="(%hexinteger;)|(%bininteger;)|(%octinteger;)|(%decimalinteger;)"/>
 
 <region name="NumberSuffix" parent="def:NumberSuffix" description="Number Suffix"/>
