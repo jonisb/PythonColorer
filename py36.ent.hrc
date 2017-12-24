@@ -48,10 +48,11 @@
 		<regexp match="/\S/" region="Error" priority="low"/>
 	</scheme>
 
+<!-- PEP 308 : Conditional Expressions: https://www.python.org/dev/peps/pep-0308/ -->
 <!--test: or_test ['if' or_test 'else' test] | lambdef-->
-	<scheme name="test">
-		<block start="//" end="//" scheme="atom_expr"/>
-	</scheme>
+    <scheme name="test">
+		<block start="//" end="//" scheme="expr"/>
+    </scheme>
 
 <!-- star_expr: '*' expr -->
 	<scheme name="star_expr">
@@ -62,6 +63,11 @@
 		<inherit scheme="star_expr"/>
 		<inherit scheme="test"/>
 	</scheme>
+
+<!--expr: xor_expr ('|' xor_expr)*-->
+    <scheme name="expr">
+		<inherit scheme="atom_expr"/>
+    </scheme>
 
 <!--atom_expr: [AWAIT] atom trailer*-->
 	<scheme name="atom_expr">
