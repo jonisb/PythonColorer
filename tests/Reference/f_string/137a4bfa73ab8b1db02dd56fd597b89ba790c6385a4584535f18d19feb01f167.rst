@@ -1,0 +1,5 @@
+.. code:: python
+    f"{today:%b %d, %Y}"
+
+.. code:: html
+    <span class='python36-StringPrefix def-Prefix'>f</span><span class='python36-StringEdge def-StringEdge def-String'>"</span><span class='python36-Delimiter def-Symbol'>{</span><span class='python36-Identifier def-Identifier'>today</span><span class='python36-Delimiter def-Symbol'>:</span><span class='python36-Parameter def-Parameter'>%</span><span class='python36-Parameter def-Parameter'>b</span><span class='python36-Parameter def-Parameter'> </span><span class='python36-Parameter def-Parameter'>%</span><span class='python36-Parameter def-Parameter'>d</span><span class='python36-Parameter def-Parameter'>,</span><span class='python36-Parameter def-Parameter'> </span><span class='python36-Parameter def-Parameter'>%</span><span class='python36-Parameter def-Parameter'>Y</span><span class='python36-Delimiter def-Symbol'>}</span><span class='python36-StringEdge def-StringEdge def-String'>"</span>

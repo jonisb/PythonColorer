@@ -81,15 +81,19 @@
 </scheme>
 
 <scheme name="replacement_fieldbody">
-	<regexp match="/\\/" region="Error"/>
-	<regexp match="/(!)[sra]/" region="Parameter" region1="Delimiter"/>
+	<inherit scheme="NoEscape"/>
+	<regexp match="/(!)([sra])/" region1="Delimiter" region2="Parameter"/>
 	<block start="/(:)/" end="/\M\}/" scheme="format_spec" region01="Delimiter"/>
 	<inherit scheme="f_expression"/>
 </scheme>
 
+<scheme name="NoEscape">
+	<regexp match="/\\/" region="Error"/>
+</scheme>
+
 <scheme name="format_spec">
 	<inherit scheme="replacement_field"/>
-	<inherit scheme="strbody"/>
+	<regexp match="/[^\{\}]/" region="Parameter"/>
 </scheme>
 
 <!--

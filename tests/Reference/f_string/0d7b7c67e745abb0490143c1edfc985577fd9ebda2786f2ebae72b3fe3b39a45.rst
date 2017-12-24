@@ -1,0 +1,5 @@
+.. code:: python
+    f"He said his name is {name!r}."
+
+.. code:: html
+    <span class='python36-StringPrefix def-Prefix'>f</span><span class='python36-StringEdge def-StringEdge def-String'>"</span><span class='python36-String def-String'>He said his name is </span><span class='python36-Delimiter def-Symbol'>{</span><span class='python36-Identifier def-Identifier'>name</span><span class='python36-Delimiter def-Symbol'>!</span><span class='python36-Parameter def-Parameter'>r</span><span class='python36-Delimiter def-Symbol'>}</span><span class='python36-String def-String'>.</span><span class='python36-StringEdge def-StringEdge def-String'>"</span>
