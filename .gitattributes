@@ -18,3 +18,4 @@
 
 #Custom
 *.hrc linguist-language=XML
+*.hrc linguist-documentation=false
