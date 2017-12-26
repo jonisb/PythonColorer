@@ -78,7 +78,6 @@ def CallColorer(VerifyData):
 
 
 def getTestData():
-
     while True:
         try:
             file = testfileQueue.get() #timeout=30
@@ -90,7 +89,7 @@ def getTestData():
                     break
                 VerifyData = ReadRst(file)
                 TestData = CallColorer(VerifyData['python'])
-                testQueue.put_nowait((file, TestData, VerifyData['html']))
+                testQueue.put_nowait((file, TestData, VerifyData['html'], VerifyData['python']))
             finally:
                 testfileQueue.task_done()
 
@@ -98,38 +97,39 @@ def getTestData():
 def ReturnTestData(test):
     while True:
         try:
-            file, TestData, VerifyData = testQueue.get() # timeout=30
+            file, TestData, VerifyData, Syntax = testQueue.get() # timeout=30
         except Empty:
             break
         else:
             try:
                 if test == file.stem:
-                    return TestData, VerifyData
+                    return TestData, VerifyData, Syntax
                 else:
-                    testQueue.put_nowait((file, TestData, VerifyData))
+                    testQueue.put_nowait((file, TestData, VerifyData, Syntax))
             finally:
                 testQueue.task_done()
 
 
 class TestSequenceMeta(type):
     def __new__(mcs, name, bases, dict):
-
-        def gen_test(test_name):
+        def gen_test(test_name, ver, group):
             def test(self):
                 try:
-                    TestData, VerifyData = ReturnTestData(test_name)
+                    TestData, VerifyData, Syntax = ReturnTestData(test_name)
                 except KeyError:
                     pass
                 else:
                     #print(TestData, VerifyData)
-                    self.assertEqual(TestData, VerifyData, DisplayError(TestData, VerifyData))
+                    self.longMessage = False
+                    self.assertEqual(TestData, VerifyData, DisplayError(TestData, VerifyData, ver, group, Syntax))
                     #self.assertEqual(TestData, VerifyData)
+            test.__doc__ = f"Test: '{group or 'generic'}' with Python {ver or 3.6}"
             return test
 
         for (ver, group, file) in getTests():
             testfileQueue.put_nowait(file)
             test_name = "test_%s" % file.stem
-            dict[test_name] = gen_test(file.stem)
+            dict[test_name] = gen_test(file.stem, ver, group)
         else:
             for i in range(num_worker_threads):
                 testfileQueue.put_nowait(None)
@@ -187,10 +187,16 @@ def WriteRst(Filename, Python, HTML):
     Filename.write_text(Code, encoding='utf8')
 
 
+def write_test(ver, group, Syntax, TestData, Filename=None):
+    Filename = Filename or hashlib.sha256(Syntax.encode('utf8')).hexdigest()
+    WriteRst(Path(f"{'Pending'}/{ver}/{group}/{Filename}.rst"), Syntax, TestData)
+
+
 def build_tests():
     for Syntax, testing, pyver in ReadTestSyntax():
-        proc = subprocess.Popen(ColorerCommand, stdin=subprocess.PIPE, stdout=subprocess.PIPE, universal_newlines=True)
-        TestData = proc.communicate(Syntax)[0]
+        #proc = subprocess.Popen(ColorerCommand, stdin=subprocess.PIPE, stdout=subprocess.PIPE, universal_newlines=True)
+        #TestData = proc.communicate(Syntax)[0]
+        TestData = CallColorer(Syntax)
         Filename = hashlib.sha256(Syntax.encode('utf8')).hexdigest()
         VerifyData = None
         for filepath in ("Reference", "Pending"):
@@ -207,7 +213,7 @@ def build_tests():
         WriteRst(Path(f"{'Pending'}/{pyver}/{testing}/{Filename}.rst"), Syntax, TestData)
 
 
-def DisplayError(TestData, VerifyData):
+def DisplayError(TestData, VerifyData, ver, group, Syntax):
     parser = MyHTMLParser()
     parser.Result = ''
     parser.feed(VerifyData)
@@ -217,6 +223,9 @@ def DisplayError(TestData, VerifyData):
     parser.Result = ''
     parser.feed(TestData)
     TestDataColor = ColorerColors.SetAnsiColor('def-Text') + parser.Result + ResetAnsiColor()
+
+    if TestData != VerifyData:
+        write_test(ver, group, Syntax, TestData)
 
     return f"\nReference:\n{VerifyDataColor}\nresult:\n{TestDataColor}"
 
