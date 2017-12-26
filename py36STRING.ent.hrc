@@ -171,3 +171,16 @@ yield_expr
 	<block start="/(,)/" end="//" scheme="test_star_expr" region01="Delimiter"/>
 	<inherit scheme="test_star_expr"/>
 </scheme>
+
+<scheme name="DocString">
+	<block start="/~(%StringQuots;)/" end="/\y1/" scheme="DocStringBody" region="CommentDoc" region01="CommentDocEdge" region10="CommentDocEdge"/>
+	<inherit scheme="COMMENT"/>
+	<inherit scheme="StringAsComment"/>
+</scheme>
+
+<scheme name="DocStringBody">  <!-- TODO: implement -->
+</scheme>
+
+<scheme name="StringAsComment">
+	<block start="/(?:\b(?:[rR]|[uU]))?(%StringQuots;)/" end="/\y1/" scheme="def:Comment" region="Comment" region00="CommentEdge" region10="CommentEdge"/>
+</scheme>

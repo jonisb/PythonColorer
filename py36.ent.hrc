@@ -16,10 +16,10 @@
 
     <entity name="code_end" value="\M(^\.\. code|%def:neverMatch;)"/>
 
+	&py36COMMENT;
 	&py36NUMBER;
 	&py36NAME;
 	&py36STRING;
-	&py36COMMENT;
 
 	<scheme name="Error">
 		<regexp match="/\S/" region="Error" priority="low"/>
