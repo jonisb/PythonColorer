@@ -12,6 +12,7 @@
 <entity name="StringQuotSingle" value="(')(\2{2})?"/>
 
 <scheme name="STRING">
+	<inherit scheme="COMMENT"/>
 	<inherit scheme="STRINGdouble"/>
 	<inherit scheme="STRINGsingle"/>
 </scheme>

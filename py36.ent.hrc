@@ -111,6 +111,7 @@
 	</scheme>
 
 	<scheme name="arglist">
+		<block start="/\M(&quot;)/" end="/\M(&quot;|\))/" scheme="STRING"/>
 		<inherit scheme="test"/>
 		<inherit scheme="Error"/>
 	</scheme>
