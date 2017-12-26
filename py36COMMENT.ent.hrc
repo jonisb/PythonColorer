@@ -7,7 +7,7 @@
 <region name="CommentDocContent" parent="def:CommentDocContent" description="In-Source Documentation Elements"/>
 
 <scheme name="COMMENT">
-	<block start="/(?:^|\s{2})(?{CommentEdge}#)\s|(?{PEP8}(?{CommentEdge}#))/" end="/$/" region="LineComment" scheme="def:Comment"/>
+	<block start="/(?:^|(\s{2})?#2)(?{CommentEdge}#)\s|(?{PEP8}(?{CommentEdge}#))/" end="/$/" region="LineComment" scheme="def:Comment"/>
 </scheme>
 
 <scheme name="DocString">
