@@ -4,6 +4,9 @@
     <region name="Deprecated" parent="def:Debug" description="Show deprecated Python feature that will be removed in a later version"/>
     <region name="PEP8" parent="def:Debug" description="PEP 8 -- Style Guide for Python Code"/>
 
+    <region name="Constant" parent="def:Constant"/>
+    <region name="BooleanConstant" parent="def:BooleanConstant"/>
+
     <region name="PairStart" parent="def:PairStart" description="Paired struct start"/>
     <region name="PairEnd"  parent="def:PairEnd" description="Paired struct end"/>
     <region name="Keyword" parent="def:Keyword"/>
@@ -94,7 +97,13 @@
 		<block start="/~(?{PairStart}(\())/" end="/(?{PairEnd}\))/" scheme="yield_expr_testlist_comp" region01="Delimiter" region10="Delimiter"/>
 		<inherit scheme="NUMBER"/>
 		<inherit scheme="STRING"/>
+		<inherit scheme="Constants"/>
 		<inherit scheme="NAME"/>
+    </scheme>
+
+    <scheme name="Constants">
+    	<regexp match="/\.\.\.|Ellipsis|None|__debug__|NotImplemented/" region="Constant"/>
+    	<regexp match="/True|False/" region="BooleanConstant"/>
     </scheme>
 
 	<scheme name="yield_expr_testlist_comp">
