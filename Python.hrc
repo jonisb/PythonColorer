@@ -8,6 +8,7 @@
 <!ENTITY py36COMMENT SYSTEM "types\py36COMMENT.ent.hrc">
 <!ENTITY py36SMALL SYSTEM "types\py36SMALL.ent.hrc">
 <!ENTITY py36COMPOUND SYSTEM "types\py36COMPOUND.ent.hrc">
+<!ENTITY py36MISC SYSTEM "types\py36MISC.ent.hrc">
 ]>
 <hrc version="take5" xmlns="http://colorer.sf.net/2003/hrc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://colorer.sf.net/2003/hrc http://colorer.sf.net/2003/hrc.xsd">
 

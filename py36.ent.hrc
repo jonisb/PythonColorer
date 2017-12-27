@@ -23,6 +23,7 @@
 	&py36NUMBER;
 	&py36NAME;
 	&py36STRING;
+	&py36MISC;
 	&py36SMALL;
 	&py36COMPOUND;
 
