@@ -1,0 +1,5 @@
+.. code:: python
+    Test, *Test = "Testing for life"
+
+.. code:: html
+    <span class='python36-Identifier def-Identifier'>Test</span><span class='python36-Delimiter def-Symbol'>,</span> <span class='python36-Operator def-Operator def-Symbol'>*</span><span class='python36-Identifier def-Identifier'>Test</span> <span class='python36-Delimiter def-Symbol'>=</span> <span class='python36-StringEdge def-StringEdge def-String'>"</span><span class='python36-String def-String'>Testing for life</span><span class='python36-StringEdge def-StringEdge def-String'>"</span>

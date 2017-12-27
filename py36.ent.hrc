@@ -80,10 +80,57 @@
       	<inherit scheme="small_stmt"/>
     </scheme>
 
-<!-- expr_stmt: testlist_star_expr (annassign | augassign (yield_expr|testlist) |
-                     ('=' (yield_expr|testlist_star_expr))*) -->
+<!-- expr_stmt:
+testlist_star_expr
+(
+	annassign
+	|
+	augassign
+		(
+			yield_expr
+			|
+			testlist
+		)
+	|
+	(
+		'='
+		(
+			yield_expr
+			|
+			testlist_star_expr
+		)
+	)*
+)
+-->
     <scheme name="expr_stmt">
+      	<block start="/(=)/" end="//" scheme="testlist_star_expr" region01="Delimiter"/>
+      	<inherit scheme="augassign"/>
+      	<inherit scheme="annassign"/>
+      	<inherit scheme="testlist_star_expr"/>
+      <!--<inherit scheme="yield_expr"/>
+      <inherit scheme="testlist"/>-->
+    </scheme>
+
+<!--annassign: ':' test ['=' test]-->
+    <scheme name="annassign">
+      	<block start="/(:)\s*/" end="//" scheme="annassign_body" region01="Delimiter"/>
+    </scheme>
+
+    <scheme name="annassign_body">
+      	<block start="/\s*(=)\s*/" end="//" scheme="test" region01="Delimiter"/>
+      	<inherit scheme="test"/>
+    </scheme>
+
+<!-- testlist_star_expr: (test|star_expr) (',' (test|star_expr))* [','] -->
+    <scheme name="testlist_star_expr">
+      	<block start="/\s*(,)\s*/" end="//" scheme="testlist_star_expr" region01="Delimiter"/>
+    	<inherit scheme="star_expr"/>
     	<inherit scheme="test"/>
+    </scheme>
+
+<!--augassign: ('+=' | '-=' | '*=' | '@=' | '/=' | '%=' | '&=' | '|=' | '^=' | '<<=' | '>>=' | '**=' | '//=')-->
+    <scheme name="augassign">
+      	<block start="/\s*([+-*@/%&amp;|^]|&lt;&lt;|>>|\*\*|//)(=)\s*/" end="//" scheme="testlist" region01="Operator" region02="Delimiter"/>
     </scheme>
 
 <!-- PEP 308 : Conditional Expressions: https://www.python.org/dev/peps/pep-0308/ -->
