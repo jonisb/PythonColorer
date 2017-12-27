@@ -1,0 +1,146 @@
+<!-- expr_stmt:
+testlist_star_expr
+(
+	annassign
+	|
+	augassign
+		(
+			yield_expr
+			|
+			testlist
+		)
+	|
+	(
+		'='
+		(
+			yield_expr
+			|
+			testlist_star_expr
+		)
+	)*
+)
+-->
+<scheme name="expr_stmt">
+	<block start="/(=)/" end="//" scheme="testlist_star_expr" region01="Delimiter"/>
+	<inherit scheme="augassign"/>
+	<inherit scheme="annassign"/>
+	<inherit scheme="testlist_star_expr"/>
+	<!--<inherit scheme="yield_expr"/>
+	<inherit scheme="testlist"/>-->
+</scheme>
+
+<!--annassign: ':' test ['=' test]-->
+<scheme name="annassign">
+	<block start="/(:)\s*/" end="//" scheme="annassign_body" region01="Delimiter"/>
+</scheme>
+
+<scheme name="annassign_body">
+	<block start="/\s*(=)\s*/" end="//" scheme="test" region01="Delimiter"/>
+	<inherit scheme="test"/>
+</scheme>
+
+<!-- testlist_star_expr: (test|star_expr) (',' (test|star_expr))* [','] -->
+<scheme name="testlist_star_expr">
+	<block start="/\s*(,)\s*/" end="//" scheme="testlist_star_expr" region01="Delimiter"/>
+	<inherit scheme="star_expr"/>
+	<inherit scheme="test"/>
+</scheme>
+
+<!--augassign: ('+=' | '-=' | '*=' | '@=' | '/=' | '%=' | '&=' | '|=' | '^=' | '<<=' | '>>=' | '**=' | '//=')-->
+<scheme name="augassign">
+	<block start="/\s*([+-*@/%&amp;|^]|&lt;&lt;|>>|\*\*|//)(=)\s*/" end="//" scheme="testlist" region01="Operator" region02="Delimiter"/>
+</scheme>
+
+<!-- PEP 308 : Conditional Expressions: https://www.python.org/dev/peps/pep-0308/ -->
+<!-- test: or_test ['if' or_test 'else' test] | lambdef -->
+<scheme name="test">
+	<inherit scheme="expr"/>
+</scheme>
+
+<!-- star_expr: '*' expr -->
+<scheme name="star_expr">
+	<block start="/(\*)/" end="//" scheme="expr" region01="Operator"/>
+</scheme>
+
+<scheme name="test_star_expr">
+	<inherit scheme="star_expr"/>
+	<inherit scheme="test"/>
+</scheme>
+
+<!-- expr: xor_expr ('|' xor_expr)* -->
+<scheme name="expr">
+	<inherit scheme="atom_expr"/>
+</scheme>
+
+<!-- atom_expr: [AWAIT] atom trailer* -->
+<scheme name="atom_expr">
+	<block start="/~\s*/" end="//" scheme="atom"/>
+	<inherit scheme="trailer"/>
+</scheme>
+
+<!-- atom:
+(
+	'(' [yield_expr|testlist_comp] ')'
+	|
+	'[' [testlist_comp] ']'
+	|
+	'{' [dictorsetmaker] '}'
+	|
+	NAME | NUMBER | STRING+ | '...'
+)
+-->
+<scheme name="atom">
+	<block start="/~(?{PairStart}(\())/" end="/(?{PairEnd}\))/" scheme="yield_expr_testlist_comp" region01="Delimiter" region10="Delimiter"/>
+	<inherit scheme="NUMBER"/>
+	<inherit scheme="STRING"/>
+	<inherit scheme="Constants"/>
+	<inherit scheme="NAME"/>
+</scheme>
+
+<scheme name="Constants">
+	<regexp match="/\.\.\.|Ellipsis|None|__debug__|NotImplemented/" region="Constant"/>
+	<regexp match="/True|False/" region="BooleanConstant"/>
+</scheme>
+
+<!-- testlist_comp: (test|star_expr) ( comp_for | (',' (test|star_expr))* [','] ) -->
+<scheme name="testlist_comp">
+	<block start="/\s*(,)\s*/" end="//" scheme="test_star_expr" region01="Delimiter"/>
+	<inherit scheme="test_star_expr"/>
+</scheme>
+
+<scheme name="yield_expr_testlist_comp">
+	<inherit scheme="STRINGS"/>
+	<inherit scheme="yield_expr"/>
+	<inherit scheme="testlist_comp"/>
+</scheme>
+
+<!-- trailer: '(' [arglist] ')' | '[' subscriptlist ']' | '.' NAME -->
+<scheme name="trailer">
+	<block start="/\\$/" end="/^\s*/" scheme="def:empty"/>
+	<block start="/\.\b/" end="//" scheme="NAME" region00="Delimiter"/>
+	<block start="/\s*(?{PairStart}(\())/" end="/(?{PairEnd}\))/" scheme="arglist" region01="Delimiter" region10="Delimiter"/>
+	<block start="/\s*(?{PairStart}(\[))/" end="/(?{PairEnd}\])/" scheme="subscriptlist" region01="Delimiter" region10="Delimiter"/>
+</scheme>
+
+<!-- subscriptlist: subscript (',' subscript)* [','] -->
+<scheme name="subscriptlist">
+	<inherit scheme="test"/>
+	<inherit scheme="Error"/>
+</scheme>
+
+<!-- testlist: test (',' test)* [','] -->
+<scheme name="testlist">
+	<block start="/\s*(,)\s*/" end="//" scheme="test" region01="Delimiter"/>
+	<inherit scheme="test"/>
+</scheme>
+
+<!-- yield_expr: 'yield' [yield_arg] -->
+<scheme name="yield_expr">
+	<block start="/(yield)\s*/" end="//" scheme="yield_arg" region01="Keyword"/>
+</scheme>
+
+<!-- yield_arg: 'from' test | testlist -->
+<scheme name="yield_arg">
+	<block start="/~(from)\s*/" end="//" scheme="test" region01="Keyword"/>
+	<inherit scheme="testlist"/>
+</scheme>
