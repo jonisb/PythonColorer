@@ -1,0 +1,5 @@
+.. code:: python
+    {,}
+
+.. code:: html
+    <span class='python36-Delimiter def-Symbol'>{</span><span class='python36-Error def-Error'>,</span><span class='python36-Delimiter def-Symbol'>}</span>

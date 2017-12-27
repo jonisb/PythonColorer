@@ -152,6 +152,7 @@ testlist_star_expr
 <scheme name="atom">
 	<block start="/~(?{PairStart}(\())/" end="/(?{PairEnd}\))/" scheme="yield_expr_testlist_comp" region01="Delimiter" region10="Delimiter"/>
 	<block start="/~(?{PairStart}(\[))/" end="/(?{PairEnd}\])/" scheme="testlist_comp" region01="Delimiter" region10="Delimiter"/>
+	<block start="/~(?{PairStart}(\{))/" end="/(?{PairEnd}\})/" scheme="dictorsetmaker" region01="Delimiter" region10="Delimiter"/>
 	<inherit scheme="NUMBER"/>
 	<inherit scheme="STRING"/>
 	<inherit scheme="Constants"/>
@@ -201,6 +202,37 @@ testlist_star_expr
 <scheme name="testlist">
 	<block start="/\s*(,)\s*/" end="//" scheme="test" region01="Delimiter"/>
 	<inherit scheme="test"/>
+</scheme>
+
+<!-- dictorsetmaker: ( ((test ':' test | '**' expr)
+                   (comp_for | (',' (test ':' test | '**' expr))* [','])) |
+                  ((test | star_expr)
+                   (comp_for | (',' (test | star_expr))* [','])) ) -->
+<scheme name="dictorsetmaker">
+	<regexp match="/~(\{)?#1\s*,/" region="Error"/>
+	<block start="/\s*\M\*\*/" end="/\s*\M(,|\})/" scheme="dictorsetmakerdict2"/>
+	<block start="/~(\{)?#1\s*/" end="/\s*\M[:,\}]/" scheme="test"/>
+	<block start="/\M:/" end="/\s*\M(\})/" scheme="dictorsetmakerdict"/>
+	<block start="/\M,/" end="/\s*\M(\})/" scheme="dictorsetmakerset"/>
+</scheme>
+
+<scheme name="dictorsetmakerdict">
+	<block start="/(:)\s*/" end="/\s*\M[,\}]/" scheme="test" region01="Delimiter"/>
+	<block start="/(,)/" end="/\s*\M[\}]/" scheme="dictorsetmakerdict2" region01="Delimiter"/>
+</scheme>
+
+<scheme name="dictorsetmakerdict2">
+	<regexp match="/(:)\s*(\})/" region1="Delimiter" region2="Error"/>
+	<block start="/\s*(\*\*)/" end="/\s*\M(,|\})/" scheme="expr" region01="Operator"/>
+	<regexp match="/(?:,)?#1\s*([^:]*)\s*\M\}/" region1="Error"/>
+	<block start="/(:)\s*/" end="/\s*\M[,\}]/" scheme="test" region01="Delimiter"/>
+	<block start="/(,)/" end="/\s*\M[:\}]/" scheme="dictorsetmakerdict2" region01="Delimiter"/>
+	<inherit scheme="test"/>
+</scheme>
+
+<scheme name="dictorsetmakerset"> <!-- Not supported on Python 2.6.6? Supported on 2.7+ -->
+	<regexp match="/\s*(,)((?:\s*,)+)/" region1="Delimiter" region2="Error"/>
+	<block start="/(,)\s*/" end="/\s*\M(,|\})/" scheme="test" region01="Delimiter"/>
 </scheme>
 
 <!-- comp_iter: comp_for | comp_if -->
