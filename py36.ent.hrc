@@ -30,7 +30,7 @@
 
 	<scheme name="python36">
       	<inherit scheme="Python_File_Header"/>
-      	<inherit scheme="py36_body"/>
+      	<inherit scheme="code_body"/>
 	</scheme>
 
     <scheme name="Python_File_Header">
@@ -46,10 +46,15 @@
 
 <!--Encoding declarations: https://docs.python.org/3/reference/lexical_analysis.html#encoding-declarations-->
     <scheme name="File_Encoding">
-      <block start="/^\s*(#).*(coding)([=:])\s*(ascii|utf-8).*$/" end="/%code_end;/" scheme="py36_body" region00="LineComment" region01="CommentEdge" region02="Keyword" region03="Delimiter" region04="Parameter" content-priority="low"/>
+      <block start="/^\s*(#).*(coding)([=:])\s*(ascii|utf-8).*$/" end="/%code_end;/" scheme="code_body" region00="LineComment" region01="CommentEdge" region02="Keyword" region03="Delimiter" region04="Parameter" content-priority="low"/>
     </scheme>
 
-	<scheme name="py36_body">
+	<scheme name="code_body">
+		<block start="//" end="//" scheme="single_input"/>
+	</scheme>
+
+<!-- single_input: NEWLINE | simple_stmt | compound_stmt NEWLINE -->
+	<scheme name="single_input">
 		<inherit scheme="COMMENT"/>
 		<inherit scheme="test"/>
 		<inherit scheme="Error"/>
@@ -58,7 +63,7 @@
 <!-- PEP 308 : Conditional Expressions: https://www.python.org/dev/peps/pep-0308/ -->
 <!--test: or_test ['if' or_test 'else' test] | lambdef-->
     <scheme name="test">
-		<block start="//" end="//" scheme="expr"/>
+		<inherit scheme="expr"/>
     </scheme>
 
 <!-- star_expr: '*' expr -->
