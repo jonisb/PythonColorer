@@ -172,8 +172,9 @@ yield_expr
 -->
 <scheme name="f_expression">
 	<inherit scheme="yield_expr"/>
-	<block start="/(,)/" end="//" scheme="test_star_expr" region01="Delimiter"/>
-	<inherit scheme="test_star_expr"/>
+    <inherit scheme="comma_separated">
+		<virtual scheme="def:empty" subst-scheme="test_star_expr"/>
+	</inherit>
 </scheme>
 
 <scheme name="DocString">

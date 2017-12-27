@@ -41,9 +41,9 @@ testlist_star_expr
 
 <!-- testlist_star_expr: (test|star_expr) (',' (test|star_expr))* [','] -->
 <scheme name="testlist_star_expr">
-	<block start="/\s*(,)\s*/" end="//" scheme="testlist_star_expr" region01="Delimiter"/>
-	<inherit scheme="star_expr"/>
-	<inherit scheme="test"/>
+    <inherit scheme="comma_separated">
+		<virtual scheme="def:empty" subst-scheme="test_star_expr"/>
+	</inherit>
 </scheme>
 
 <!--augassign: ('+=' | '-=' | '*=' | '@=' | '/=' | '%=' | '&=' | '|=' | '^=' | '<<=' | '>>=' | '**=' | '//=')-->
@@ -166,9 +166,10 @@ testlist_star_expr
 
 <!-- testlist_comp: (test|star_expr) ( comp_for | (',' (test|star_expr))* [','] ) -->
 <scheme name="testlist_comp">
-	<block start="/\s*(,)\s*/" end="//" scheme="test_star_expr" region01="Delimiter"/>
 	<inherit scheme="comp_for"/>
-	<inherit scheme="test_star_expr"/>
+    <inherit scheme="comma_separated">
+		<virtual scheme="def:empty" subst-scheme="test_star_expr"/>
+	</inherit>
 </scheme>
 
 <scheme name="yield_expr_testlist_comp">
@@ -187,21 +188,29 @@ testlist_star_expr
 
 <!-- subscriptlist: subscript (',' subscript)* [','] -->
 <scheme name="subscriptlist">
-	<inherit scheme="test"/>
+    <inherit scheme="comma_separated">
+		<virtual scheme="def:empty" subst-scheme="test"/>
+	</inherit>
 	<inherit scheme="Error"/>
 </scheme>
 
 <!-- exprlist: (expr|star_expr) (',' (expr|star_expr))* [','] -->
 <scheme name="exprlist">
-	<block start="/\s*(,)\s*/" end="//" scheme="exprlist" region01="Delimiter"/>
+    <inherit scheme="comma_separated">
+		<virtual scheme="def:empty" subst-scheme="expr_star_expr"/>
+	</inherit>
+</scheme>
+
+<scheme name="expr_star_expr">
 	<inherit scheme="star_expr"/>
 	<inherit scheme="expr"/>
 </scheme>
 
 <!-- testlist: test (',' test)* [','] -->
 <scheme name="testlist">
-	<block start="/\s*(,)\s*/" end="//" scheme="test" region01="Delimiter"/>
-	<inherit scheme="test"/>
+    <inherit scheme="comma_separated">
+		<virtual scheme="def:empty" subst-scheme="test"/>
+	</inherit>
 </scheme>
 
 <!-- dictorsetmaker: ( ((test ':' test | '**' expr)
