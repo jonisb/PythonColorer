@@ -91,6 +91,7 @@ testlist_star_expr
 -->
 <scheme name="atom">
 	<block start="/~(?{PairStart}(\())/" end="/(?{PairEnd}\))/" scheme="yield_expr_testlist_comp" region01="Delimiter" region10="Delimiter"/>
+	<block start="/~(?{PairStart}(\[))/" end="/(?{PairEnd}\])/" scheme="testlist_comp" region01="Delimiter" region10="Delimiter"/>
 	<inherit scheme="NUMBER"/>
 	<inherit scheme="STRING"/>
 	<inherit scheme="Constants"/>
