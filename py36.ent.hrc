@@ -184,10 +184,16 @@ testlist_star_expr
     	<regexp match="/True|False/" region="BooleanConstant"/>
     </scheme>
 
+<!-- testlist_comp: (test|star_expr) ( comp_for | (',' (test|star_expr))* [','] ) -->
+	<scheme name="testlist_comp">
+      	<block start="/\s*(,)\s*/" end="//" scheme="test_star_expr" region01="Delimiter"/>
+		<inherit scheme="test_star_expr"/>
+  	</scheme>
+
 	<scheme name="yield_expr_testlist_comp">
 		<inherit scheme="STRINGS"/>
 		<inherit scheme="yield_expr"/>
-		<inherit scheme="test"/>
+		<inherit scheme="testlist_comp"/>
   	</scheme>
 
 <!-- trailer: '(' [arglist] ')' | '[' subscriptlist ']' | '.' NAME -->

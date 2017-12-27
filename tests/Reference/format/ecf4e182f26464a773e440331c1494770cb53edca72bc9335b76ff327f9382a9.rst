@@ -1,0 +1,9 @@
+.. code:: python
+    # Accessing arguments’ items:
+    coord = (3, 5)
+    'X: {0[0]};  Y: {0[1]}'.format(coord)
+
+.. code:: html
+    <span class='python36-CommentEdge def-CommentEdge def-Comment def-Syntax'>#</span><span class='python36-LineComment def-LineComment def-Comment def-Syntax'> Accessing arguments’ items:</span>
+    <span class='python36-Identifier def-Identifier'>coord</span> <span class='python36-Delimiter def-Symbol'>=</span> <span class='python36-Delimiter def-Symbol'>(</span><span class='python36-NumberDec def-NumberDec def-Number'>3</span><span class='python36-Delimiter def-Symbol'>,</span> <span class='python36-NumberDec def-NumberDec def-Number'>5</span><span class='python36-Delimiter def-Symbol'>)</span>
+    <span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-String def-String'>X: {0[0]};  Y: {0[1]}</span><span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-Delimiter def-Symbol'>.</span><span class='python36-Identifier def-Identifier'>format</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-Identifier def-Identifier'>coord</span><span class='python36-Delimiter def-Symbol'>)</span>
