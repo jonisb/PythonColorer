@@ -23,6 +23,7 @@
 	&py36NUMBER;
 	&py36NAME;
 	&py36STRING;
+	&py36SMALL;
 
 	<scheme name="Error">
 		<regexp match="/\S/" region="Error" priority="low"/>
@@ -56,9 +57,22 @@
 <!-- single_input: NEWLINE | simple_stmt | compound_stmt NEWLINE -->
 	<scheme name="single_input">
 		<inherit scheme="COMMENT"/>
-		<inherit scheme="test"/>
+      	<inherit scheme="simple_stmt"/>
 		<inherit scheme="Error"/>
 	</scheme>
+
+<!-- simple_stmt: small_stmt (';' small_stmt)* [';'] NEWLINE -->
+    <scheme name="simple_stmt">
+		<inherit scheme="COMMENT"/>
+      	<block start="/\s*(;)\s*/" end="/$/" scheme="small_stmt" region01="Delimiter"/>
+      	<inherit scheme="small_stmt"/>
+    </scheme>
+
+<!-- expr_stmt: testlist_star_expr (annassign | augassign (yield_expr|testlist) |
+                     ('=' (yield_expr|testlist_star_expr))*) -->
+    <scheme name="expr_stmt">
+    	<inherit scheme="test"/>
+    </scheme>
 
 <!-- PEP 308 : Conditional Expressions: https://www.python.org/dev/peps/pep-0308/ -->
 <!--test: or_test ['if' or_test 'else' test] | lambdef-->

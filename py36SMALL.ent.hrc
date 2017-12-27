@@ -1,0 +1,10 @@
+<!-- small_stmt: (expr_stmt | del_stmt | pass_stmt | flow_stmt |
+             import_stmt | global_stmt | nonlocal_stmt | assert_stmt) -->
+<scheme name="small_stmt">
+	<inherit scheme="pass_stmt"/>
+	<inherit scheme="expr_stmt"/>
+</scheme>
+
+<scheme name="pass_stmt">
+	<regexp match="/\s*pass/" region="Keyword"/>
+</scheme>
