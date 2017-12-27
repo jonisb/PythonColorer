@@ -2,6 +2,7 @@
 	<inherit scheme="if_stmt"/>
 </scheme>
 
+<!-- if_stmt: 'if' test ':' suite ('elif' test ':' suite)* ['else' ':' suite] -->
 <scheme name="if_stmt">
 	<block start="/^(%INDENT;*)\M(?{PairStart}if)/" end="/^($|\y1%INDENT;)?!/" scheme="if_block" region10="PairEnd"/>
 	<block start="/^(%INDENT;*)\Melif/" end="/^($|\y1%INDENT;)?!/" scheme="elif_block"/>
