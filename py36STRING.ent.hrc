@@ -11,6 +11,10 @@
 <entity name="StringQuotDouble" value="(&quot;)(\2{2})?"/>
 <entity name="StringQuotSingle" value="(')(\2{2})?"/>
 
+<scheme name="STRINGS">
+	<block start="/\M([&quot;'])/" end="/\M(\y1|\))/" scheme="STRING"/>
+</scheme>
+
 <scheme name="STRING">
 	<inherit scheme="COMMENT"/>
 	<inherit scheme="STRINGdouble"/>

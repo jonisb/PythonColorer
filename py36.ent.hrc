@@ -138,6 +138,7 @@
     </scheme>
 
 	<scheme name="yield_expr_testlist_comp">
+		<inherit scheme="STRINGS"/>
 		<inherit scheme="yield_expr"/>
 		<inherit scheme="test"/>
   	</scheme>

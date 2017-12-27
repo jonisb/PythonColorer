@@ -1,0 +1,7 @@
+.. code:: python
+    ('The complex number {0} is formed from the real part {0.real} '
+        'and the imaginary part {0.imag}.')
+
+.. code:: html
+    <span class='python36-Delimiter def-Symbol'>(</span><span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-String def-String'>The complex number {0} is formed from the real part {0.real} </span><span class='python36-StringEdge def-StringEdge def-String'>'</span>
+        <span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-String def-String'>and the imaginary part {0.imag}.</span><span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-Delimiter def-Symbol'>)</span>
