@@ -1,2 +1,24 @@
 <scheme name="compound_stmt">
+	<inherit scheme="if_stmt"/>
+</scheme>
+
+<scheme name="if_stmt">
+	<block start="/^(%INDENT;*)\M(?{PairStart}if)/" end="/^($|\y1%INDENT;)?!/" scheme="if_block" region10="PairEnd"/>
+	<block start="/^(%INDENT;*)\Melif/" end="/^($|\y1%INDENT;)?!/" scheme="elif_block"/>
+	<block start="/^(%INDENT;*)\Melse/" end="/^($|\y1%INDENT;)?!/" scheme="else_block"/>
+</scheme>
+
+<scheme name="if_block">
+	<block start="/~(if)\s*/" end="/\s*\M:/" scheme="test" region01="Keyword"/>
+	<inherit scheme="suite"/>
+</scheme>
+
+<scheme name="elif_block">
+	<block start="/~(elif)\s*/" end="/\s*\M:/" scheme="test" region01="Keyword"/>
+	<inherit scheme="suite"/>
+</scheme>
+
+<scheme name="else_block">
+	<regexp match="/~(else)\s*\M:/" region1="Keyword"/>
+	<inherit scheme="suite"/>
 </scheme>

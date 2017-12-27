@@ -17,6 +17,7 @@
     <region name="DirectiveContent" parent="def:DirectiveContent" description="Internal directive text"/>
     <region name="DirectiveEdge"    parent="def:DirectiveEdge" description="Directive edges"/>
 
+    <entity name="INDENT" value="(?: {4})"/>
     <entity name="code_end" value="\M(^\.\. code|%def:neverMatch;)"/>
 
 	&py36COMMENT;

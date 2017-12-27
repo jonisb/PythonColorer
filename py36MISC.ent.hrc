@@ -1,0 +1,6 @@
+<!--suite: simple_stmt | NEWLINE INDENT stmt+ DEDENT-->
+<scheme name="suite">
+	<block start="/(:)\s*\M.+\s*$/" end="/$/" scheme="simple_stmt" region01="Delimiter"/>
+	<block start="/(:)\s*$/" end="/^/" scheme="def:empty" region01="Delimiter"/>
+	<block start="/\M^(%INDENT;+)/" end="/^($|\y1)?!/" scheme="stmt" priority="low" content-priority="low"/>
+</scheme>
