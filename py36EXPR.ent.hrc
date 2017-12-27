@@ -54,6 +54,16 @@ testlist_star_expr
 <!-- PEP 308 : Conditional Expressions: https://www.python.org/dev/peps/pep-0308/ -->
 <!-- test: or_test ['if' or_test 'else' test] | lambdef -->
 <scheme name="test">
+	<inherit scheme="or_test"/>
+</scheme>
+
+<!-- test_nocond: or_test | lambdef_nocond -->
+<scheme name="test_nocond">
+	<inherit scheme="or_test"/>
+</scheme>
+
+<!-- or_test: and_test ('or' and_test)* -->
+<scheme name="or_test">
 	<inherit scheme="expr"/>
 </scheme>
 
@@ -106,6 +116,7 @@ testlist_star_expr
 <!-- testlist_comp: (test|star_expr) ( comp_for | (',' (test|star_expr))* [','] ) -->
 <scheme name="testlist_comp">
 	<block start="/\s*(,)\s*/" end="//" scheme="test_star_expr" region01="Delimiter"/>
+	<inherit scheme="comp_for"/>
 	<inherit scheme="test_star_expr"/>
 </scheme>
 
@@ -129,10 +140,44 @@ testlist_star_expr
 	<inherit scheme="Error"/>
 </scheme>
 
+<!-- exprlist: (expr|star_expr) (',' (expr|star_expr))* [','] -->
+<scheme name="exprlist">
+	<block start="/\s*(,)\s*/" end="//" scheme="exprlist" region01="Delimiter"/>
+	<inherit scheme="star_expr"/>
+	<inherit scheme="expr"/>
+</scheme>
+
 <!-- testlist: test (',' test)* [','] -->
 <scheme name="testlist">
 	<block start="/\s*(,)\s*/" end="//" scheme="test" region01="Delimiter"/>
 	<inherit scheme="test"/>
+</scheme>
+
+<!-- comp_iter: comp_for | comp_if -->
+<scheme name="comp_iter">
+	<inherit scheme="comp_for"/>
+	<inherit scheme="comp_if"/>
+</scheme>
+
+<!-- comp_for: [ASYNC] 'for' exprlist 'in' or_test [comp_iter] -->
+<scheme name="comp_for">
+	<block start="/\s*(for)/" end="//" scheme="comp_for_body" region01="Keyword"/>
+</scheme>
+
+<scheme name="comp_for_body">
+	<block start="/~(for)?#3/" end="/\s*\Min/" scheme="exprlist"/>
+	<block start="/(in)\s*/" end="//" scheme="or_test" region01="Keyword"/>
+	<inherit scheme="comp_iter"/>
+</scheme>
+
+<!-- comp_if: 'if' test_nocond [comp_iter] -->
+<scheme name="comp_if">
+	<block start="/\s*(if)/" end="//" scheme="comp_if_body" region01="Keyword"/>
+</scheme>
+
+<scheme name="comp_if_body">
+	<block start="/~(if)?#2\s*/" end="//" scheme="test_nocond"/>
+	<inherit scheme="comp_iter"/>
 </scheme>
 
 <!-- yield_expr: 'yield' [yield_arg] -->
