@@ -6,5 +6,5 @@
 </scheme>
 
 <scheme name="pass_stmt">
-	<regexp match="/\s*pass/" region="Keyword"/>
+	<regexp match="/\s*(pass)/" region1="Keyword"/>
 </scheme>
