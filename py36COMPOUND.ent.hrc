@@ -1,6 +1,7 @@
 <scheme name="compound_stmt">
 	<inherit scheme="if_stmt"/>
 	<inherit scheme="funcdef"/>
+	<inherit scheme="classdef"/>
 </scheme>
 
 <!-- if_stmt: 'if' test ':' suite ('elif' test ':' suite)* ['else' ':' suite] -->
@@ -74,5 +75,20 @@ tfpdef: NAME [':' test]
 
 <scheme name="tfpdef"> <!-- TODO -->
 	<block start="/\s*(:)\s*/" end="//" scheme="test" region01="Delimiter"/>
+	<inherit scheme="NAME"/>
+</scheme>
+
+<!-- classdef: 'class' NAME ['(' [arglist] ')'] ':' suite -->
+<scheme name="classdef">
+	<block start="/^(%INDENT;*)\b\M((?{PairStart}class))/" end="/^($|\y1%INDENT;)?!/" scheme="classdef_block" region02="Keyword" region10="PairEnd"/>
+</scheme>
+
+<scheme name="classdef_block">
+	<block start="/~(class)\s*/" end="/\s*\M:/" scheme="classdef_block2"/>
+	<inherit scheme="suite"/>
+</scheme>
+
+<scheme name="classdef_block2">
+	<block start="/\(/" end="/\)/" scheme="arglist" region00="Delimiter" region10="Delimiter"/>
 	<inherit scheme="NAME"/>
 </scheme>

@@ -4,3 +4,19 @@
 	<block start="/(:)\s*$/" end="/^/" scheme="def:empty" region01="Delimiter"/>
 	<block start="/\M^(%INDENT;+)/" end="/^($|\y1)?!/" scheme="stmt" priority="low" content-priority="low"/>
 </scheme>
+
+<!-- arglist: argument (',' argument)*  [','] -->
+<scheme name="arglist">
+	<block start="/\s*(,)\s*/" end="//" scheme="argument" region01="Delimiter"/>
+	<inherit scheme="argument"/>
+	<inherit scheme="Error"/>
+</scheme>
+
+<!-- argument: ( test [comp_for] | test '=' test | '**' test | '*' test ) -->
+<scheme name="argument">
+	<block start="/\M(&quot;)/" end="/\M(&quot;|\))/" scheme="STRING"/>
+	<block start="/\s*(\*\*)\s*/" end="//" scheme="test" region01="Operator"/>
+	<block start="/\s*(\*)\s*/" end="//" scheme="test" region01="Operator"/>
+	<block start="/\s*(=)\s*/" end="//" scheme="test" region01="Delimiter"/>
+	<inherit scheme="test"/>
+</scheme>

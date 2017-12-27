@@ -150,12 +150,6 @@
 		<block start="/\s*(?{PairStart}(\[))/" end="/(?{PairEnd}\])/" scheme="subscriptlist" region01="Delimiter" region10="Delimiter"/>
 	</scheme>
 
-	<scheme name="arglist">
-		<block start="/\M(&quot;)/" end="/\M(&quot;|\))/" scheme="STRING"/>
-		<inherit scheme="test"/>
-		<inherit scheme="Error"/>
-	</scheme>
-
 <!-- subscriptlist: subscript (',' subscript)* [','] -->
 	<scheme name="subscriptlist">
 		<inherit scheme="test"/>
