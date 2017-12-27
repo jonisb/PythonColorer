@@ -24,6 +24,7 @@
 	&py36NAME;
 	&py36STRING;
 	&py36SMALL;
+	&py36COMPOUND;
 
 	<scheme name="Error">
 		<regexp match="/\S/" region="Error" priority="low"/>
@@ -57,8 +58,16 @@
 <!-- single_input: NEWLINE | simple_stmt | compound_stmt NEWLINE -->
 	<scheme name="single_input">
 		<inherit scheme="COMMENT"/>
+		<inherit scheme="compound_stmt"/>
       	<inherit scheme="simple_stmt"/>
 		<inherit scheme="Error"/>
+	</scheme>
+
+<!-- stmt: simple_stmt | compound_stmt -->
+	<scheme name="stmt">
+		<inherit scheme="COMMENT"/>
+		<inherit scheme="compound_stmt"/>
+		<inherit scheme="simple_stmt"/>
 	</scheme>
 
 <!-- simple_stmt: small_stmt (';' small_stmt)* [';'] NEWLINE -->
