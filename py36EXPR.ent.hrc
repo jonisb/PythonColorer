@@ -54,12 +54,62 @@ testlist_star_expr
 <!-- PEP 308 : Conditional Expressions: https://www.python.org/dev/peps/pep-0308/ -->
 <!-- test: or_test ['if' or_test 'else' test] | lambdef -->
 <scheme name="test">
+	<block start="/(if)/" end="//" scheme="if_body" region01="Keyword"/>
+	<inherit scheme="lambdef"/>
 	<inherit scheme="or_test"/>
+</scheme>
+
+<scheme name="if_body">
+	<block start="/~(if)?#2/" end="/\Melse/" scheme="or_test" region01="Keyword"/>
+	<block start="/(else)/" end="//" scheme="test" region01="Keyword"/>
 </scheme>
 
 <!-- test_nocond: or_test | lambdef_nocond -->
 <scheme name="test_nocond">
+	<inherit scheme="lambdef_nocond"/>
 	<inherit scheme="or_test"/>
+</scheme>
+
+<!-- lambdef: 'lambda' [varargslist] ':' test -->
+<scheme name="lambdef">
+	<block start="/(lambda)/" end="//" scheme="lambdef_body" region01="Keyword"/>
+</scheme>
+
+<scheme name="lambdef_body">
+	<block start="/~(lambda)?#6/" end="/\M:/" scheme="varargslist" region01="Keyword"/>
+	<block start="/(:)/" end="//" scheme="test" region01="Delimiter"/>
+</scheme>
+
+<!-- lambdef_nocond: 'lambda' [varargslist] ':' test_nocond -->
+<scheme name="lambdef_nocond">
+	<block start="/(lambda)/" end="//" scheme="lambdef_nocond_body" region01="Keyword"/>
+</scheme>
+
+<scheme name="lambdef_nocond_body">
+	<block start="/~(lambda)?#6/" end="/\M:/" scheme="varargslist" region01="Keyword"/>
+	<block start="/(:)/" end="//" scheme="test_nocond" region01="Delimiter"/>
+</scheme>
+
+<!--varargslist:
+(
+	vfpdef ['=' test] (',' vfpdef ['=' test])* [',' [ '*' [vfpdef] (',' vfpdef ['=' test])* [',' ['**' vfpdef [',']]] | '**' vfpdef [',']]]
+  	|
+  	'*' [vfpdef] (',' vfpdef ['=' test])* [',' ['**' vfpdef [',']]]
+  	|
+  	'**' vfpdef [',']
+)
+-->
+<scheme name="varargslist">
+	<block start="/\s*(\*\*)\s*/" end="//" scheme="vfpdef" region01="Operator"/>
+	<block start="/\s*(\*)\s*/" end="//" scheme="vfpdef" region01="Operator"/>
+	<block start="/\s*(=)\s*/" end="//" scheme="test" region01="Delimiter"/>
+	<block start="/\s*(,)\s*/" end="//" scheme="varargslist" region01="Delimiter"/>
+	<inherit scheme="vfpdef"/>
+</scheme>
+
+<!--vfpdef: NAME-->
+<scheme name="vfpdef">
+	<inherit scheme="NAME"/>
 </scheme>
 
 <!-- or_test: and_test ('or' and_test)* -->
