@@ -7,9 +7,8 @@
 	<inherit scheme="with_stmt"/>
 	<inherit scheme="funcdef"/>
 	<inherit scheme="classdef"/>
+	<inherit scheme="decorated"/>
 
-<!-- decorated: decorators (classdef | funcdef | async_funcdef) -->
-	<!-- <inherit scheme="decorated"/> -->
 <!-- async_stmt: ASYNC (funcdef | with_stmt | for_stmt) -->
 	<!-- <inherit scheme="async_stmt"/> -->
 </scheme>
@@ -186,4 +185,21 @@ tfpdef: NAME [':' test]
 <scheme name="classdef_block2">
 	<block start="/\(/" end="/\)/" scheme="arglist" region00="Delimiter" region10="Delimiter"/>
 	<inherit scheme="NAME"/>
+</scheme>
+
+
+<!-- decorated: decorators (classdef | funcdef | async_funcdef) -->
+<scheme name="decorated">
+	<block start="/^(%INDENT;*)\M(?{PairStart}@)/" end="/^\M\y1(@)?!(class|def|async)/" scheme="decorator" region10="PairEnd"/>
+</scheme>
+
+<!-- decorator: '@' dotted_name [ '(' [arglist] ')' ] NEWLINE -->
+<!-- decorators: decorator+ -->
+<scheme name="decorator">
+	<block start="/\s*(@)/" end="/$/" scheme="decorator_body" region01="Operator"/>
+</scheme>
+
+<scheme name="decorator_body">
+	<block start="/~(@)?#1\s*/" end="/($|(\()?=)/" scheme="dotted_name"/>
+	<block start="/(\()\s*/" end="/\s*(\))/" scheme="arglist" region01="Delimiter" region11="Delimiter"/>
 </scheme>
