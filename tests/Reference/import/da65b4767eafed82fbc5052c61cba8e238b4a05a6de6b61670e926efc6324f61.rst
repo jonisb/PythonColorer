@@ -1,0 +1,5 @@
+.. code:: python
+    import sys, os
+
+.. code:: html
+    <span class='python36-Keyword def-Keyword'>import</span> <span class='python36-Identifier def-Identifier'>sys</span><span class='python36-Delimiter def-Symbol'>,</span> <span class='python36-Identifier def-Identifier'>os</span>

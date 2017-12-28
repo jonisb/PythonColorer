@@ -3,7 +3,12 @@
 	<inherit scheme="def:empty"/>
 </scheme>
 
-<!--suite: simple_stmt | NEWLINE INDENT stmt+ DEDENT-->
+<scheme name="as_separated">
+	<block start="/\s*(as)\s*/" end="//" scheme="NAME" region01="Keyword"/>
+	<inherit scheme="def:empty"/>
+</scheme>
+
+<!-- suite: simple_stmt | NEWLINE INDENT stmt+ DEDENT -->
 <scheme name="suite">
 	<block start="/(:)\s*\M.+\s*$/" end="/$/" scheme="simple_stmt" region01="Delimiter"/>
 	<block start="/(:)\s*$/" end="/^/" scheme="def:empty" region01="Delimiter"/>
@@ -24,4 +29,19 @@
 	<block start="/\s*(\*)\s*/" end="//" scheme="test" region01="Operator"/>
 	<block start="/\s*(=)\s*/" end="//" scheme="test" region01="Delimiter"/>
 	<inherit scheme="test"/>
+</scheme>
+
+<!-- dotted_name: NAME ('.' NAME)* -->
+<scheme name="dotted_name">
+	<regexp match="/(\.+)\M(\.)/" region1="Error"/>
+	<block start="/\.\b/" end="//" scheme="NAME" region00="Delimiter"/>
+	<regexp match="/\b\./" region="Error"/>
+	<inherit scheme="NAME"/>
+</scheme>
+
+<!-- dotted_as_name: dotted_name ['as' NAME] -->
+<scheme name="dotted_as_name">
+	<inherit scheme="as_separated">
+		<virtual scheme="def:empty" subst-scheme="dotted_name"/>
+	</inherit>
 </scheme>

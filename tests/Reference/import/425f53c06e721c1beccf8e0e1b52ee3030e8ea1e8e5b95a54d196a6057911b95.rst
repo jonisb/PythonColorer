@@ -1,0 +1,5 @@
+.. code:: python
+    import name, name2
+
+.. code:: html
+    <span class='python36-Keyword def-Keyword'>import</span> <span class='python36-Identifier def-Identifier'>name</span><span class='python36-Delimiter def-Symbol'>,</span> <span class='python36-Identifier def-Identifier'>name2</span>

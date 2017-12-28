@@ -2,9 +2,88 @@
              import_stmt | global_stmt | nonlocal_stmt | assert_stmt) -->
 <scheme name="small_stmt">
 	<inherit scheme="pass_stmt"/>
+	<inherit scheme="import_stmt"/>
 	<inherit scheme="expr_stmt"/>
 </scheme>
 
 <scheme name="pass_stmt">
 	<regexp match="/\s*(pass)/" region1="Keyword"/>
+</scheme>
+
+<!-- import_stmt: import_name | import_from -->
+<scheme name="import_stmt">
+	<inherit scheme="import_name"/>
+	<inherit scheme="import_from"/>
+</scheme>
+
+<!-- import_name: 'import' dotted_as_names -->
+<scheme name="import_name">
+	<block start="/\s*(import)\s*/" end="//" scheme="dotted_as_names" region01="Keyword"/>
+</scheme>
+
+<!-- dotted_as_names: dotted_as_name (',' dotted_as_name)* -->
+<scheme name="dotted_as_names">
+	<inherit scheme="comma_separated">
+		<virtual scheme="def:empty" subst-scheme="dotted_as_name"/>
+	</inherit>
+</scheme>
+
+<!-- import_from:
+(
+	'from'
+	(
+		(
+			'.'
+			|
+			'...'
+		)* dotted_name
+		|
+		(
+			'.'
+			|
+			'...'
+		)+
+	)
+	'import'
+	(
+		'*'
+		|
+		'(' import_as_names ')'
+		|
+		import_as_names
+	)
+)
+-->
+<scheme name="import_from">
+	<block start="/\s*(from)/" end="//" scheme="import_from_body" region01="Keyword" region00="PairStart" region10="PairEnd"/>
+</scheme>
+
+<scheme name="import_from_body">
+	<block start="/~(from)?#4\s*/" end="/\s*\Mimport/" scheme="dot_dotted_name"/>
+	<block start="/(import)\s*/" end="//" scheme="import_from_body2" region01="Keyword"/>
+</scheme>
+
+<scheme name="dot_dotted_name">
+	<block start="/~\.+/" end="//" scheme="dotted_name" region00="Delimiter"/>
+	<inherit scheme="dotted_name"/>
+</scheme>
+
+<scheme name="import_from_body2">
+	<regexp match="/~\*/" region="Operator"/>
+	<block start="/~((?{PairStart}\())\s*/" end="/\s*((?{PairEnd}\)))/" scheme="import_as_names" region01="Delimiter" region11="Delimiter" content-priority="low"/>
+	<inherit scheme="import_as_names"/>
+</scheme>
+
+<!-- import_as_names: import_as_name (',' import_as_name)* [','] -->
+<scheme name="import_as_names">
+	<inherit scheme="comma_separated">
+		<virtual scheme="def:empty" subst-scheme="import_as_name"/>
+	</inherit>
+</scheme>
+
+<!-- import_as_name: NAME ['as' NAME] -->
+<scheme name="import_as_name">
+	<inherit scheme="as_separated">
+		<virtual scheme="def:empty" subst-scheme="NAME"/>
+	</inherit>
 </scheme>
