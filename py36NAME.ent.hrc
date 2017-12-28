@@ -10,3 +10,9 @@ A non-normative HTML file listing all valid identifier characters for Unicode 4.
 <scheme name="NAME">
 	<regexp match="/%identifier;/"/>
 </scheme>
+
+<scheme name="NAMElist">
+	<inherit scheme="comma_separated">
+		<virtual scheme="def:empty" subst-scheme="NAME"/>
+	</inherit>
+</scheme>
