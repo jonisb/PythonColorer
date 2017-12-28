@@ -1,11 +1,10 @@
 <!-- compound_stmt: if_stmt | while_stmt | for_stmt | try_stmt | with_stmt | funcdef | classdef | decorated | async_stmt -->
 <scheme name="compound_stmt">
 	<inherit scheme="if_stmt"/>
+	<inherit scheme="while_stmt"/>
 	<inherit scheme="funcdef"/>
 	<inherit scheme="classdef"/>
 
-<!-- while_stmt: 'while' test ':' suite ['else' ':' suite] -->
-	<!-- <inherit scheme="while_stmt"/> -->
 <!-- for_stmt: 'for' exprlist 'in' testlist ':' suite ['else' ':' suite] -->
 	<!-- <inherit scheme="for_stmt"/> -->
 <!-- try_stmt: ('try' ':' suite
@@ -41,6 +40,17 @@
 
 <scheme name="else_block">
 	<regexp match="/~(else)\s*\M:/" region1="Keyword"/>
+	<inherit scheme="suite"/>
+</scheme>
+
+<!-- while_stmt: 'while' test ':' suite ['else' ':' suite] -->
+<scheme name="while_stmt">
+	<block start="/^(%INDENT;*)\M(?{PairStart}while)/" end="/^($|\y1%INDENT;)?!/" scheme="while_block" region10="PairEnd"/>
+	<block start="/^(%INDENT;*)\Melse/" end="/^($|\y1%INDENT;)?!/" scheme="else_block"/>
+</scheme>
+
+<scheme name="while_block">
+	<block start="/~(while)/" end="/\s*\M:/" scheme="test" region01="Keyword"/>
 	<inherit scheme="suite"/>
 </scheme>
 
