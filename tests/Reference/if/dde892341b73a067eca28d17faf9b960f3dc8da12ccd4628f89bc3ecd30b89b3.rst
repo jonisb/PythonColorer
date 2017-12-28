@@ -1,0 +1,33 @@
+.. code:: python
+    if False:
+        with Test as fuck, Test as fuck, Test as fuck:
+            while True:
+                if True:
+                    if True:
+                        pass
+                    elif False:
+                        pass
+                    else:
+                        pass
+            else:
+                pass
+    if False:
+        pass
+    else: pass
+
+.. code:: html
+    <span class='python36-Keyword def-Keyword'>if</span> <span class='python36-BooleanConstant def-BooleanConstant def-Constant def-Keyword'>False</span><span class='python36-Delimiter def-Symbol'>:</span>
+        <span class='python36-Keyword def-Keyword'>with</span> <span class='python36-Identifier def-Identifier'>Test</span> <span class='python36-Keyword def-Keyword'>as</span> <span class='python36-Identifier def-Identifier'>fuck</span><span class='python36-Delimiter def-Symbol'>,</span> <span class='python36-Identifier def-Identifier'>Test</span> <span class='python36-Keyword def-Keyword'>as</span> <span class='python36-Identifier def-Identifier'>fuck</span><span class='python36-Delimiter def-Symbol'>,</span> <span class='python36-Identifier def-Identifier'>Test</span> <span class='python36-Keyword def-Keyword'>as</span> <span class='python36-Identifier def-Identifier'>fuck</span><span class='python36-Delimiter def-Symbol'>:</span>
+            <span class='python36-Keyword def-Keyword'>while</span> <span class='python36-BooleanConstant def-BooleanConstant def-Constant def-Keyword'>True</span><span class='python36-Delimiter def-Symbol'>:</span>
+                <span class='python36-Keyword def-Keyword'>if</span> <span class='python36-BooleanConstant def-BooleanConstant def-Constant def-Keyword'>True</span><span class='python36-Delimiter def-Symbol'>:</span>
+                    <span class='python36-Keyword def-Keyword'>if</span> <span class='python36-BooleanConstant def-BooleanConstant def-Constant def-Keyword'>True</span><span class='python36-Delimiter def-Symbol'>:</span>
+                        <span class='python36-Keyword def-Keyword'>pass</span>
+                    <span class='python36-Keyword def-Keyword'>elif</span> <span class='python36-BooleanConstant def-BooleanConstant def-Constant def-Keyword'>False</span><span class='python36-Delimiter def-Symbol'>:</span>
+                        <span class='python36-Keyword def-Keyword'>pass</span>
+                    <span class='python36-Keyword def-Keyword'>else</span><span class='python36-Delimiter def-Symbol'>:</span>
+                        <span class='python36-Keyword def-Keyword'>pass</span>
+            <span class='python36-Keyword def-Keyword'>else</span><span class='python36-Delimiter def-Symbol'>:</span>
+                <span class='python36-Keyword def-Keyword'>pass</span>
+    <span class='python36-Identifier def-Identifier'>if</span> False<span class='python36-Delimiter def-Symbol'>:</span>
+        <span class='python36-Keyword def-Keyword'>pass</span>
+    <span class='python36-Keyword def-Keyword'>else</span><span class='python36-Delimiter def-Symbol'>:</span> <span class='python36-Keyword def-Keyword'>pass</span>
