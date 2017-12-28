@@ -2,11 +2,10 @@
 <scheme name="compound_stmt">
 	<inherit scheme="if_stmt"/>
 	<inherit scheme="while_stmt"/>
+	<inherit scheme="for_stmt"/>
 	<inherit scheme="funcdef"/>
 	<inherit scheme="classdef"/>
 
-<!-- for_stmt: 'for' exprlist 'in' testlist ':' suite ['else' ':' suite] -->
-	<!-- <inherit scheme="for_stmt"/> -->
 <!-- try_stmt: ('try' ':' suite
            ((except_clause ':' suite)+
             ['else' ':' suite]
@@ -52,6 +51,22 @@
 <scheme name="while_block">
 	<block start="/~(while)/" end="/\s*\M:/" scheme="test" region01="Keyword"/>
 	<inherit scheme="suite"/>
+</scheme>
+
+<!-- for_stmt: 'for' exprlist 'in' testlist ':' suite ['else' ':' suite] -->
+<scheme name="for_stmt">
+	<block start="/^(%INDENT;*)\M(?{PairStart}for)/" end="/^($|\y1%INDENT;)?!/" scheme="for_block" region10="PairEnd"/>
+	<block start="/^(%INDENT;*)\Melse/" end="/^($|\y1%INDENT;)?!/" scheme="else_block"/>
+</scheme>
+
+<scheme name="for_block">
+	<block start="/~(for)/" end="/\s*\M:/" scheme="for_block_body" region01="Keyword"/>
+	<inherit scheme="suite"/>
+</scheme>
+
+<scheme name="for_block_body">
+	<block start="/~(for)?#3\s*/" end="/\s*\M\bin\b/" scheme="exprlist"/>
+	<block start="/\b(in)\b\s*/" end="/\s*\M:/" scheme="testlist" region01="Keyword"/>
 </scheme>
 
 <!--
