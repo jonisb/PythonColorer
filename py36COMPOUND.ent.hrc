@@ -4,11 +4,10 @@
 	<inherit scheme="while_stmt"/>
 	<inherit scheme="for_stmt"/>
 	<inherit scheme="try_stmt"/>
+	<inherit scheme="with_stmt"/>
 	<inherit scheme="funcdef"/>
 	<inherit scheme="classdef"/>
 
-<!-- with_stmt: 'with' with_item (',' with_item)*  ':' suite -->
-	<!-- <inherit scheme="with_stmt"/> -->
 <!-- decorated: decorators (classdef | funcdef | async_funcdef) -->
 	<!-- <inherit scheme="decorated"/> -->
 <!-- async_stmt: ASYNC (funcdef | with_stmt | for_stmt) -->
@@ -96,6 +95,30 @@
 <scheme name="finally_block">
 	<regexp match="/~(finally)\s*\M:/" region1="Keyword"/>
 	<inherit scheme="suite"/>
+</scheme>
+
+<!-- with_stmt: 'with' with_item (',' with_item)*  ':' suite -->
+<scheme name="with_stmt">
+	<block start="/^(%INDENT;*)\M(?{PairStart}with)/" end="/^($|\y1%INDENT;)?!/" scheme="with_block" region10="PairEnd"/>
+</scheme>
+
+<scheme name="with_block">
+	<block start="/~(with)\s*/" end="/\s*\M:/" scheme="with_block2" region01="Keyword"/>
+	<inherit scheme="suite"/>
+</scheme>
+
+<scheme name="with_block2">
+	<inherit scheme="comma_separated">
+		<virtual scheme="def:empty" subst-scheme="with_item"/>
+	</inherit>
+</scheme>
+
+<!-- with_item: test ['as' expr] -->
+<scheme name="with_item">
+	<inherit scheme="as_separated">
+		<virtual scheme="def:empty" subst-scheme="test"/>
+		<virtual scheme="NAME" subst-scheme="expr"/>
+	</inherit>
 </scheme>
 
 <!--
