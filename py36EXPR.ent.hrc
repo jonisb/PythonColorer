@@ -181,6 +181,19 @@ testlist_star_expr
 
 <!-- term: factor (('*'|'@'|'/'|'%'|'//') factor)* -->
 <scheme name="term">
+	<block start="/\s*([*@/%]|//)/" end="//" scheme="factor" region01="Operator"/>
+	<inherit scheme="factor"/>
+</scheme>
+
+<!-- factor: ('+'|'-'|'~') factor | power -->
+<scheme name="factor">
+	<block start="/\s*([-+~])/" end="//" scheme="factor" region01="Operator"/>
+	<inherit scheme="power"/>
+</scheme>
+
+<!-- power: atom_expr ['**' factor] -->
+<scheme name="power">
+	<block start="/\s*(\*\*)/" end="//" scheme="factor" region01="Operator"/>
 	<inherit scheme="atom_expr"/>
 </scheme>
 
