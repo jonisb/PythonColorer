@@ -114,6 +114,28 @@ testlist_star_expr
 
 <!-- or_test: and_test ('or' and_test)* -->
 <scheme name="or_test">
+	<block start="/\s*\b(or)\b/" end="//" scheme="and_test" region01="Keyword"/>
+	<inherit scheme="and_test"/>
+</scheme>
+
+<!-- and_test: not_test ('and' not_test)* -->
+<scheme name="and_test">
+	<block start="/\s*\b(and)\b/" end="//" scheme="not_test" region01="Keyword"/>
+	<inherit scheme="not_test"/>
+</scheme>
+
+<!--not_test: 'not' not_test | comparison-->
+<scheme name="not_test">
+	<block start="/\s*\bnot\b/" end="//" scheme="not_test" region00="Keyword"/>
+	<inherit scheme="comparison"/>
+</scheme>
+
+<!--comp_op: '<'|'>'|'=='|'>='|'<='|'<>'|'!='|'in'|'not' 'in'|'is'|'is' 'not'-->
+<entity name="comp_op" value="([=>&lt;!]=|&lt;>?|>|(n\bot\b\s+)?\bin\b|\bis\b(\s+\bnot\b)?)"/>
+
+<!-- comparison: expr (comp_op expr)* -->
+<scheme name="comparison">
+	<block start="/\s*(%comp_op;)\s*/" end="//" scheme="expr" region01="Operator"/>
 	<inherit scheme="expr"/>
 </scheme>
 
