@@ -254,9 +254,21 @@ testlist_star_expr
 <!-- subscriptlist: subscript (',' subscript)* [','] -->
 <scheme name="subscriptlist">
     <inherit scheme="comma_separated">
-		<virtual scheme="def:empty" subst-scheme="test"/>
+		<virtual scheme="def:empty" subst-scheme="subscript"/>
 	</inherit>
 	<inherit scheme="Error"/>
+</scheme>
+
+<!-- subscript: test | [test] ':' [test] [sliceop] -->
+<scheme name="subscript">
+	<block start="/\s*(:)/" end="//" scheme="sliceop" region01="Delimiter"/>
+	<inherit scheme="test"/>
+</scheme>
+
+<!-- sliceop: ':' [test] -->
+<scheme name="sliceop">
+	<block start="/\s*(:)/" end="//" scheme="test" region01="Delimiter"/>
+	<inherit scheme="test"/>
 </scheme>
 
 <!-- exprlist: (expr|star_expr) (',' (expr|star_expr))* [','] -->
