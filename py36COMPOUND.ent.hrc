@@ -8,9 +8,7 @@
 	<inherit scheme="funcdef"/>
 	<inherit scheme="classdef"/>
 	<inherit scheme="decorated"/>
-
-<!-- async_stmt: ASYNC (funcdef | with_stmt | for_stmt) -->
-	<!-- <inherit scheme="async_stmt"/> -->
+	<inherit scheme="async_stmt"/>
 </scheme>
 
 <!-- if_stmt: 'if' test ':' suite ('elif' test ':' suite)* ['else' ':' suite] -->
@@ -202,4 +200,12 @@ tfpdef: NAME [':' test]
 <scheme name="decorator_body">
 	<block start="/~(@)?#1\s*/" end="/($|(\()?=)/" scheme="dotted_name"/>
 	<block start="/(\()\s*/" end="/\s*(\))/" scheme="arglist" region01="Delimiter" region11="Delimiter"/>
+</scheme>
+
+<!-- async_stmt: ASYNC (funcdef | with_stmt | for_stmt) -->
+<scheme name="async_stmt">
+	<block start="/^(%INDENT;*)((?{PairStart}async))\s*\M(def)/" end="/^($|\y1%INDENT;)?!/" scheme="def_block" region02="Keyword" region03="Keyword" region10="PairEnd"/>
+	<block start="/^(%INDENT;*)((?{PairStart}async))\s*\Mwith/" end="/^($|\y1%INDENT;)?!/" scheme="with_block" region02="Keyword" region10="PairEnd"/>
+	<block start="/^(%INDENT;*)((?{PairStart}async))\s*\Mfor/" end="/^($|\y1%INDENT;)?!/" scheme="for_block" region02="Keyword" region10="PairEnd"/>
+	<block start="/^(%INDENT;*)((?{PairStart}async))\s*\Melse/" end="/^($|\y1%INDENT;)?!/" scheme="else_block" region02="Keyword" region10="PairEnd"/>
 </scheme>

@@ -1,0 +1,5 @@
+.. code:: python
+    async for name in names: pass
+
+.. code:: html
+    <span class='python36-Keyword def-Keyword'>async</span> <span class='python36-Keyword def-Keyword'>for</span> <span class='python36-Identifier def-Identifier'>name</span> <span class='python36-Keyword def-Keyword'>in</span> <span class='python36-Identifier def-Identifier'>names</span><span class='python36-Delimiter def-Symbol'>:</span> <span class='python36-Keyword def-Keyword'>pass</span>
