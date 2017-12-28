@@ -1,12 +1,10 @@
 <!-- small_stmt: (expr_stmt | del_stmt | pass_stmt | flow_stmt |
              import_stmt | global_stmt | nonlocal_stmt | assert_stmt) -->
 <scheme name="small_stmt">
+	<inherit scheme="del_stmt"/>
 	<inherit scheme="pass_stmt"/>
 	<inherit scheme="import_stmt"/>
 	<inherit scheme="expr_stmt"/>
-
-<!-- del_stmt: 'del' exprlist -->
-	<!-- <inherit scheme="del_stmt"/> -->
 <!-- flow_stmt: break_stmt | continue_stmt | return_stmt | raise_stmt | yield_stmt -->
 	<!-- <inherit scheme="flow_stmt"/> -->
 <!-- global_stmt: 'global' NAME (',' NAME)* -->
@@ -15,6 +13,11 @@
 	<!-- <inherit scheme="nonlocal_stmt"/> -->
 <!-- assert_stmt: 'assert' test [',' test] -->
 	<!-- <inherit scheme="assert_stmt"/> -->
+</scheme>
+
+<!-- del_stmt: 'del' exprlist -->
+<scheme name="del_stmt">
+	<block start="/\s*(del)\s*/" end="//" scheme="exprlist" region01="Keyword"/>
 </scheme>
 
 <scheme name="pass_stmt">
