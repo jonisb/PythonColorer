@@ -107,7 +107,7 @@ testlist_star_expr
 	<inherit scheme="vfpdef"/>
 </scheme>
 
-<!--vfpdef: NAME-->
+<!-- vfpdef: NAME -->
 <scheme name="vfpdef">
 	<inherit scheme="NAME"/>
 </scheme>
@@ -124,13 +124,13 @@ testlist_star_expr
 	<inherit scheme="not_test"/>
 </scheme>
 
-<!--not_test: 'not' not_test | comparison-->
+<!-- not_test: 'not' not_test | comparison -->
 <scheme name="not_test">
 	<block start="/\s*\bnot\b/" end="//" scheme="not_test" region00="Keyword"/>
 	<inherit scheme="comparison"/>
 </scheme>
 
-<!--comp_op: '<'|'>'|'=='|'>='|'<='|'<>'|'!='|'in'|'not' 'in'|'is'|'is' 'not'-->
+<!-- comp_op: '<'|'>'|'=='|'>='|'<='|'<>'|'!='|'in'|'not' 'in'|'is'|'is' 'not' -->
 <entity name="comp_op" value="([=>&lt;!]=|&lt;>?|>|(n\bot\b\s+)?\bin\b|\bis\b(\s+\bnot\b)?)"/>
 
 <!-- comparison: expr (comp_op expr)* -->
