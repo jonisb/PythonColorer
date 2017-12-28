@@ -151,6 +151,36 @@ testlist_star_expr
 
 <!-- expr: xor_expr ('|' xor_expr)* -->
 <scheme name="expr">
+	<block start="/\s*(\|)/" end="//" scheme="xor_expr" region01="Operator"/>
+	<inherit scheme="xor_expr"/>
+</scheme>
+
+<!-- xor_expr: and_expr ('^' and_expr)* -->
+<scheme name="xor_expr">
+	<block start="/\s*(\^)/" end="//" scheme="and_expr" region01="Operator"/>
+	<inherit scheme="and_expr"/>
+</scheme>
+
+<!-- and_expr: shift_expr ('&' shift_expr)* -->
+<scheme name="and_expr">
+	<block start="/\s*(&amp;)/" end="//" scheme="shift_expr" region01="Operator"/>
+	<inherit scheme="shift_expr"/>
+</scheme>
+
+<!-- shift_expr: arith_expr (('<<'|'>>') arith_expr)* -->
+<scheme name="shift_expr">
+	<block start="/\s*(&lt;&lt;|>>)/" end="//" scheme="arith_expr" region01="Operator"/>
+	<inherit scheme="arith_expr"/>
+</scheme>
+
+<!-- arith_expr: term (('+'|'-') term)* -->
+<scheme name="arith_expr">
+	<block start="/\s*([-+])/" end="//" scheme="term" region01="Operator"/>
+	<inherit scheme="term"/>
+</scheme>
+
+<!-- term: factor (('*'|'@'|'/'|'%'|'//') factor)* -->
+<scheme name="term">
 	<inherit scheme="atom_expr"/>
 </scheme>
 
