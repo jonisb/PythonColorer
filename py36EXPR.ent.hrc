@@ -350,7 +350,7 @@ testlist_star_expr
 
 <!-- yield_expr: 'yield' [yield_arg] -->
 <scheme name="yield_expr">
-	<block start="/(yield)\s*/" end="//" scheme="yield_arg" region01="Keyword"/>
+	<block start="/\s*(yield)\s*/" end="//" scheme="yield_arg" region01="Keyword"/>
 </scheme>
 
 <!-- yield_arg: 'from' test | testlist -->

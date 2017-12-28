@@ -1,0 +1,5 @@
+.. code:: python
+    raise test from test
+
+.. code:: html
+    <span class='python36-Keyword def-Keyword'>raise</span> <span class='python36-Identifier def-Identifier'>test</span> <span class='python36-Keyword def-Keyword'>from</span> <span class='python36-Identifier def-Identifier'>test</span>

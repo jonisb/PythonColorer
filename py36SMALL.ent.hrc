@@ -3,13 +3,12 @@
 <scheme name="small_stmt">
 	<inherit scheme="del_stmt"/>
 	<inherit scheme="pass_stmt"/>
+	<inherit scheme="flow_stmt"/>
 	<inherit scheme="import_stmt"/>
 	<inherit scheme="global_stmt"/>
 	<inherit scheme="nonlocal_stmt"/>
 	<inherit scheme="assert_stmt"/>
 	<inherit scheme="expr_stmt"/>
-<!-- flow_stmt: break_stmt | continue_stmt | return_stmt | raise_stmt | yield_stmt -->
-	<!-- <inherit scheme="flow_stmt"/> -->
 </scheme>
 
 <!-- del_stmt: 'del' exprlist -->
@@ -112,4 +111,48 @@
 	<inherit scheme="as_separated">
 		<virtual scheme="def:empty" subst-scheme="NAME"/>
 	</inherit>
+</scheme>
+
+<!-- flow_stmt: break_stmt | continue_stmt | return_stmt | raise_stmt | yield_stmt -->
+<scheme name="flow_stmt">
+	<inherit scheme="break_stmt"/>
+	<inherit scheme="continue_stmt"/>
+	<inherit scheme="return_stmt"/>
+	<inherit scheme="raise_stmt"/>
+	<inherit scheme="yield_stmt"/>
+</scheme>
+
+<!-- break_stmt: 'break' -->
+<scheme name="break_stmt">
+	<regexp match="/\s*(break)/" region1="Keyword"/>
+</scheme>
+
+<!-- continue_stmt: 'continue' -->
+<scheme name="continue_stmt">
+	<regexp match="/\s*(continue)/" region1="Keyword"/>
+</scheme>
+
+<!-- return_stmt: 'return' [testlist] -->
+<scheme name="return_stmt">
+	<block start="/\s*(return)\s*/" end="//" scheme="testlist" region01="Keyword"/>
+</scheme>
+
+<!-- yield_stmt: yield_expr -->
+<scheme name="yield_stmt">
+	<inherit scheme="yield_expr"/>
+</scheme>
+
+<!-- raise_stmt: 'raise' [test ['from' test]] -->
+<scheme name="raise_stmt">
+	<block start="/\s*(raise)\s*/" end="//" scheme="raise_stmt_body" region01="Keyword"/>
+</scheme>
+
+<scheme name="raise_stmt_body">
+	<block start="/\s*(from)\s*/" end="//" scheme="raise_stmt_body2" region01="Keyword"/>
+	<inherit scheme="test"/>
+</scheme>
+
+<scheme name="raise_stmt_body2">
+	<regexp match="/\s*(from)\s*/" region1="def:Error"/>
+	<inherit scheme="test"/>
 </scheme>

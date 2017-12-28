@@ -1,0 +1,5 @@
+.. code:: python
+    raise
+
+.. code:: html
+    <span class='python36-Keyword def-Keyword'>raise</span>
