@@ -6,11 +6,10 @@
 	<inherit scheme="import_stmt"/>
 	<inherit scheme="global_stmt"/>
 	<inherit scheme="nonlocal_stmt"/>
+	<inherit scheme="assert_stmt"/>
 	<inherit scheme="expr_stmt"/>
 <!-- flow_stmt: break_stmt | continue_stmt | return_stmt | raise_stmt | yield_stmt -->
 	<!-- <inherit scheme="flow_stmt"/> -->
-<!-- assert_stmt: 'assert' test [',' test] -->
-	<!-- <inherit scheme="assert_stmt"/> -->
 </scheme>
 
 <!-- del_stmt: 'del' exprlist -->
@@ -30,6 +29,11 @@
 
 <scheme name="pass_stmt">
 	<regexp match="/\s*(pass)/" region1="Keyword"/>
+</scheme>
+
+<!-- assert_stmt: 'assert' test [',' test] -->
+<scheme name="assert_stmt">
+	<block start="/\s*(assert)\s*/" end="//" scheme="testlist" region01="Keyword"/>
 </scheme>
 
 <!-- import_stmt: import_name | import_from -->
