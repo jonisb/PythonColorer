@@ -2,4 +2,4 @@
     #!/usr/local/bin/python
 
 .. code:: html
-    <span class='python36-DirectiveEdge def-DirectiveEdge def-DirectiveContent def-Directive'>#!</span><span class='python36-DirectiveContent def-DirectiveContent def-Directive'>/usr/local/bin/</span><span class='python36-Directive def-Directive'>python</span>
+    <span class='python36-DirectiveEdge def-DirectiveEdge def-DirectiveContent def-Directive'>#!</span><span class='python36-Directive def-Directive'>/usr/local/bin/</span><span class='python36-DirectiveContent def-DirectiveContent def-Directive'>python</span>

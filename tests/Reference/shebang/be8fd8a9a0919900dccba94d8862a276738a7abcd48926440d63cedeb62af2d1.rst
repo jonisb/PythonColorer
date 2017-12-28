@@ -1,0 +1,5 @@
+.. code:: python
+    #!/usr/bin/python2.7
+
+.. code:: html
+    <span class='python36-DirectiveEdge def-DirectiveEdge def-DirectiveContent def-Directive'>#!</span><span class='python36-Directive def-Directive'>/usr/bin/</span><span class='python36-DirectiveContent def-DirectiveContent def-Directive'>python</span><span class='python36-Directive def-Directive'>2.7</span>

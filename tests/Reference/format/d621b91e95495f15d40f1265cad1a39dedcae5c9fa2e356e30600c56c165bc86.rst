@@ -1,7 +1,0 @@
-.. code:: python
-    # Replacing %s and %r:
-    "repr() shows quotes: {!r}; str() doesn't: {!s}".format('test1', 'test2')
-
-.. code:: html
-    <span class='python36-CommentEdge def-CommentEdge def-Comment def-Syntax'>#</span><span class='python36-LineComment def-LineComment def-Comment def-Syntax'> Replacing %s and %r:</span>
-    <span class='python36-StringEdge def-StringEdge def-String'>"</span><span class='python36-String def-String'>repr() shows quotes: {!r}; str() doesn't: {!s}</span><span class='python36-StringEdge def-StringEdge def-String'>"</span><span class='python36-Delimiter def-Symbol'>.</span><span class='python36-Identifier def-Identifier'>format</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-String def-String'>test1</span><span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-Delimiter def-Symbol'>,</span> <span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-String def-String'>test2</span><span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-Delimiter def-Symbol'>)</span>

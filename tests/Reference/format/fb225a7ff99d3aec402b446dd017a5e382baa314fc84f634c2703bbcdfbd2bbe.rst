@@ -1,0 +1,7 @@
+.. code:: python
+    # Using the comma as a thousands separator:
+    s = '{:,}'.format(1234567890)
+
+.. code:: html
+    <span class='python36-CommentEdge def-CommentEdge def-Comment def-Syntax'>#</span><span class='python36-LineComment def-LineComment def-Comment def-Syntax'> Using the comma as a thousands separator:</span>
+    <span class='python36-Identifier def-Identifier'>s</span> <span class='python36-Delimiter def-Symbol'>=</span> <span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-String def-String'>{:,}</span><span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-Delimiter def-Symbol'>.</span><span class='python36-Identifier def-Identifier'>format</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-NumberDec def-NumberDec def-Number'>1234567890</span><span class='python36-Delimiter def-Symbol'>)</span>

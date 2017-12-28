@@ -1,0 +1,11 @@
+.. code:: python
+    # Expressing a percentage:
+    points = 19
+    total = 22
+    s = 'Correct answers: {:.2%}'.format(points/total)
+
+.. code:: html
+    <span class='python36-CommentEdge def-CommentEdge def-Comment def-Syntax'>#</span><span class='python36-LineComment def-LineComment def-Comment def-Syntax'> Expressing a percentage:</span>
+    <span class='python36-Identifier def-Identifier'>points</span> <span class='python36-Delimiter def-Symbol'>=</span> <span class='python36-NumberDec def-NumberDec def-Number'>19</span>
+    <span class='python36-Identifier def-Identifier'>total</span> <span class='python36-Delimiter def-Symbol'>=</span> <span class='python36-NumberDec def-NumberDec def-Number'>22</span>
+    <span class='python36-Identifier def-Identifier'>s</span> <span class='python36-Delimiter def-Symbol'>=</span> <span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-String def-String'>Correct answers: {:.2%}</span><span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-Delimiter def-Symbol'>.</span><span class='python36-Identifier def-Identifier'>format</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-Identifier def-Identifier'>points</span><span class='python36-Operator def-Operator def-Symbol'>/</span><span class='python36-Identifier def-Identifier'>total</span><span class='python36-Delimiter def-Symbol'>)</span>
