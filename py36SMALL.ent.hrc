@@ -5,11 +5,10 @@
 	<inherit scheme="pass_stmt"/>
 	<inherit scheme="import_stmt"/>
 	<inherit scheme="global_stmt"/>
+	<inherit scheme="nonlocal_stmt"/>
 	<inherit scheme="expr_stmt"/>
 <!-- flow_stmt: break_stmt | continue_stmt | return_stmt | raise_stmt | yield_stmt -->
 	<!-- <inherit scheme="flow_stmt"/> -->
-<!-- nonlocal_stmt: 'nonlocal' NAME (',' NAME)* -->
-	<!-- <inherit scheme="nonlocal_stmt"/> -->
 <!-- assert_stmt: 'assert' test [',' test] -->
 	<!-- <inherit scheme="assert_stmt"/> -->
 </scheme>
@@ -22,6 +21,11 @@
 <!-- global_stmt: 'global' NAME (',' NAME)* -->
 <scheme name="global_stmt">
 	<block start="/\s*(global)\s*/" end="//" scheme="NAMElist" region01="Keyword"/>
+</scheme>
+
+<!-- nonlocal_stmt: 'nonlocal' NAME (',' NAME)* -->
+<scheme name="nonlocal_stmt">
+	<block start="/\s*(nonlocal)\s*/" end="//" scheme="NAMElist" region01="Keyword"/>
 </scheme>
 
 <scheme name="pass_stmt">
