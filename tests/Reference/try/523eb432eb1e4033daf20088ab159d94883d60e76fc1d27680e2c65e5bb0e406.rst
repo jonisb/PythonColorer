@@ -1,0 +1,14 @@
+.. code:: python
+    try:
+        pass
+    finally:
+        pass
+    
+
+.. code:: html
+    <span class='python36-Keyword def-Keyword'>try</span><span class='python36-Delimiter def-Symbol'>:</span>
+        <span class='python36-Keyword def-Keyword'>pass</span>
+    <span class='python36-Keyword def-Keyword'>finally</span><span class='python36-Delimiter def-Symbol'>:</span>
+        <span class='python36-Keyword def-Keyword'>pass</span>
+    
+    

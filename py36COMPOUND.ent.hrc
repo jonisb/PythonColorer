@@ -3,15 +3,10 @@
 	<inherit scheme="if_stmt"/>
 	<inherit scheme="while_stmt"/>
 	<inherit scheme="for_stmt"/>
+	<inherit scheme="try_stmt"/>
 	<inherit scheme="funcdef"/>
 	<inherit scheme="classdef"/>
 
-<!-- try_stmt: ('try' ':' suite
-           ((except_clause ':' suite)+
-            ['else' ':' suite]
-            ['finally' ':' suite] |
-           'finally' ':' suite)) -->
-	<!-- <inherit scheme="try_stmt"/> -->
 <!-- with_stmt: 'with' with_item (',' with_item)*  ':' suite -->
 	<!-- <inherit scheme="with_stmt"/> -->
 <!-- decorated: decorators (classdef | funcdef | async_funcdef) -->
@@ -67,6 +62,40 @@
 <scheme name="for_block_body">
 	<block start="/~(for)?#3\s*/" end="/\s*\M\bin\b/" scheme="exprlist"/>
 	<block start="/\b(in)\b\s*/" end="/\s*\M:/" scheme="testlist" region01="Keyword"/>
+</scheme>
+
+<!-- try_stmt: ('try' ':' suite
+           ((except_clause ':' suite)+
+            ['else' ':' suite]
+            ['finally' ':' suite] |
+           'finally' ':' suite)) -->
+<scheme name="try_stmt">
+	<block start="/^(%INDENT;*)\M(?{PairStart}try)/" end="/^($|\y1%INDENT;)?!/" scheme="try_block" region10="PairEnd"/>
+	<block start="/^(%INDENT;*)\Mexcept/" end="/^($|\y1%INDENT;)?!/" scheme="except_block"/>
+	<block start="/^(%INDENT;*)\Melse/" end="/^($|\y1%INDENT;)?!/" scheme="else_block"/>
+	<block start="/^(%INDENT;*)\Mfinally/" end="/^($|\y1%INDENT;)?!/" scheme="finally_block"/>
+</scheme>
+
+<scheme name="try_block">
+	<regexp match="/~(try)\s*\M:/" region1="Keyword"/>
+	<inherit scheme="suite"/>
+</scheme>
+
+<!--except_clause: 'except' [test ['as' NAME]]-->
+<scheme name="except_block">
+	<block start="/~(except)\s*/" end="/\s*\M:/" scheme="except_block_body" region01="Keyword"/>
+	<inherit scheme="suite"/>
+</scheme>
+
+<scheme name="except_block_body">
+	<inherit scheme="as_separated">
+		<virtual scheme="def:empty" subst-scheme="test"/>
+	</inherit>
+</scheme>
+
+<scheme name="finally_block">
+	<regexp match="/~(finally)\s*\M:/" region1="Keyword"/>
+	<inherit scheme="suite"/>
 </scheme>
 
 <!--
