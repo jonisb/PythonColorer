@@ -1,7 +1,25 @@
+<!-- compound_stmt: if_stmt | while_stmt | for_stmt | try_stmt | with_stmt | funcdef | classdef | decorated | async_stmt -->
 <scheme name="compound_stmt">
 	<inherit scheme="if_stmt"/>
 	<inherit scheme="funcdef"/>
 	<inherit scheme="classdef"/>
+
+<!-- while_stmt: 'while' test ':' suite ['else' ':' suite] -->
+	<!-- <inherit scheme="while_stmt"/> -->
+<!-- for_stmt: 'for' exprlist 'in' testlist ':' suite ['else' ':' suite] -->
+	<!-- <inherit scheme="for_stmt"/> -->
+<!-- try_stmt: ('try' ':' suite
+           ((except_clause ':' suite)+
+            ['else' ':' suite]
+            ['finally' ':' suite] |
+           'finally' ':' suite)) -->
+	<!-- <inherit scheme="try_stmt"/> -->
+<!-- with_stmt: 'with' with_item (',' with_item)*  ':' suite -->
+	<!-- <inherit scheme="with_stmt"/> -->
+<!-- decorated: decorators (classdef | funcdef | async_funcdef) -->
+	<!-- <inherit scheme="decorated"/> -->
+<!-- async_stmt: ASYNC (funcdef | with_stmt | for_stmt) -->
+	<!-- <inherit scheme="async_stmt"/> -->
 </scheme>
 
 <!-- if_stmt: 'if' test ':' suite ('elif' test ':' suite)* ['else' ':' suite] -->
