@@ -187,9 +187,21 @@ def WriteRst(Filename, Python, HTML):
     Filename.write_text(Code, encoding='utf8')
 
 
-def write_test(ver, group, Syntax, TestData, Filename=None):
+def write_test(ver, group, Syntax, TestData, VerifyData, Filename=None):
     Filename = Filename or hashlib.sha256(Syntax.encode('utf8')).hexdigest()
-    WriteRst(Path(f"{'Pending'}/{ver}/{group}/{Filename}.rst"), Syntax, TestData)
+    Filename = Path(f"{'Pending'}/{ver}/{group}/{Filename}.rst")
+    if TestData != VerifyData:
+        WriteRst(Filename, Syntax, TestData)
+    else:
+        try:
+            Filename.unlink()
+        except FileNotFoundError:
+            pass
+        else:
+            try:
+                Filename.parent.rmdir()
+            except OSError:
+                pass
 
 
 def build_tests():
@@ -224,8 +236,7 @@ def DisplayError(TestData, VerifyData, ver, group, Syntax):
     parser.feed(TestData)
     TestDataColor = ColorerColors.SetAnsiColor('def-Text') + parser.Result + ResetAnsiColor()
 
-    if TestData != VerifyData:
-        write_test(ver, group, Syntax, TestData)
+    write_test(ver, group, Syntax, TestData, VerifyData)
 
     return f"\nReference:\n{VerifyDataColor}\nresult:\n{TestDataColor}"
 
