@@ -28,6 +28,6 @@
                         <span class='python36-Keyword def-Keyword'>pass</span>
             <span class='python36-Keyword def-Keyword'>else</span><span class='python36-Delimiter def-Symbol'>:</span>
                 <span class='python36-Keyword def-Keyword'>pass</span>
-    <span class='python36-Identifier def-Identifier'>if</span> False<span class='python36-Delimiter def-Symbol'>:</span>
+    <span class='python36-Keyword def-Keyword'>if</span> <span class='python36-BooleanConstant def-BooleanConstant def-Constant def-Keyword'>False</span><span class='python36-Delimiter def-Symbol'>:</span>
         <span class='python36-Keyword def-Keyword'>pass</span>
     <span class='python36-Keyword def-Keyword'>else</span><span class='python36-Delimiter def-Symbol'>:</span> <span class='python36-Keyword def-Keyword'>pass</span>

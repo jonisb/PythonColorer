@@ -9,53 +9,30 @@
 	<inherit scheme="classdef"/>
 	<inherit scheme="decorated"/>
 	<inherit scheme="async_stmt"/>
+	<inherit scheme="else_stmt"/>
 </scheme>
 
 <!-- if_stmt: 'if' test ':' suite ('elif' test ':' suite)* ['else' ':' suite] -->
 <scheme name="if_stmt">
-	<block start="/^(%INDENT;*)\M(?{PairStart}if)/" end="/^($|\y1%INDENT;)?!/" scheme="if_block" region10="PairEnd"/>
-	<block start="/^(%INDENT;*)\Melif/" end="/^($|\y1%INDENT;)?!/" scheme="elif_block"/>
-	<block start="/^(%INDENT;*)\Melse/" end="/^($|\y1%INDENT;)?!/" scheme="else_block"/>
+	<block start="/^(%INDENT;*)(?{PairStart}(if))\s*/" end="/\s*(:)/" scheme="test" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
+	<block start="/^(%INDENT;*)(?{PairStart}(elif))\s*/" end="/\s*(:)/" scheme="test" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
 </scheme>
 
-<scheme name="if_block">
-	<block start="/~(if)\s*/" end="/\s*\M:/" scheme="test" region01="Keyword"/>
-	<inherit scheme="suite"/>
-</scheme>
-
-<scheme name="elif_block">
-	<block start="/~(elif)\s*/" end="/\s*\M:/" scheme="test" region01="Keyword"/>
-	<inherit scheme="suite"/>
-</scheme>
-
-<scheme name="else_block">
-	<regexp match="/~(else)\s*\M:/" region1="Keyword"/>
-	<inherit scheme="suite"/>
+<scheme name="else_stmt">
+	<regexp match="/^(%INDENT;*)(else)\s*(:)/" region2="Keyword" region3="Delimiter"/>
 </scheme>
 
 <!-- while_stmt: 'while' test ':' suite ['else' ':' suite] -->
 <scheme name="while_stmt">
-	<block start="/^(%INDENT;*)\M(?{PairStart}while)/" end="/^($|\y1%INDENT;)?!/" scheme="while_block" region10="PairEnd"/>
-	<block start="/^(%INDENT;*)\Melse/" end="/^($|\y1%INDENT;)?!/" scheme="else_block"/>
-</scheme>
-
-<scheme name="while_block">
-	<block start="/~(while)/" end="/\s*\M:/" scheme="test" region01="Keyword"/>
-	<inherit scheme="suite"/>
+	<block start="/^(%INDENT;*)(?{PairStart}(while))\s*/" end="/\s*(:)/" scheme="test" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
 </scheme>
 
 <!-- for_stmt: 'for' exprlist 'in' testlist ':' suite ['else' ':' suite] -->
 <scheme name="for_stmt">
-	<block start="/^(%INDENT;*)\M(?{PairStart}for)/" end="/^($|\y1%INDENT;)?!/" scheme="for_block" region10="PairEnd"/>
-	<block start="/^(%INDENT;*)\Melse/" end="/^($|\y1%INDENT;)?!/" scheme="else_block"/>
+	<block start="/^(%INDENT;*)(?{PairStart}(for))/" end="/\s*(:)/" scheme="for_block" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
 </scheme>
 
 <scheme name="for_block">
-	<block start="/~(for)/" end="/\s*\M:/" scheme="for_block_body" region01="Keyword"/>
-	<inherit scheme="suite"/>
-</scheme>
-
-<scheme name="for_block_body">
 	<block start="/~(for)?#3\s*/" end="/\s*\M\bin\b/" scheme="exprlist"/>
 	<block start="/\b(in)\b\s*/" end="/\s*\M:/" scheme="testlist" region01="Keyword"/>
 </scheme>
@@ -66,45 +43,24 @@
             ['finally' ':' suite] |
            'finally' ':' suite)) -->
 <scheme name="try_stmt">
-	<block start="/^(%INDENT;*)\M(?{PairStart}try)/" end="/^($|\y1%INDENT;)?!/" scheme="try_block" region10="PairEnd"/>
-	<block start="/^(%INDENT;*)\Mexcept/" end="/^($|\y1%INDENT;)?!/" scheme="except_block"/>
-	<block start="/^(%INDENT;*)\Melse/" end="/^($|\y1%INDENT;)?!/" scheme="else_block"/>
-	<block start="/^(%INDENT;*)\Mfinally/" end="/^($|\y1%INDENT;)?!/" scheme="finally_block"/>
-</scheme>
-
-<scheme name="try_block">
-	<regexp match="/~(try)\s*\M:/" region1="Keyword"/>
-	<inherit scheme="suite"/>
+	<regexp match="/^(%INDENT;*)(?{PairStart}(try))\s*(:)/" region2="Keyword" region3="Delimiter"/>
+	<block start="/^(%INDENT;*)\b(?{PairStart}(except))\b\s*/" end="/\s*(:)/" scheme="except_block" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
+	<regexp match="/^(%INDENT;*)(?{PairStart}(finally))\s*(:)/" region2="Keyword" region3="Delimiter"/>
 </scheme>
 
 <!--except_clause: 'except' [test ['as' NAME]]-->
 <scheme name="except_block">
-	<block start="/~(except)\s*/" end="/\s*\M:/" scheme="except_block_body" region01="Keyword"/>
-	<inherit scheme="suite"/>
-</scheme>
-
-<scheme name="except_block_body">
 	<inherit scheme="as_separated">
 		<virtual scheme="def:empty" subst-scheme="test"/>
 	</inherit>
 </scheme>
 
-<scheme name="finally_block">
-	<regexp match="/~(finally)\s*\M:/" region1="Keyword"/>
-	<inherit scheme="suite"/>
-</scheme>
-
 <!-- with_stmt: 'with' with_item (',' with_item)*  ':' suite -->
 <scheme name="with_stmt">
-	<block start="/^(%INDENT;*)\M(?{PairStart}with)/" end="/^($|\y1%INDENT;)?!/" scheme="with_block" region10="PairEnd"/>
+	<block start="/^(%INDENT;*)(?{PairStart}(with))\s*/" end="/\s*(:)/" scheme="with_block" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
 </scheme>
 
 <scheme name="with_block">
-	<block start="/~(with)\s*/" end="/\s*\M:/" scheme="with_block2" region01="Keyword"/>
-	<inherit scheme="suite"/>
-</scheme>
-
-<scheme name="with_block2">
 	<inherit scheme="comma_separated">
 		<virtual scheme="def:empty" subst-scheme="with_item"/>
 	</inherit>
@@ -144,15 +100,10 @@ tfpdef: NAME [':' test]
 -->
 
 <scheme name="funcdef">
-	<block start="/^(%INDENT;*)\b\M((?{PairStart}def))/" end="/^($|\y1%INDENT;)?!/" scheme="def_block" region02="Keyword" region10="PairEnd"/>
+	<block start="/^(%INDENT;*)(?{PairStart}(def))\s*/" end="/\s*(:)/" scheme="funcdef_block" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
 </scheme>
 
-<scheme name="def_block">
-	<block start="/~(def)\s*/" end="/\s*\M:/" scheme="def_block2"/>
-	<inherit scheme="suite"/>
-</scheme>
-
-<scheme name="def_block2">
+<scheme name="funcdef_block">
 	<block start="/\(/" end="/\)/" scheme="typedargslist" region00="Delimiter" region10="Delimiter"/>
 	<inherit scheme="NAME"/>
 </scheme>
@@ -172,19 +123,13 @@ tfpdef: NAME [':' test]
 
 <!-- classdef: 'class' NAME ['(' [arglist] ')'] ':' suite -->
 <scheme name="classdef">
-	<block start="/^(%INDENT;*)\b\M((?{PairStart}class))/" end="/^($|\y1%INDENT;)?!/" scheme="classdef_block" region02="Keyword" region10="PairEnd"/>
+	<block start="/^(%INDENT;*)(?{PairStart}(class))\s*/" end="/\s*(:)/" scheme="classdef_block" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
 </scheme>
 
 <scheme name="classdef_block">
-	<block start="/~(class)\s*/" end="/\s*\M:/" scheme="classdef_block2"/>
-	<inherit scheme="suite"/>
-</scheme>
-
-<scheme name="classdef_block2">
 	<block start="/\(/" end="/\)/" scheme="arglist" region00="Delimiter" region10="Delimiter"/>
 	<inherit scheme="NAME"/>
 </scheme>
-
 
 <!-- decorated: decorators (classdef | funcdef | async_funcdef) -->
 <scheme name="decorated">
@@ -204,8 +149,7 @@ tfpdef: NAME [':' test]
 
 <!-- async_stmt: ASYNC (funcdef | with_stmt | for_stmt) -->
 <scheme name="async_stmt">
-	<block start="/^(%INDENT;*)((?{PairStart}async))\s*\M(def)/" end="/^($|\y1%INDENT;)?!/" scheme="def_block" region02="Keyword" region03="Keyword" region10="PairEnd"/>
-	<block start="/^(%INDENT;*)((?{PairStart}async))\s*\Mwith/" end="/^($|\y1%INDENT;)?!/" scheme="with_block" region02="Keyword" region10="PairEnd"/>
-	<block start="/^(%INDENT;*)((?{PairStart}async))\s*\Mfor/" end="/^($|\y1%INDENT;)?!/" scheme="for_block" region02="Keyword" region10="PairEnd"/>
-	<block start="/^(%INDENT;*)((?{PairStart}async))\s*\Melse/" end="/^($|\y1%INDENT;)?!/" scheme="else_block" region02="Keyword" region10="PairEnd"/>
+	<block start="/^(%INDENT;*)((?{PairStart}async))\s*(def)/" end="/\s*(:)/" scheme="funcdef_block" region02="Keyword" region03="Keyword" region10="PairEnd" region11="Delimiter"/>
+	<block start="/^(%INDENT;*)((?{PairStart}async))\s*(with)/" end="/\s*(:)/" scheme="with_block" region02="Keyword" region03="Keyword" region10="PairEnd" region11="Delimiter"/>
+	<block start="/^(%INDENT;*)((?{PairStart}async))\s*(for)/" end="/\s*(:)/" scheme="for_block" region02="Keyword" region03="Keyword" region10="PairEnd" region11="Delimiter"/>
 </scheme>

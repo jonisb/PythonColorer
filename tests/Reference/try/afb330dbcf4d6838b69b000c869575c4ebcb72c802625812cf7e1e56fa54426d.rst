@@ -1,0 +1,29 @@
+.. code:: python
+    try:
+        try:
+            pass
+        except Exception as something:
+            pass
+        except:
+            pass
+        else:
+            pass
+        finally:
+            pass
+    finally:
+        pass
+
+.. code:: html
+    <span class='python36-Keyword def-Keyword'>try</span><span class='python36-Delimiter def-Symbol'>:</span>
+        <span class='python36-Keyword def-Keyword'>try</span><span class='python36-Delimiter def-Symbol'>:</span>
+            <span class='python36-Keyword def-Keyword'>pass</span>
+        <span class='python36-Keyword def-Keyword'>except</span> <span class='python36-Identifier def-Identifier'>Exception</span> <span class='python36-Keyword def-Keyword'>as</span> <span class='python36-Identifier def-Identifier'>something</span><span class='python36-Delimiter def-Symbol'>:</span>
+            <span class='python36-Keyword def-Keyword'>pass</span>
+        <span class='python36-Keyword def-Keyword'>except</span><span class='python36-Delimiter def-Symbol'>:</span>
+            <span class='python36-Keyword def-Keyword'>pass</span>
+        <span class='python36-Keyword def-Keyword'>else</span><span class='python36-Delimiter def-Symbol'>:</span>
+            <span class='python36-Keyword def-Keyword'>pass</span>
+        <span class='python36-Keyword def-Keyword'>finally</span><span class='python36-Delimiter def-Symbol'>:</span>
+            <span class='python36-Keyword def-Keyword'>pass</span>
+    <span class='python36-Keyword def-Keyword'>finally</span><span class='python36-Delimiter def-Symbol'>:</span>
+        <span class='python36-Keyword def-Keyword'>pass</span>
