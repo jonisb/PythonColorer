@@ -83,7 +83,7 @@
 <!-- simple_stmt: small_stmt (';' small_stmt)* [';'] NEWLINE -->
     <scheme name="simple_stmt">
 		<inherit scheme="COMMENT"/>
-      	<block start="/\s*(;)\s*/" end="/$/" scheme="small_stmt" region01="Delimiter"/>
+      	<block start="/\s*(;)\s*/" end="/$/" scheme="simple_stmt" region01="Delimiter"/>
       	<inherit scheme="small_stmt"/>
     </scheme>
 </type>
