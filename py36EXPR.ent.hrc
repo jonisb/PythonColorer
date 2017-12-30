@@ -219,7 +219,7 @@ testlist_star_expr
 	<block start="/~(?{PairStart}(\[))/" end="/(?{PairEnd}\])/" scheme="testlist_comp" region01="Delimiter" region10="Delimiter"/>
 	<block start="/~(?{PairStart}(\{))/" end="/(?{PairEnd}\})/" scheme="dictorsetmaker" region01="Delimiter" region10="Delimiter"/>
 	<inherit scheme="NUMBER"/>
-	<inherit scheme="STRING"/>
+	<inherit scheme="STRINGS"/>
 	<inherit scheme="Constants"/>
 	<inherit scheme="NAME"/>
 </scheme>
@@ -238,9 +238,13 @@ testlist_star_expr
 </scheme>
 
 <scheme name="yield_expr_testlist_comp">
-	<inherit scheme="STRINGS"/>
-	<inherit scheme="yield_expr"/>
-	<inherit scheme="testlist_comp"/>
+	<inherit scheme="COMMENT"/>
+	<inherit scheme="yield_expr">
+		<virtual scheme="STRINGS" subst-scheme="STRINGSMulti"/>
+	</inherit>
+	<inherit scheme="testlist_comp">
+		<virtual scheme="STRINGS" subst-scheme="STRINGSMulti"/>
+	</inherit>
 </scheme>
 
 <!-- trailer: '(' [arglist] ')' | '[' subscriptlist ']' | '.' NAME -->

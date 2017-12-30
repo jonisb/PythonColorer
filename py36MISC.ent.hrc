@@ -24,11 +24,12 @@
 
 <!-- argument: ( test [comp_for] | test '=' test | '**' test | '*' test ) -->
 <scheme name="argument">
-	<inherit scheme="STRINGS"/>
 	<block start="/\s*(\*\*)\s*/" end="//" scheme="test" region01="Operator"/>
 	<block start="/\s*(\*)\s*/" end="//" scheme="test" region01="Operator"/>
 	<block start="/\s*(=)\s*/" end="//" scheme="test" region01="Delimiter"/>
-	<inherit scheme="test"/>
+	<inherit scheme="test">
+		<virtual scheme="STRINGS" subst-scheme="STRINGSMulti"/>
+	</inherit>
 </scheme>
 
 <!-- dotted_name: NAME ('.' NAME)* -->
