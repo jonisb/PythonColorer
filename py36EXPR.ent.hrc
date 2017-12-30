@@ -1,3 +1,7 @@
+<!-- comp_op: '<'|'>'|'=='|'>='|'<='|'<>'|'!='|'in'|'not' 'in'|'is'|'is' 'not' -->
+<entity name="comp_op" value="([=>!]=|&lt;[>=]?|>|(n\bot\b\s+)?\bin\b|\bis\b(\s+\bnot\b)?)"/>
+<!--augassign: ('+=' | '-=' | '*=' | '@=' | '/=' | '%=' | '&=' | '|=' | '^=' | '<<=' | '>>=' | '**=' | '//=')-->
+<entity name="augassign" value="([-+*@/&#37;&amp;|^]|&lt;&lt;|>>|\*\*|//)(=)"/>
 <entity name="all_symb" value="[-+~*@/;&#37;&lt;>&amp;=|:,.\s!()\{\}\[\]^]"/>
 
 <!-- expr_stmt:
@@ -24,7 +28,7 @@ testlist_star_expr
 -->
 <scheme name="expr_stmt">
 	<block start="/(=)/" end="//" scheme="testlist_star_expr" region01="Delimiter"/>
-	<inherit scheme="augassign"/>
+	<block start="/\s*%augassign;\s*/" end="//" scheme="testlist" region01="Operator" region02="Delimiter"/>
 	<inherit scheme="annassign"/>
 	<inherit scheme="testlist_star_expr"/>
 	<!--<inherit scheme="yield_expr"/>
@@ -46,11 +50,6 @@ testlist_star_expr
     <inherit scheme="comma_separated">
 		<virtual scheme="def:empty" subst-scheme="test_star_expr"/>
 	</inherit>
-</scheme>
-
-<!--augassign: ('+=' | '-=' | '*=' | '@=' | '/=' | '%=' | '&=' | '|=' | '^=' | '<<=' | '>>=' | '**=' | '//=')-->
-<scheme name="augassign">
-	<block start="/\s*([+-*@/%&amp;|^]|&lt;&lt;|>>|\*\*|//)(=)\s*/" end="//" scheme="testlist" region01="Operator" region02="Delimiter"/>
 </scheme>
 
 <!-- PEP 308 : Conditional Expressions: https://www.python.org/dev/peps/pep-0308/ -->
@@ -132,9 +131,6 @@ testlist_star_expr
 	<inherit scheme="comparison"/>
 </scheme>
 
-<!-- comp_op: '<'|'>'|'=='|'>='|'<='|'<>'|'!='|'in'|'not' 'in'|'is'|'is' 'not' -->
-<entity name="comp_op" value="([=>&lt;!]=|&lt;>?|>|(n\bot\b\s+)?\bin\b|\bis\b(\s+\bnot\b)?)"/>
-
 <!-- comparison: expr (comp_op expr)* -->
 <scheme name="comparison">
 	<block start="/\s*(%comp_op;)\s*/" end="//" scheme="expr" region01="Operator"/>
@@ -201,7 +197,6 @@ testlist_star_expr
 
 <!-- atom_expr: [AWAIT] atom trailer* -->
 <scheme name="atom_expr">
-	<!-- <block start="/~\s*/" end="//" scheme="atom"/> -->
 	<block start="/~\s*\M\S/" end="/\M($|%all_symb;)/" scheme="atom"/>
 	<inherit scheme="trailer"/>
 </scheme>
