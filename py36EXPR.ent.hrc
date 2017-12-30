@@ -126,7 +126,7 @@ testlist_star_expr
 
 <!-- not_test: 'not' not_test | comparison -->
 <scheme name="not_test">
-	<block start="/\s*\bnot\b/" end="//" scheme="not_test" region00="Keyword"/>
+	<block start="/\s*\b(not)\b/" end="//" scheme="not_test" region01="Keyword"/>
 	<inherit scheme="comparison"/>
 </scheme>
 
