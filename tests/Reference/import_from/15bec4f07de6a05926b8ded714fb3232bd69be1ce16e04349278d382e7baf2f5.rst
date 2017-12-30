@@ -1,0 +1,5 @@
+.. code:: python
+    from sys import *;from os import *; import pathlib
+
+.. code:: html
+    <span class='python36-Keyword def-Keyword'>from</span> <span class='python36-Identifier def-Identifier'>sys</span> <span class='python36-Keyword def-Keyword'>import</span> <span class='python36-Operator def-Operator def-Symbol'>*</span><span class='python36-Delimiter def-Symbol'>;</span><span class='python36-Keyword def-Keyword'>from</span> <span class='python36-Identifier def-Identifier'>os</span> <span class='python36-Keyword def-Keyword'>import</span> <span class='python36-Operator def-Operator def-Symbol'>*</span><span class='python36-Delimiter def-Symbol'>;</span> <span class='python36-Keyword def-Keyword'>import</span> <span class='python36-Identifier def-Identifier'>pathlib</span>
