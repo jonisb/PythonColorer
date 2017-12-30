@@ -62,14 +62,14 @@
     </scheme>
 
 	<scheme name="code_body">
-		<block start="//" end="//" scheme="single_input"/>
+		<block start="/^/" end="/%code_end;/" scheme="single_input"/>
 	</scheme>
 
 <!-- single_input: NEWLINE | simple_stmt | compound_stmt NEWLINE -->
 	<scheme name="single_input">
 		<inherit scheme="COMMENT"/>
 		<inherit scheme="compound_stmt"/>
-      	<inherit scheme="simple_stmt"/>
+      	<block start="/(^|(:)?#1)\s*($)?!/" end="/$/" scheme="simple_stmt"/>
 		<inherit scheme="Error"/>
 	</scheme>
 
