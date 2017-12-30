@@ -246,7 +246,7 @@ class MyHTMLParser(HTMLParser):
                 break
 
     def handle_endtag(self, tag):
-        pass
+        self.Result += ColorerColors.SetAnsiColor('def-Text')
 
     def handle_data(self, data):
         self.Result += data
