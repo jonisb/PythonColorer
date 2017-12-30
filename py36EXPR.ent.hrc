@@ -27,12 +27,20 @@ testlist_star_expr
 )
 -->
 <scheme name="expr_stmt">
-	<block start="/(=)/" end="//" scheme="testlist_star_expr" region01="Delimiter"/>
-	<block start="/\s*%augassign;\s*/" end="//" scheme="testlist" region01="Operator" region02="Delimiter"/>
+	<block start="/(=)/" end="//" scheme="yield_expr_testlist_star_expr" region01="Delimiter"/>
+	<block start="/\s*%augassign;\s*/" end="//" scheme="yield_expr_testlist" region01="Operator" region02="Delimiter"/>
 	<inherit scheme="annassign"/>
 	<inherit scheme="testlist_star_expr"/>
-	<!--<inherit scheme="yield_expr"/>
-	<inherit scheme="testlist"/>-->
+</scheme>
+
+<scheme name="yield_expr_testlist">
+	<inherit scheme="yield_expr"/>
+	<inherit scheme="testlist"/>
+</scheme>
+
+<scheme name="yield_expr_testlist_star_expr">
+	<inherit scheme="yield_expr"/>
+	<inherit scheme="testlist_star_expr"/>
 </scheme>
 
 <!--annassign: ':' test ['=' test]-->
