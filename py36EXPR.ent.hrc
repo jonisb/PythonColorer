@@ -63,6 +63,7 @@ testlist_star_expr
 <!-- PEP 308 : Conditional Expressions: https://www.python.org/dev/peps/pep-0308/ -->
 <!-- test: or_test ['if' or_test 'else' test] | lambdef -->
 <scheme name="test">
+	<regexp match="/\\$/" region="StringEscape"/>
 	<block start="/(if)/" end="//" scheme="if_body" region01="Keyword"/>
 	<inherit scheme="lambdef"/>
 	<inherit scheme="or_test"/>
