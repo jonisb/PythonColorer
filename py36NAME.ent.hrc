@@ -1,4 +1,5 @@
 <region name="Identifier" parent="def:Identifier"/>
+<region name="BuiltinFunctions" parent="def:FunctionKeyword"/>
 
 <region name="Constant" parent="def:Constant"/>
 <region name="BooleanConstant" parent="def:BooleanConstant"/>
@@ -12,6 +13,7 @@ A non-normative HTML file listing all valid identifier characters for Unicode 4.
 
 <scheme name="NAME">
 	<inherit scheme="Constants"/>
+	<inherit scheme="BuiltinFunctions"/>
 	<regexp match="/%identifier;/"/>
 </scheme>
 
@@ -30,5 +32,78 @@ A non-normative HTML file listing all valid identifier characters for Unicode 4.
 		<symb name="..."/>
 		<word name="False" region="BooleanConstant"/>
 		<word name="True" region="BooleanConstant"/>
+	</keywords>
+</scheme>
+
+<scheme name="BuiltinFunctions">
+	<keywords ignorecase="no" region="BuiltinFunctions" priority="normal">
+		<word name="abs"/>
+		<word name="all"/>
+		<word name="any"/>
+		<word name="ascii"/>
+		<word name="bin"/>
+		<word name="bool"/>
+		<word name="bytearray"/>
+		<word name="bytes"/>
+		<word name="callable"/>
+		<word name="chr"/>
+		<word name="classmethod"/>
+		<word name="compile"/>
+		<word name="complex"/>
+		<word name="delattr"/>
+		<word name="dict"/>
+		<word name="dir"/>
+		<word name="divmod"/>
+		<word name="enumerate"/>
+		<word name="eval"/>
+		<word name="exec"/>
+		<word name="filter"/>
+		<word name="float"/>
+		<word name="format"/>
+		<word name="frozenset"/>
+		<word name="getattr"/>
+		<word name="globals"/>
+		<word name="hasattr"/>
+		<word name="hash"/>
+		<word name="help"/>
+		<word name="hex"/>
+		<word name="id"/>
+		<word name="import__"/>
+		<word name="input"/>
+		<word name="int"/>
+		<word name="isinstance"/>
+		<word name="issubclass"/>
+		<word name="iter"/>
+		<word name="len"/>
+		<word name="list"/>
+		<word name="locals"/>
+		<word name="map"/>
+		<word name="max"/>
+		<word name="memoryview"/>
+		<word name="min"/>
+		<word name="next"/>
+		<word name="object"/>
+		<word name="oct"/>
+		<word name="open"/>
+		<word name="ord"/>
+		<word name="pow"/>
+		<word name="print"/>
+		<word name="property"/>
+		<word name="range"/>
+		<word name="repr"/>
+		<word name="reversed"/>
+		<word name="round"/>
+		<word name="set"/>
+		<word name="setattr"/>
+		<word name="slice"/>
+		<word name="sorted"/>
+		<word name="staticmethod"/>
+		<word name="str"/>
+		<word name="sum"/>
+		<word name="super"/>
+		<word name="tuple"/>
+		<word name="type"/>
+		<word name="vars"/>
+		<word name="zip"/>
 	</keywords>
 </scheme>
