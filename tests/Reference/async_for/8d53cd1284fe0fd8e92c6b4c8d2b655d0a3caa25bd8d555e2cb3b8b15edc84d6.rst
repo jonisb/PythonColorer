@@ -1,0 +1,11 @@
+.. code:: python
+    async for TARGET in ITER:
+        BLOCK
+    else:
+        BLOCK2
+
+.. code:: html
+    <span class='python36-Keyword def-Keyword'>async</span> <span class='python36-Keyword def-Keyword'>for</span> <span class='python36-Identifier def-Identifier'>TARGET</span> <span class='python36-Keyword def-Keyword'>in</span> <span class='python36-Identifier def-Identifier'>ITER</span><span class='python36-Delimiter def-Symbol'>:</span>
+        <span class='python36-Identifier def-Identifier'>BLOCK</span>
+    <span class='python36-Keyword def-Keyword'>else</span><span class='python36-Delimiter def-Symbol'>:</span>
+        <span class='python36-Identifier def-Identifier'>BLOCK2</span>

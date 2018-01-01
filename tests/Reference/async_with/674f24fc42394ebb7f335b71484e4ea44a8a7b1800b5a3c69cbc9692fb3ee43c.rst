@@ -1,0 +1,7 @@
+.. code:: python
+    async with EXPR as VAR:
+        BLOCK
+
+.. code:: html
+    <span class='python36-Keyword def-Keyword'>async</span> <span class='python36-Keyword def-Keyword'>with</span> <span class='python36-Identifier def-Identifier'>EXPR</span> <span class='python36-Keyword def-Keyword'>as</span> <span class='python36-Identifier def-Identifier'>VAR</span><span class='python36-Delimiter def-Symbol'>:</span>
+        <span class='python36-Identifier def-Identifier'>BLOCK</span>
