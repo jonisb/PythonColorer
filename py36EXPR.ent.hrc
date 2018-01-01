@@ -227,6 +227,9 @@ testlist_star_expr
 	<block start="/~(?{PairStart}(\{))/" end="/(?{PairEnd}\})/" scheme="dictorsetmaker" region01="Delimiter" region10="Delimiter"/>
 	<inherit scheme="NUMBER"/>
 	<inherit scheme="STRINGS"/>
+	<inherit scheme="Constants"/>
+	<inherit scheme="BuiltinFunctions"/>
+	<inherit scheme="BuiltinExceptions"/>
 	<inherit scheme="NAME"/>
 	<inherit scheme="Error"/>
 </scheme>

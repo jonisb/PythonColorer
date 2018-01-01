@@ -13,9 +13,6 @@ A non-normative HTML file listing all valid identifier characters for Unicode 4.
 <entity name="identifier" value="(?{Identifier}[%id_start;][%id_continue;]*)"/>
 
 <scheme name="NAME">
-	<inherit scheme="Constants"/>
-	<inherit scheme="BuiltinFunctions"/>
-	<inherit scheme="BuiltinExceptions"/>
 	<regexp match="/%identifier;/"/>
 </scheme>
 
