@@ -1,5 +1,6 @@
 <region name="Identifier" parent="def:Identifier"/>
 <region name="BuiltinFunction" parent="def:FunctionKeyword"/>
+<region name="BuiltinException" parent="def:Var"/>
 
 <region name="Constant" parent="def:Constant"/>
 <region name="BooleanConstant" parent="def:BooleanConstant"/>
@@ -14,6 +15,7 @@ A non-normative HTML file listing all valid identifier characters for Unicode 4.
 <scheme name="NAME">
 	<inherit scheme="Constants"/>
 	<inherit scheme="BuiltinFunctions"/>
+	<inherit scheme="BuiltinExceptions"/>
 	<regexp match="/%identifier;/"/>
 </scheme>
 
@@ -105,5 +107,85 @@ A non-normative HTML file listing all valid identifier characters for Unicode 4.
 		<word name="type"/>
 		<word name="vars"/>
 		<word name="zip"/>
+	</keywords>
+</scheme>
+
+<scheme name="BuiltinExceptions">
+	<keywords ignorecase="no" region="BuiltinException" priority="normal">
+		<!-- Predefined exceptions -->
+		<word name="BaseException"/>
+		<word name="Exception"/>
+		<word name="StopAsyncIteration"/>
+		<word name="StopIteration"/>
+		<word name="GeneratorExit"/>
+		<word name="ArithmeticError"/>
+		<word name="LookupError"/>
+
+		<word name="AssertionError"/>
+		<word name="AttributeError"/>
+		<word name="BufferError"/>
+		<word name="EOFError"/>
+		<word name="FloatingPointError"/>
+		<word name="OSError"/>
+		<word name="ImportError"/>
+		<word name="ModuleNotFoundError"/>
+		<word name="IndexError"/>
+		<word name="KeyError"/>
+		<word name="KeyboardInterrupt"/>
+		<word name="MemoryError"/>
+		<word name="NameError"/>
+		<word name="OverflowError"/>
+		<word name="RuntimeError"/>
+		<word name="RecursionError"/>
+		<word name="NotImplementedError"/>
+		<word name="SyntaxError"/>
+		<word name="IndentationError"/>
+		<word name="TabError"/>
+		<word name="ReferenceError"/>
+		<word name="SystemError"/>
+		<word name="SystemExit"/>
+		<word name="TypeError"/>
+		<word name="UnboundLocalError"/>
+		<word name="UnicodeError"/>
+		<word name="UnicodeEncodeError"/>
+		<word name="UnicodeDecodeError"/>
+		<word name="UnicodeTranslateError"/>
+		<word name="ValueError"/>
+		<word name="ZeroDivisionError"/>
+
+		<word name="BlockingIOError"/>
+		<word name="BrokenPipeError"/>
+		<word name="ChildProcessError"/>
+		<word name="ConnectionError"/>
+		<word name="ConnectionAbortedError"/>
+		<word name="ConnectionRefusedError"/>
+		<word name="ConnectionResetError"/>
+		<word name="FileExistsError"/>
+		<word name="FileNotFoundError"/>
+		<word name="InterruptedError"/>
+		<word name="IsADirectoryError"/>
+		<word name="NotADirectoryError"/>
+		<word name="PermissionError"/>
+		<word name="ProcessLookupError"/>
+		<word name="TimeoutError"/>
+
+		<!-- Compatibility aliases -->
+		<word name="EnvironmentError"/>
+		<word name="IOError"/>
+		<word name="WindowsError"/>
+		<word name="RecursionErrorInst"/>
+
+		<!-- Predefined warning categories -->
+		<word name="Warning"/>
+		<word name="UserWarning"/>
+		<word name="DeprecationWarning"/>
+		<word name="PendingDeprecationWarning"/>
+		<word name="SyntaxWarning"/>
+		<word name="RuntimeWarning"/>
+		<word name="FutureWarning"/>
+		<word name="ImportWarning"/>
+		<word name="UnicodeWarning"/>
+		<word name="BytesWarning"/>
+		<word name="ResourceWarning"/>
 	</keywords>
 </scheme>

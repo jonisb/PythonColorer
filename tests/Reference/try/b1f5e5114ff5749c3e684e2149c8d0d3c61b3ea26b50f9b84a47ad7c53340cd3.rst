@@ -7,5 +7,5 @@
 .. code:: html
     <span class='python36-Keyword def-Keyword'>try</span><span class='python36-Delimiter def-Symbol'>:</span>
         <span class='python36-Keyword def-Keyword'>pass</span>
-    <span class='python36-Keyword def-Keyword'>except</span> <span class='python36-Identifier def-Identifier'>Exception</span><span class='python36-Delimiter def-Symbol'>:</span>
+    <span class='python36-Keyword def-Keyword'>except</span> <span class='python36-BuiltinException def-Var'>Exception</span><span class='python36-Delimiter def-Symbol'>:</span>
         <span class='python36-Keyword def-Keyword'>pass</span>
