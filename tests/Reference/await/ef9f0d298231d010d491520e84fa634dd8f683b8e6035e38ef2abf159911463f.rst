@@ -1,0 +1,5 @@
+.. code:: python
+    await test
+
+.. code:: html
+    <span class='python36-Keyword def-Keyword'>await</span> <span class='python36-Identifier def-Identifier'>test</span>

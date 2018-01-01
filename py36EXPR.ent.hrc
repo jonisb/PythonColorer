@@ -206,7 +206,7 @@ testlist_star_expr
 
 <!-- atom_expr: [AWAIT] atom trailer* -->
 <scheme name="atom_expr">
-	<block start="/~\s*\M\S/" end="/\M($|%all_symb;)/" scheme="atom"/>
+	<block start="/~\s*(?{Keyword}await)?\s*\M\S/" end="/\M($|%all_symb;)/" scheme="atom"/>
 	<inherit scheme="trailer"/>
 </scheme>
 
