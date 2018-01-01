@@ -1,5 +1,5 @@
 <region name="Identifier" parent="def:Identifier"/>
-<region name="BuiltinFunctions" parent="def:FunctionKeyword"/>
+<region name="BuiltinFunction" parent="def:FunctionKeyword"/>
 
 <region name="Constant" parent="def:Constant"/>
 <region name="BooleanConstant" parent="def:BooleanConstant"/>
@@ -36,7 +36,7 @@ A non-normative HTML file listing all valid identifier characters for Unicode 4.
 </scheme>
 
 <scheme name="BuiltinFunctions">
-	<keywords ignorecase="no" region="BuiltinFunctions" priority="normal">
+	<keywords ignorecase="no" region="BuiltinFunction" priority="normal">
 		<word name="abs"/>
 		<word name="all"/>
 		<word name="any"/>
