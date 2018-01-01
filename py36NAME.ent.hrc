@@ -1,5 +1,8 @@
 <region name="Identifier" parent="def:Identifier"/>
 
+<region name="Constant" parent="def:Constant"/>
+<region name="BooleanConstant" parent="def:BooleanConstant"/>
+
 <!--
 A non-normative HTML file listing all valid identifier characters for Unicode 4.1 can be found at https://www.dcl.hpi.uni-potsdam.de/home/loewis/table-3131.html.
  -->
@@ -8,6 +11,7 @@ A non-normative HTML file listing all valid identifier characters for Unicode 4.
 <entity name="identifier" value="(?{Identifier}[%id_start;][%id_continue;]*)"/>
 
 <scheme name="NAME">
+	<inherit scheme="Constants"/>
 	<regexp match="/%identifier;/"/>
 </scheme>
 
@@ -15,4 +19,16 @@ A non-normative HTML file listing all valid identifier characters for Unicode 4.
 	<inherit scheme="comma_separated">
 		<virtual scheme="def:empty" subst-scheme="NAME"/>
 	</inherit>
+</scheme>
+
+<scheme name="Constants">
+	<keywords ignorecase="no" region="Constant" priority="normal">
+		<word name="NotImplemented"/>
+		<word name="__debug__"/>
+		<word name="None"/>
+		<word name="Ellipsis"/>
+		<symb name="..."/>
+		<word name="False" region="BooleanConstant"/>
+		<word name="True" region="BooleanConstant"/>
+	</keywords>
 </scheme>
