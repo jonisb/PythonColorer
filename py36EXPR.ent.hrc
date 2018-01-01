@@ -255,7 +255,7 @@ testlist_star_expr
 <!-- trailer: '(' [arglist] ')' | '[' subscriptlist ']' | '.' NAME -->
 <scheme name="trailer">
 	<block start="/\\$/" end="/^\s*/" scheme="def:empty"/>
-	<block start="/\.\b/" end="//" scheme="NAME" region00="Delimiter"/>
+	<block start="/\.\b/" end="/\M($|%all_symb;)/" scheme="NAME" region00="Delimiter"/>
 	<block start="/\s*(?{PairStart}(\())/" end="/(?{PairEnd}\))/" scheme="arglist" region01="Delimiter" region10="Delimiter"/>
 	<block start="/\s*(?{PairStart}(\[))/" end="/(?{PairEnd}\])/" scheme="subscriptlist" region01="Delimiter" region10="Delimiter"/>
 </scheme>

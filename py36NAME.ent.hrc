@@ -1,4 +1,5 @@
 <region name="Identifier" parent="def:Identifier"/>
+<region name="Special_Identifier" parent="def:Var"/>
 <region name="BuiltinFunction" parent="def:FunctionKeyword"/>
 <region name="BuiltinException" parent="def:Var"/>
 
@@ -13,6 +14,7 @@ A non-normative HTML file listing all valid identifier characters for Unicode 4.
 <entity name="identifier" value="(?{Identifier}[%id_start;][%id_continue;]*)"/>
 
 <scheme name="NAME">
+	<inherit scheme="Special_Identifiers"/>
 	<regexp match="/%identifier;/"/>
 </scheme>
 
@@ -31,6 +33,164 @@ A non-normative HTML file listing all valid identifier characters for Unicode 4.
 		<symb name="..."/>
 		<word name="False" region="BooleanConstant"/>
 		<word name="True" region="BooleanConstant"/>
+	</keywords>
+</scheme>
+
+<scheme name="Special_Identifiers">
+	<keywords ignorecase="no" region="Special_Identifier" priority="normal">
+	 	<!-- Iterator Types -->
+		<word name="__iter__"/>
+		<!-- Methods -->
+		<word name="self"/>
+		<!-- Special Attributes -->
+		<word name="__class__"/>
+		<word name="__bases__"/>
+		<word name="__mro__"/>
+		<word name="__subclasses__"/>
+		<!-- Callable types - User-defined functions https://docs.python.org/3/reference/datamodel.html#the-standard-type-hierarchy -->
+		<word name="__doc__"/>
+		<word name="__name__"/>
+		<word name="__qualname__"/>
+		<word name="__module__"/>
+		<word name="__defaults__"/>
+		<word name="__code__"/>
+		<word name="__globals__"/>
+		<word name="__dict__"/>
+		<word name="__closure__"/>
+		<word name="__annotations__"/>
+		<word name="__kwdefaults__"/>
+		<!-- Callable types - Instance methods -->
+		<word name="__self__"/>
+		<word name="__func__"/>
+		<!-- Callable types - Generator functions -->
+		<word name="__next__"/>
+		<!-- Callable types - Classes -->
+		<word name="__new__"/>
+		<word name="__init__"/>
+		<!-- Modules -->
+		<word name="__file__"/>
+		<!-- Class instances -->
+		<word name="__getattr__"/>
+		<word name="__setattr__"/>
+		<word name="__delattr__"/>
+		<!-- I/O objects -->
+		<word name="stdin"/>
+		<word name="stdout"/>
+		<word name="stderr"/>
+		<!-- Basic customization https://docs.python.org/3/reference/datamodel.html#basic-customization -->
+		<word name="__new__"/>
+		<word name="__init__"/>
+		<word name="__del__"/>
+		<word name="__repr__"/>
+		<word name="__str__"/>
+		<word name="__bytes__"/>
+		<word name="__format__"/>
+		<word name="__lt__"/>
+		<word name="__le__"/>
+		<word name="__eq__"/>
+		<word name="__ne__"/>
+		<word name="__gt__"/>
+		<word name="__ge__"/>
+		<word name="__hash__"/>
+		<word name="__bool__"/>
+		<!-- Customizing attribute access https://docs.python.org/3/reference/datamodel.html#customizing-attribute-access -->
+		<word name="__getattr__"/>
+		<word name="__getattribute__"/>
+		<word name="__setattr__"/>
+		<word name="__delattr__"/>
+		<word name="__dir__"/>
+		<!-- Implementing Descriptors https://docs.python.org/3/reference/datamodel.html#invoking-descriptors -->
+		<word name="__get__"/>
+		<word name="__set__"/>
+		<word name="__delete__"/>
+		<word name="__set_name__"/>
+		<!-- __slots__ https://docs.python.org/3/reference/datamodel.html#slots -->
+		<word name="__slots__"/>
+		<!-- Customizing class creation https://docs.python.org/3/reference/datamodel.html#customizing-class-creation -->
+		<word name="__init_subclass__"/>
+		<!-- Preparing the class namespace https://docs.python.org/3/reference/datamodel.html#preparing-the-class-namespace -->
+		<word name="__prepare__"/>
+		<!-- Creating the class object https://docs.python.org/3/reference/datamodel.html#creating-the-class-object -->
+		<word name="__classcell__"/>
+		<!-- Customizing instance and subclass checks https://docs.python.org/3/reference/datamodel.html#customizing-instance-and-subclass-checks -->
+		<word name="__instancecheck__"/>
+		<word name="__subclasscheck__"/>
+		<!-- Emulating callable objects https://docs.python.org/3/reference/datamodel.html#emulating-callable-objects -->
+		<word name="__call__"/>
+		<!-- Emulating container types -->
+		<word name="__len__"/>
+		<word name="__length_hint__"/>
+		<word name="__getitem__"/>
+		<word name="__missing__"/>
+		<word name="__setitem__"/>
+		<word name="__delitem__"/>
+		<word name="__iter__"/>
+		<word name="__reversed__"/>
+		<word name="__contains__"/>
+		<!-- Emulating numeric types -->
+		<word name="__add__"/>
+		<word name="__sub__"/>
+		<word name="__mul__"/>
+		<word name="__matmul__"/>
+		<word name="__truediv__"/>
+		<word name="__floordiv__"/>
+		<word name="__mod__"/>
+		<word name="__divmod__"/>
+		<word name="__pow__"/>
+		<word name="__lshift__"/>
+		<word name="__rshift__"/>
+		<word name="__and__"/>
+		<word name="__xor__"/>
+		<word name="__or__"/>
+		<word name="__radd__"/>
+		<word name="__rsub__"/>
+		<word name="__rmul__"/>
+		<word name="__rmatmul__"/>
+		<word name="__rtruediv__"/>
+		<word name="__rfloordiv__"/>
+		<word name="__rmod__"/>
+		<word name="__rdivmod__"/>
+		<word name="__rpow__"/>
+		<word name="__rlshift__"/>
+		<word name="__rrshift__"/>
+		<word name="__rand__"/>
+		<word name="__rxor__"/>
+		<word name="__ror__"/>
+		<word name="__iadd__"/>
+		<word name="__isub__"/>
+		<word name="__imul__"/>
+		<word name="__imatmul__"/>
+		<word name="__itruediv__"/>
+		<word name="__ifloordiv__"/>
+		<word name="__imod__"/>
+		<word name="__ipow__"/>
+		<word name="__ilshift__"/>
+		<word name="__irshift__"/>
+		<word name="__iand__"/>
+		<word name="__ixor__"/>
+		<word name="__ior__"/>
+		<word name="__neg__"/>
+		<word name="__pos__"/>
+		<word name="__abs__"/>
+		<word name="__invert__"/>
+		<word name="__complex__"/>
+		<word name="__int__"/>
+		<word name="__float__"/>
+		<word name="__round__"/>
+		<word name="__index__"/>
+		<!-- With Statement Context Managers -->
+		<word name="__enter__"/>
+		<word name="__exit__"/>
+		<!-- Coroutines - Awaitable Objects -->
+		<word name="__await__"/>
+		<!-- Coroutines - Asynchronous Iterators -->
+		<word name="__aiter__"/>
+		<word name="__anext__"/>
+		<!-- Coroutines - Asynchronous Context Managers -->
+		<word name="__aenter__"/>
+		<word name="__aexit__"/>
+
+		<word name="__weakref__"/>
 	</keywords>
 </scheme>
 
