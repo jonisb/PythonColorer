@@ -347,7 +347,7 @@ testlist_star_expr
 
 <!-- comp_for: [ASYNC] 'for' exprlist 'in' or_test [comp_iter] -->
 <scheme name="comp_for">
-	<block start="/\s*(for)/" end="//" scheme="comp_for_body" region01="Keyword"/>
+	<block start="/\s*(?{Keyword}async)?\s*(for)/" end="//" scheme="comp_for_body" region01="Keyword"/>
 </scheme>
 
 <scheme name="comp_for_body">
