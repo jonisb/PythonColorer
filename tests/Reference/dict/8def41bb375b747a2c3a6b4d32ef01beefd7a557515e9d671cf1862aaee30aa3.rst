@@ -1,0 +1,5 @@
+.. code:: python
+    {"Ha": 100, 666: "Hi"}
+
+.. code:: html
+    <span class='python36-Delimiter def-Symbol'>{</span><span class='python36-StringEdge def-StringEdge def-String'>"</span><span class='python36-String def-String'>Ha</span><span class='python36-StringEdge def-StringEdge def-String'>"</span><span class='python36-Delimiter def-Symbol'>:</span> <span class='python36-NumberDec def-NumberDec def-Number'>100</span><span class='python36-Delimiter def-Symbol'>,</span> <span class='python36-NumberDec def-NumberDec def-Number'>666</span><span class='python36-Delimiter def-Symbol'>:</span> <span class='python36-StringEdge def-StringEdge def-String'>"</span><span class='python36-String def-String'>Hi</span><span class='python36-StringEdge def-StringEdge def-String'>"</span><span class='python36-Delimiter def-Symbol'>}</span>

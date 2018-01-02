@@ -1,0 +1,35 @@
+<region name="NumberPrefix" parent="def:NumberPrefix" description="Number Prefix"/>
+<region name="NumberDec" parent="def:NumberDec" description="Decimal Number"/>
+<region name="NumberHex" parent="def:NumberHex" description="Hexadecimal Number"/>
+<region name="NumberBin" parent="def:NumberBin" description="Binary Number"/>
+<region name="NumberOct" parent="def:NumberOct" description="Octal Number"/>
+
+<entity name="digit" value="\d"/>
+<entity name="hexdigit" value="[%digit;a-fA-F]"/>
+<entity name="bindigit" value="[01]"/>
+<entity name="octdigit" value="[0-7]"/>
+<entity name="nonzerodigit" value="[1-9]"/>
+<entity name="bininteger" value="(?{NumberPrefix}0[bB])(?{NumberBin}(?:_?%bindigit;)+)"/>
+<entity name="hexinteger" value="(?{NumberPrefix}0[xX])(?{NumberHex}(?:_?%hexdigit;)+)"/>
+<entity name="octinteger" value="(?{NumberPrefix}0[oO]?)(?{NumberOct}(?:_?%octdigit;)+)"/>
+<entity name="decimalinteger" value="(?{NumberDec}%nonzerodigit;(?:_?%digit;)*|_?0)"/>
+<entity name="integer" value="(%hexinteger;)|(%bininteger;)|(%octinteger;)|(%decimalinteger;)"/>
+
+<region name="NumberSuffix" parent="def:NumberSuffix" description="Number Suffix"/>
+<region name="NumberExponent" parent="def:NumberSuffix" description="Number Exponent"/>
+<region name="NumberFloat" parent="def:NumberFloat" description="Float Number"/>
+<region name="NumberImaginary" parent="def:NumberFloat" description="Imaginary Number"/>
+
+<entity name="exponent" value="(?{NumberExponent}[eE])(?{Operator}[+\-]?)%digit;+"/>
+<entity name="fraction" value="\.%digit;+"/>
+<entity name="intpart" value="%digit;+"/>
+<entity name="pointfloat" value="(%intpart;)?%fraction;|%intpart;\."/>
+<entity name="exponentfloat" value="((%pointfloat;)|%intpart;)%exponent;"/>
+<entity name="floatnumber" value="%exponentfloat;|%pointfloat;"/>
+<entity name="imagnumber" value="(?{NumberImaginary}%floatnumber;|%intpart;)(?{NumberSuffix}[jJ])"/>
+
+<scheme name="NUMBER">
+	<regexp match="/%imagnumber;/"/>
+	<regexp match="/(?{NumberFloat}%floatnumber;)/"/>
+	<regexp match="/\b(?:%integer;)\b/"/>
+</scheme>

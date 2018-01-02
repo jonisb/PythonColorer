@@ -1,0 +1,5 @@
+.. code:: python
+    while True: pass
+
+.. code:: html
+    <span class='python36-Keyword def-Keyword'>while</span> <span class='python36-BooleanConstant def-BooleanConstant def-Constant def-Keyword'>True</span><span class='python36-Delimiter def-Symbol'>:</span> <span class='python36-Keyword def-Keyword'>pass</span>

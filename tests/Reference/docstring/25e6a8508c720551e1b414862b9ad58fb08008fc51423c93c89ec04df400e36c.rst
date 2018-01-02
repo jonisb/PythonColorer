@@ -1,0 +1,11 @@
+.. code:: python
+    #! python3
+    # -*- coding: utf-8 -*-
+    """ Test """
+    """ Test """
+
+.. code:: html
+    <span class='python36-DirectiveEdge def-DirectiveEdge def-DirectiveContent def-Directive'>#!</span><span class='python36-Directive def-Directive'> </span><span class='python36-DirectiveContent def-DirectiveContent def-Directive'>python3</span>
+    <span class='python36-CommentEdge def-CommentEdge def-Comment def-Syntax'>#</span><span class='python36-LineComment def-LineComment def-Comment def-Syntax'> -*- </span><span class='python36-Keyword def-Keyword'>coding</span><span class='python36-Delimiter def-Symbol'>:</span><span class='python36-LineComment def-LineComment def-Comment def-Syntax'> </span><span class='python36-Parameter def-Parameter'>utf-8</span><span class='python36-LineComment def-LineComment def-Comment def-Syntax'> -*-</span>
+    <span class='python36-CommentDocEdge def-CommentDocEdge def-CommentDoc def-Comment def-Syntax'>"""</span><span class='python36-CommentDoc def-CommentDoc def-Comment def-Syntax'> Test </span><span class='python36-CommentDocEdge def-CommentDocEdge def-CommentDoc def-Comment def-Syntax'>"""</span>
+    <span class='python36-CommentEdge def-CommentEdge def-Comment def-Syntax'>"""</span><span class='python36-Comment def-Comment def-Syntax'> Test </span><span class='python36-CommentEdge def-CommentEdge def-Comment def-Syntax'>"""</span>

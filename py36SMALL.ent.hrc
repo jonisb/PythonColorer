@@ -1,0 +1,158 @@
+<!-- small_stmt: (expr_stmt | del_stmt | pass_stmt | flow_stmt |
+             import_stmt | global_stmt | nonlocal_stmt | assert_stmt) -->
+<scheme name="small_stmt">
+	<inherit scheme="del_stmt"/>
+	<inherit scheme="pass_stmt"/>
+	<inherit scheme="flow_stmt"/>
+	<inherit scheme="import_stmt"/>
+	<inherit scheme="global_stmt"/>
+	<inherit scheme="nonlocal_stmt"/>
+	<inherit scheme="assert_stmt"/>
+	<inherit scheme="expr_stmt"/>
+</scheme>
+
+<!-- del_stmt: 'del' exprlist -->
+<scheme name="del_stmt">
+	<block start="/\s*(del)\s*/" end="//" scheme="exprlist" region01="Keyword"/>
+</scheme>
+
+<!-- global_stmt: 'global' NAME (',' NAME)* -->
+<scheme name="global_stmt">
+	<block start="/\s*(global)\s*/" end="//" scheme="NAMElist" region01="Keyword"/>
+</scheme>
+
+<!-- nonlocal_stmt: 'nonlocal' NAME (',' NAME)* -->
+<scheme name="nonlocal_stmt">
+	<block start="/\s*(nonlocal)\s*/" end="//" scheme="NAMElist" region01="Keyword"/>
+</scheme>
+
+<scheme name="pass_stmt">
+	<regexp match="/\s*(pass)/" region1="Keyword"/>
+</scheme>
+
+<!-- assert_stmt: 'assert' test [',' test] -->
+<scheme name="assert_stmt">
+	<block start="/\s*(assert)\s*/" end="//" scheme="testlist" region01="Keyword"/>
+</scheme>
+
+<!-- import_stmt: import_name | import_from -->
+<scheme name="import_stmt">
+	<inherit scheme="import_name"/>
+	<inherit scheme="import_from"/>
+</scheme>
+
+<!-- import_name: 'import' dotted_as_names -->
+<scheme name="import_name">
+	<block start="/\s*(import)\s*/" end="//" scheme="dotted_as_names" region01="Keyword"/>
+</scheme>
+
+<!-- dotted_as_names: dotted_as_name (',' dotted_as_name)* -->
+<scheme name="dotted_as_names">
+	<inherit scheme="comma_separated">
+		<virtual scheme="def:empty" subst-scheme="dotted_as_name"/>
+	</inherit>
+</scheme>
+
+<!-- import_from:
+(
+	'from'
+	(
+		(
+			'.'
+			|
+			'...'
+		)* dotted_name
+		|
+		(
+			'.'
+			|
+			'...'
+		)+
+	)
+	'import'
+	(
+		'*'
+		|
+		'(' import_as_names ')'
+		|
+		import_as_names
+	)
+)
+-->
+<scheme name="import_from">
+	<block start="/\s*(from)/" end="//" scheme="import_from_body" region01="Keyword" region00="PairStart" region10="PairEnd"/>
+</scheme>
+
+<scheme name="import_from_body">
+	<block start="/~(from)?#4\s*/" end="/\s*\Mimport/" scheme="dot_dotted_name"/>
+	<block start="/(import)\s*/" end="//" scheme="import_from_body2" region01="Keyword"/>
+</scheme>
+
+<scheme name="dot_dotted_name">
+	<block start="/~\.+/" end="//" scheme="dotted_name" region00="Delimiter"/>
+	<inherit scheme="dotted_name"/>
+</scheme>
+
+<scheme name="import_from_body2">
+	<regexp match="/~\*/" region="Operator"/>
+	<block start="/~((?{PairStart}\())\s*/" end="/\s*((?{PairEnd}\)))/" scheme="import_as_names" region01="Delimiter" region11="Delimiter" content-priority="low"/>
+	<inherit scheme="import_as_names"/>
+</scheme>
+
+<!-- import_as_names: import_as_name (',' import_as_name)* [','] -->
+<scheme name="import_as_names">
+	<inherit scheme="comma_separated">
+		<virtual scheme="def:empty" subst-scheme="import_as_name"/>
+	</inherit>
+</scheme>
+
+<!-- import_as_name: NAME ['as' NAME] -->
+<scheme name="import_as_name">
+	<inherit scheme="as_separated">
+		<virtual scheme="def:empty" subst-scheme="NAME"/>
+	</inherit>
+</scheme>
+
+<!-- flow_stmt: break_stmt | continue_stmt | return_stmt | raise_stmt | yield_stmt -->
+<scheme name="flow_stmt">
+	<inherit scheme="break_stmt"/>
+	<inherit scheme="continue_stmt"/>
+	<inherit scheme="return_stmt"/>
+	<inherit scheme="raise_stmt"/>
+	<inherit scheme="yield_stmt"/>
+</scheme>
+
+<!-- break_stmt: 'break' -->
+<scheme name="break_stmt">
+	<regexp match="/\s*(break)/" region1="Keyword"/>
+</scheme>
+
+<!-- continue_stmt: 'continue' -->
+<scheme name="continue_stmt">
+	<regexp match="/\s*(continue)/" region1="Keyword"/>
+</scheme>
+
+<!-- return_stmt: 'return' [testlist] -->
+<scheme name="return_stmt">
+	<block start="/\s*(return)\s*/" end="//" scheme="testlist" region01="Keyword"/>
+</scheme>
+
+<!-- yield_stmt: yield_expr -->
+<scheme name="yield_stmt">
+	<inherit scheme="yield_expr"/>
+</scheme>
+
+<!-- raise_stmt: 'raise' [test ['from' test]] -->
+<scheme name="raise_stmt">
+	<block start="/\s*(raise)\s*/" end="//" scheme="raise_stmt_body" region01="Keyword"/>
+</scheme>
+
+<scheme name="raise_stmt_body">
+	<block start="/\s*(from)\s*/" end="//" scheme="raise_stmt_body2" region01="Keyword"/>
+	<inherit scheme="test"/>
+</scheme>
+
+<scheme name="raise_stmt_body2">
+	<regexp match="/\s*(from)\s*/" region1="def:Error"/>
+	<inherit scheme="test"/>
+</scheme>

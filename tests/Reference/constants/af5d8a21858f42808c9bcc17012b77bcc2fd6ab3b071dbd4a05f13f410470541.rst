@@ -1,0 +1,5 @@
+.. code:: python
+    None
+
+.. code:: html
+    <span class='python36-Constant def-Constant def-Keyword'>None</span>

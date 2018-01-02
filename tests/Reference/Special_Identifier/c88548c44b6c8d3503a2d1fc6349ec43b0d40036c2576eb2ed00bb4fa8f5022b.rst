@@ -1,0 +1,5 @@
+.. code:: python
+    __name__
+
+.. code:: html
+    <span class='python36-Special_Identifier def-Var'>__name__</span>

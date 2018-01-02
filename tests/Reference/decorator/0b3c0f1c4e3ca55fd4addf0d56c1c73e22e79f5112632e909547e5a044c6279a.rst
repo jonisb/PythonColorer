@@ -1,0 +1,9 @@
+.. code:: python
+    @decorator(test)
+    def test():
+        pass
+
+.. code:: html
+    <span class='python36-Operator def-Operator def-Symbol'>@</span><span class='python36-Identifier def-Identifier'>decorator</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-Identifier def-Identifier'>test</span><span class='python36-Delimiter def-Symbol'>)</span>
+    <span class='python36-Keyword def-Keyword'>def</span> <span class='python36-Identifier def-Identifier'>test</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-Delimiter def-Symbol'>)</span><span class='python36-Delimiter def-Symbol'>:</span>
+        <span class='python36-Keyword def-Keyword'>pass</span>

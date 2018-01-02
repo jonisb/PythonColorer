@@ -1,0 +1,7 @@
+.. code:: python
+    for test in test: pass
+    else: pass
+
+.. code:: html
+    <span class='python36-Keyword def-Keyword'>for</span> <span class='python36-Identifier def-Identifier'>test</span> <span class='python36-Keyword def-Keyword'>in</span> <span class='python36-Identifier def-Identifier'>test</span><span class='python36-Delimiter def-Symbol'>:</span> <span class='python36-Keyword def-Keyword'>pass</span>
+    <span class='python36-Keyword def-Keyword'>else</span><span class='python36-Delimiter def-Symbol'>:</span> <span class='python36-Keyword def-Keyword'>pass</span>

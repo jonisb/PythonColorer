@@ -1,0 +1,5 @@
+.. code:: python
+    assert test, test2
+
+.. code:: html
+    <span class='python36-Keyword def-Keyword'>assert</span> <span class='python36-Identifier def-Identifier'>test</span><span class='python36-Delimiter def-Symbol'>,</span> <span class='python36-Identifier def-Identifier'>test2</span>

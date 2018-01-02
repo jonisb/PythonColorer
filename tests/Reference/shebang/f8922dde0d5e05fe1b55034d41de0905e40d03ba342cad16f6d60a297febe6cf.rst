@@ -1,0 +1,5 @@
+.. code:: python
+    #!/usr/bin/env python
+
+.. code:: html
+    <span class='python36-DirectiveEdge def-DirectiveEdge def-DirectiveContent def-Directive'>#!</span><span class='python36-Directive def-Directive'>/usr/bin/env </span><span class='python36-DirectiveContent def-DirectiveContent def-Directive'>python</span>

@@ -1,0 +1,5 @@
+.. code:: python
+    with test:
+
+.. code:: html
+    <span class='python36-Keyword def-Keyword'>with</span> <span class='python36-Identifier def-Identifier'>test</span><span class='python36-Delimiter def-Symbol'>:</span>

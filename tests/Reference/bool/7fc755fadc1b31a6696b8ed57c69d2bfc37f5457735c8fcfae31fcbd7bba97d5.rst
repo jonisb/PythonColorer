@@ -1,0 +1,5 @@
+.. code:: python
+    False
+
+.. code:: html
+    <span class='python36-BooleanConstant def-BooleanConstant def-Constant def-Keyword'>False</span>

@@ -1,0 +1,5 @@
+.. code:: python
+    2147483647
+
+.. code:: html
+    <span class='python36-NumberDec def-NumberDec def-Number'>2147483647</span>

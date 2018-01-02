@@ -1,0 +1,5 @@
+.. code:: python
+    (Test for test in test)
+
+.. code:: html
+    <span class='python36-Delimiter def-Symbol'>(</span><span class='python36-Identifier def-Identifier'>Test</span> <span class='python36-Keyword def-Keyword'>for</span> <span class='python36-Identifier def-Identifier'>test</span> <span class='python36-Keyword def-Keyword'>in</span> <span class='python36-Identifier def-Identifier'>test</span><span class='python36-Delimiter def-Symbol'>)</span>

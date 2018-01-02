@@ -1,0 +1,5 @@
+.. code:: python
+    test[1:2:3]
+
+.. code:: html
+    <span class='python36-Identifier def-Identifier'>test</span><span class='python36-Delimiter def-Symbol'>[</span><span class='python36-NumberDec def-NumberDec def-Number'>1</span><span class='python36-Delimiter def-Symbol'>:</span><span class='python36-NumberDec def-NumberDec def-Number'>2</span><span class='python36-Delimiter def-Symbol'>:</span><span class='python36-NumberDec def-NumberDec def-Number'>3</span><span class='python36-Delimiter def-Symbol'>]</span>

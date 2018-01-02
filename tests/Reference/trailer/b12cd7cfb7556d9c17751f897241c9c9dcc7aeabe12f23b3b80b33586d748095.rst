@@ -1,0 +1,5 @@
+.. code:: python
+    (part1) (part2)
+
+.. code:: html
+    <span class='python36-Delimiter def-Symbol'>(</span><span class='python36-Identifier def-Identifier'>part1</span><span class='python36-Delimiter def-Symbol'>)</span> <span class='python36-Delimiter def-Symbol'>(</span><span class='python36-Identifier def-Identifier'>part2</span><span class='python36-Delimiter def-Symbol'>)</span>

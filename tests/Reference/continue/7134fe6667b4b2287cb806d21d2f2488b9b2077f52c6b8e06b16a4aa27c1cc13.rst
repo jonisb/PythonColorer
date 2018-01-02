@@ -1,0 +1,5 @@
+.. code:: python
+    continue
+
+.. code:: html
+    <span class='python36-Keyword def-Keyword'>continue</span>

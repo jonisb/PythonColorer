@@ -1,0 +1,5 @@
+.. code:: python
+    f'first{"string"}last'
+
+.. code:: html
+    <span class='python36-StringPrefix def-Prefix'>f</span><span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-String def-String'>first</span><span class='python36-Delimiter def-Symbol'>{</span><span class='python36-StringEdge def-StringEdge def-String'>"</span><span class='python36-String def-String'>string</span><span class='python36-StringEdge def-StringEdge def-String'>"</span><span class='python36-Delimiter def-Symbol'>}</span><span class='python36-String def-String'>last</span><span class='python36-StringEdge def-StringEdge def-String'>'</span>

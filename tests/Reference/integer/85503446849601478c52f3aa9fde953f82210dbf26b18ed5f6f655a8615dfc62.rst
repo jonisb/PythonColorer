@@ -1,0 +1,5 @@
+.. code:: python
+    79228162514264337593543950336
+
+.. code:: html
+    <span class='python36-NumberDec def-NumberDec def-Number'>79228162514264337593543950336</span>

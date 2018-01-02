@@ -1,0 +1,9 @@
+.. code:: python
+    async def func(param1, param2):
+        do_stuff()
+        await some_coroutine()
+
+.. code:: html
+    <span class='python36-Keyword def-Keyword'>async</span> <span class='python36-Keyword def-Keyword'>def</span> <span class='python36-Identifier def-Identifier'>func</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-Identifier def-Identifier'>param1</span><span class='python36-Delimiter def-Symbol'>,</span> <span class='python36-Identifier def-Identifier'>param2</span><span class='python36-Delimiter def-Symbol'>)</span><span class='python36-Delimiter def-Symbol'>:</span>
+        <span class='python36-Identifier def-Identifier'>do_stuff</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-Delimiter def-Symbol'>)</span>
+        <span class='python36-Keyword def-Keyword'>await</span> <span class='python36-Identifier def-Identifier'>some_coroutine</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-Delimiter def-Symbol'>)</span>

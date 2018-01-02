@@ -1,0 +1,5 @@
+.. code:: python
+    True == False
+
+.. code:: html
+    <span class='python36-BooleanConstant def-BooleanConstant def-Constant def-Keyword'>True</span> <span class='python36-Operator def-Operator def-Symbol'>==</span> <span class='python36-BooleanConstant def-BooleanConstant def-Constant def-Keyword'>False</span>

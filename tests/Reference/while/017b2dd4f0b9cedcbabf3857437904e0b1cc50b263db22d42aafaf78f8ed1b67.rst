@@ -1,0 +1,11 @@
+.. code:: python
+    while Name:
+        pass
+    else:
+        pass
+
+.. code:: html
+    <span class='python36-Keyword def-Keyword'>while</span> <span class='python36-Identifier def-Identifier'>Name</span><span class='python36-Delimiter def-Symbol'>:</span>
+        <span class='python36-Keyword def-Keyword'>pass</span>
+    <span class='python36-Keyword def-Keyword'>else</span><span class='python36-Delimiter def-Symbol'>:</span>
+        <span class='python36-Keyword def-Keyword'>pass</span>

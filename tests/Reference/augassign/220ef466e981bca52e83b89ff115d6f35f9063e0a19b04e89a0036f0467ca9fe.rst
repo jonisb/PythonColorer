@@ -1,0 +1,5 @@
+.. code:: python
+    name |= name
+
+.. code:: html
+    <span class='python36-Identifier def-Identifier'>name</span> <span class='python36-Operator def-Operator def-Symbol'>|</span><span class='python36-Delimiter def-Symbol'>=</span> <span class='python36-Identifier def-Identifier'>name</span>

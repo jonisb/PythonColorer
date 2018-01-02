@@ -1,0 +1,5 @@
+.. code:: python
+    0b1001
+
+.. code:: html
+    <span class='python36-NumberPrefix def-NumberPrefix def-Number'>0b</span><span class='python36-NumberBin def-NumberBin def-Number'>1001</span>

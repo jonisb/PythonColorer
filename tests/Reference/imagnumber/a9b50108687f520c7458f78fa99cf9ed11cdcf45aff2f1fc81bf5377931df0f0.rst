@@ -1,0 +1,5 @@
+.. code:: python
+    1.3e7j
+
+.. code:: html
+    <span class='python36-NumberImaginary def-NumberFloat def-Number'>1.3</span><span class='python36-NumberExponent def-NumberSuffix def-Number'>e</span><span class='python36-NumberImaginary def-NumberFloat def-Number'>7</span><span class='python36-NumberSuffix def-NumberSuffix def-Number'>j</span>

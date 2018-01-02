@@ -1,0 +1,9 @@
+.. code:: python
+    with A() as a:
+        with B() as b:
+            suite
+
+.. code:: html
+    <span class='python36-Keyword def-Keyword'>with</span> <span class='python36-Identifier def-Identifier'>A</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-Delimiter def-Symbol'>)</span> <span class='python36-Keyword def-Keyword'>as</span> <span class='python36-Identifier def-Identifier'>a</span><span class='python36-Delimiter def-Symbol'>:</span>
+        <span class='python36-Keyword def-Keyword'>with</span> <span class='python36-Identifier def-Identifier'>B</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-Delimiter def-Symbol'>)</span> <span class='python36-Keyword def-Keyword'>as</span> <span class='python36-Identifier def-Identifier'>b</span><span class='python36-Delimiter def-Symbol'>:</span>
+            <span class='python36-Identifier def-Identifier'>suite</span>

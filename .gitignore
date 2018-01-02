@@ -1,0 +1,6 @@
+__pycache__/
+tests/Colorer/
+tests/Pending/
+*.bak
+*.log
+tests/Syntax_test.py

@@ -1,0 +1,5 @@
+.. code:: python
+    nonlocal test, test2, test3
+
+.. code:: html
+    <span class='python36-Keyword def-Keyword'>nonlocal</span> <span class='python36-Identifier def-Identifier'>test</span><span class='python36-Delimiter def-Symbol'>,</span> <span class='python36-Identifier def-Identifier'>test2</span><span class='python36-Delimiter def-Symbol'>,</span> <span class='python36-Identifier def-Identifier'>test3</span>

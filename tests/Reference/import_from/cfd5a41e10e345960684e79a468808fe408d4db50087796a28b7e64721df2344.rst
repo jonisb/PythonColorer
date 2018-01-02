@@ -1,0 +1,5 @@
+.. code:: python
+    from sys import exit as quit
+
+.. code:: html
+    <span class='python36-Keyword def-Keyword'>from</span> <span class='python36-Identifier def-Identifier'>sys</span> <span class='python36-Keyword def-Keyword'>import</span> <span class='python36-Identifier def-Identifier'>exit</span> <span class='python36-Keyword def-Keyword'>as</span> <span class='python36-Identifier def-Identifier'>quit</span>

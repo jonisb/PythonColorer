@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hrc PUBLIC "-//Cail Lomecb//DTD Colorer HRC take5//EN"
+  "http://colorer.sf.net/2003/hrc.dtd"[
+<!ENTITY py36 SYSTEM "types\py36.ent.hrc">
+<!ENTITY py36NUMBER SYSTEM "types\py36NUMBER.ent.hrc">
+<!ENTITY py36NAME SYSTEM "types\py36NAME.ent.hrc">
+<!ENTITY py36STRING SYSTEM "types\py36STRING.ent.hrc">
+<!ENTITY py36COMMENT SYSTEM "types\py36COMMENT.ent.hrc">
+<!ENTITY py36SMALL SYSTEM "types\py36SMALL.ent.hrc">
+<!ENTITY py36COMPOUND SYSTEM "types\py36COMPOUND.ent.hrc">
+<!ENTITY py36EXPR SYSTEM "types\py36EXPR.ent.hrc">
+<!ENTITY py36MISC SYSTEM "types\py36MISC.ent.hrc">
+]>
 <hrc version="take5" xmlns="http://colorer.sf.net/2003/hrc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://colorer.sf.net/2003/hrc http://colorer.sf.net/2003/hrc.xsd">
 
   <prototype name="Python" group="main" description="Python advanced syntax">
@@ -247,12 +259,12 @@
     </scheme>
   </type>
 
-  <type name="python36">
-    <scheme name="python36">
-      <inherit scheme="python35:python35">
-      </inherit>
-    </scheme>
-  </type>
+  	<!--<type name="python36">
+    	<scheme name="python36">
+      		<inherit scheme="python35:python35"/>
+    	</scheme>
+  	</type>-->
+	&py36;
 
   <type name="Python">
     <scheme name="No_Future">
@@ -327,7 +339,8 @@
     </scheme>
 
     <scheme name="Python">
-      <inherit scheme="Python_File_Header"/>
+      	<!--<inherit scheme="Python_File_Header"/>-->
+		<inherit scheme="python36:python36"/>
     </scheme>
   </type>
 </hrc>

@@ -1,0 +1,5 @@
+.. code:: python
+    f"{number:#0x}"
+
+.. code:: html
+    <span class='python36-StringPrefix def-Prefix'>f</span><span class='python36-StringEdge def-StringEdge def-String'>"</span><span class='python36-Delimiter def-Symbol'>{</span><span class='python36-Identifier def-Identifier'>number</span><span class='python36-Delimiter def-Symbol'>:</span><span class='python36-Parameter def-Parameter'>#</span><span class='python36-Parameter def-Parameter'>0</span><span class='python36-Parameter def-Parameter'>x</span><span class='python36-Delimiter def-Symbol'>}</span><span class='python36-StringEdge def-StringEdge def-String'>"</span>

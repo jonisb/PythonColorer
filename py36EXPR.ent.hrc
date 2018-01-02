@@ -1,0 +1,369 @@
+<!-- comp_op: '<'|'>'|'=='|'>='|'<='|'<>'|'!='|'in'|'not' 'in'|'is'|'is' 'not' -->
+<entity name="comp_op" value="([=>!]=|&lt;[>=]?|>|(n\bot\b\s+)?\bin\b|\bis\b(\s+\bnot\b)?)"/>
+<!--augassign: ('+=' | '-=' | '*=' | '@=' | '/=' | '%=' | '&=' | '|=' | '^=' | '<<=' | '>>=' | '**=' | '//=')-->
+<entity name="augassign" value="([-+*@/&#37;&amp;|^]|&lt;&lt;|>>|\*\*|//)(=)"/>
+<entity name="all_symb" value="[-+~*@/;&#37;&lt;>&amp;=|:,.\s!()\{\}\[\]^]"/>
+
+<!-- expr_stmt:
+testlist_star_expr
+(
+	annassign
+	|
+	augassign
+		(
+			yield_expr
+			|
+			testlist
+		)
+	|
+	(
+		'='
+		(
+			yield_expr
+			|
+			testlist_star_expr
+		)
+	)*
+)
+-->
+<scheme name="expr_stmt">
+	<block start="/(=)/" end="//" scheme="yield_expr_testlist_star_expr" region01="Delimiter"/>
+	<block start="/\s*%augassign;\s*/" end="//" scheme="yield_expr_testlist" region01="Operator" region02="Delimiter"/>
+	<inherit scheme="annassign"/>
+	<inherit scheme="testlist_star_expr"/>
+</scheme>
+
+<scheme name="yield_expr_testlist">
+	<inherit scheme="yield_expr"/>
+	<inherit scheme="testlist"/>
+</scheme>
+
+<scheme name="yield_expr_testlist_star_expr">
+	<inherit scheme="yield_expr"/>
+	<inherit scheme="testlist_star_expr"/>
+</scheme>
+
+<!--annassign: ':' test ['=' test]-->
+<scheme name="annassign">
+	<block start="/(:)\s*/" end="//" scheme="annassign_body" region01="Delimiter"/>
+</scheme>
+
+<scheme name="annassign_body">
+	<block start="/\s*(=)\s*/" end="//" scheme="test" region01="Delimiter"/>
+	<inherit scheme="test"/>
+</scheme>
+
+<!-- testlist_star_expr: (test|star_expr) (',' (test|star_expr))* [','] -->
+<scheme name="testlist_star_expr">
+    <inherit scheme="comma_separated">
+		<virtual scheme="def:empty" subst-scheme="test_star_expr"/>
+	</inherit>
+</scheme>
+
+<!-- PEP 308 : Conditional Expressions: https://www.python.org/dev/peps/pep-0308/ -->
+<!-- test: or_test ['if' or_test 'else' test] | lambdef -->
+<scheme name="test">
+	<regexp match="/\\$/" region="StringEscape"/>
+	<block start="/(if)/" end="//" scheme="if_body" region01="Keyword"/>
+	<inherit scheme="lambdef"/>
+	<inherit scheme="or_test"/>
+</scheme>
+
+<scheme name="if_body">
+	<block start="/~(if)?#2/" end="/\Melse/" scheme="or_test" region01="Keyword"/>
+	<block start="/(else)/" end="//" scheme="test" region01="Keyword"/>
+</scheme>
+
+<!-- test_nocond: or_test | lambdef_nocond -->
+<scheme name="test_nocond">
+	<inherit scheme="lambdef_nocond"/>
+	<inherit scheme="or_test"/>
+</scheme>
+
+<!-- lambdef: 'lambda' [varargslist] ':' test -->
+<scheme name="lambdef">
+	<block start="/(lambda)/" end="//" scheme="lambdef_body" region01="Keyword"/>
+</scheme>
+
+<scheme name="lambdef_body">
+	<block start="/~(lambda)?#6/" end="/\M:/" scheme="varargslist" region01="Keyword"/>
+	<block start="/(:)/" end="//" scheme="test" region01="Delimiter"/>
+</scheme>
+
+<!-- lambdef_nocond: 'lambda' [varargslist] ':' test_nocond -->
+<scheme name="lambdef_nocond">
+	<block start="/(lambda)/" end="//" scheme="lambdef_nocond_body" region01="Keyword"/>
+</scheme>
+
+<scheme name="lambdef_nocond_body">
+	<block start="/~(lambda)?#6/" end="/\M:/" scheme="varargslist" region01="Keyword"/>
+	<block start="/(:)/" end="//" scheme="test_nocond" region01="Delimiter"/>
+</scheme>
+
+<!--varargslist:
+(
+	vfpdef ['=' test] (',' vfpdef ['=' test])* [',' [ '*' [vfpdef] (',' vfpdef ['=' test])* [',' ['**' vfpdef [',']]] | '**' vfpdef [',']]]
+  	|
+  	'*' [vfpdef] (',' vfpdef ['=' test])* [',' ['**' vfpdef [',']]]
+  	|
+  	'**' vfpdef [',']
+)
+-->
+<scheme name="varargslist">
+	<block start="/\s*(\*\*)\s*/" end="//" scheme="vfpdef" region01="Operator"/>
+	<block start="/\s*(\*)\s*/" end="//" scheme="vfpdef" region01="Operator"/>
+	<block start="/\s*(=)\s*/" end="//" scheme="test" region01="Delimiter"/>
+	<block start="/\s*(,)\s*/" end="//" scheme="varargslist" region01="Delimiter"/>
+	<inherit scheme="vfpdef"/>
+</scheme>
+
+<!-- vfpdef: NAME -->
+<scheme name="vfpdef">
+	<inherit scheme="NAME"/>
+</scheme>
+
+<!-- or_test: and_test ('or' and_test)* -->
+<scheme name="or_test">
+	<block start="/\s*\b(or)\b/" end="//" scheme="and_test" region01="Keyword"/>
+	<inherit scheme="and_test"/>
+</scheme>
+
+<!-- and_test: not_test ('and' not_test)* -->
+<scheme name="and_test">
+	<block start="/\s*\b(and)\b/" end="//" scheme="not_test" region01="Keyword"/>
+	<inherit scheme="not_test"/>
+</scheme>
+
+<!-- not_test: 'not' not_test | comparison -->
+<scheme name="not_test">
+	<block start="/\s*\b(not)\b/" end="//" scheme="not_test" region01="Keyword"/>
+	<inherit scheme="comparison"/>
+</scheme>
+
+<!-- comparison: expr (comp_op expr)* -->
+<scheme name="comparison">
+	<block start="/\s*(%comp_op;)\s*/" end="//" scheme="expr" region01="Operator"/>
+	<inherit scheme="expr"/>
+</scheme>
+
+<!-- star_expr: '*' expr -->
+<scheme name="star_expr">
+	<block start="/(\*)/" end="//" scheme="expr" region01="Operator"/>
+</scheme>
+
+<scheme name="test_star_expr">
+	<inherit scheme="star_expr"/>
+	<inherit scheme="test"/>
+</scheme>
+
+<!-- expr: xor_expr ('|' xor_expr)* -->
+<scheme name="expr">
+	<block start="/\s*(\|)/" end="//" scheme="xor_expr" region01="Operator"/>
+	<inherit scheme="xor_expr"/>
+</scheme>
+
+<!-- xor_expr: and_expr ('^' and_expr)* -->
+<scheme name="xor_expr">
+	<block start="/\s*(\^)/" end="//" scheme="and_expr" region01="Operator"/>
+	<inherit scheme="and_expr"/>
+</scheme>
+
+<!-- and_expr: shift_expr ('&' shift_expr)* -->
+<scheme name="and_expr">
+	<block start="/\s*(&amp;)/" end="//" scheme="shift_expr" region01="Operator"/>
+	<inherit scheme="shift_expr"/>
+</scheme>
+
+<!-- shift_expr: arith_expr (('<<'|'>>') arith_expr)* -->
+<scheme name="shift_expr">
+	<block start="/\s*(&lt;&lt;|>>)/" end="//" scheme="arith_expr" region01="Operator"/>
+	<inherit scheme="arith_expr"/>
+</scheme>
+
+<!-- arith_expr: term (('+'|'-') term)* -->
+<scheme name="arith_expr">
+	<block start="/\s*([-+])/" end="//" scheme="term" region01="Operator"/>
+	<inherit scheme="term"/>
+</scheme>
+
+<!-- term: factor (('*'|'@'|'/'|'%'|'//') factor)* -->
+<scheme name="term">
+	<block start="/\s*([*@/%]|//)/" end="//" scheme="factor" region01="Operator"/>
+	<inherit scheme="factor"/>
+</scheme>
+
+<!-- factor: ('+'|'-'|'~') factor | power -->
+<scheme name="factor">
+	<block start="/\s*([-+~])/" end="//" scheme="factor" region01="Operator"/>
+	<inherit scheme="power"/>
+</scheme>
+
+<!-- power: atom_expr ['**' factor] -->
+<scheme name="power">
+	<block start="/\s*(\*\*)/" end="//" scheme="factor" region01="Operator"/>
+	<inherit scheme="atom_expr"/>
+</scheme>
+
+<!-- atom_expr: [AWAIT] atom trailer* -->
+<scheme name="atom_expr">
+	<block start="/~\s*(?{Keyword}await)?\s*\M\S/" end="/\M($|%all_symb;)/" scheme="atom"/>
+	<inherit scheme="trailer"/>
+</scheme>
+
+<!-- atom:
+(
+	'(' [yield_expr|testlist_comp] ')'
+	|
+	'[' [testlist_comp] ']'
+	|
+	'{' [dictorsetmaker] '}'
+	|
+	NAME | NUMBER | STRING+ | '...'
+)
+-->
+<scheme name="atom">
+	<block start="/~(?{PairStart}(\())/" end="/(?{PairEnd}\))/" scheme="yield_expr_testlist_comp" region01="Delimiter" region10="Delimiter"/>
+	<block start="/~(?{PairStart}(\[))/" end="/(?{PairEnd}\])/" scheme="testlist_comp" region01="Delimiter" region10="Delimiter"/>
+	<block start="/~(?{PairStart}(\{))/" end="/(?{PairEnd}\})/" scheme="dictorsetmaker" region01="Delimiter" region10="Delimiter"/>
+	<inherit scheme="NUMBER"/>
+	<inherit scheme="STRINGS"/>
+	<inherit scheme="Constants"/>
+	<inherit scheme="BuiltinFunctions"/>
+	<inherit scheme="BuiltinExceptions"/>
+	<inherit scheme="NAME"/>
+	<inherit scheme="Error"/>
+</scheme>
+
+<!-- testlist_comp: (test|star_expr) ( comp_for | (',' (test|star_expr))* [','] ) -->
+<scheme name="testlist_comp">
+	<inherit scheme="comp_for"/>
+    <inherit scheme="comma_separated">
+		<virtual scheme="def:empty" subst-scheme="test_star_expr"/>
+	</inherit>
+</scheme>
+
+<scheme name="yield_expr_testlist_comp">
+	<inherit scheme="COMMENT"/>
+	<inherit scheme="yield_expr">
+		<virtual scheme="STRINGS" subst-scheme="STRINGSMulti"/>
+	</inherit>
+	<inherit scheme="testlist_comp">
+		<virtual scheme="STRINGS" subst-scheme="STRINGSMulti"/>
+	</inherit>
+</scheme>
+
+<!-- trailer: '(' [arglist] ')' | '[' subscriptlist ']' | '.' NAME -->
+<scheme name="trailer">
+	<block start="/\\$/" end="/^\s*/" scheme="def:empty"/>
+	<block start="/\.\b/" end="/\M($|%all_symb;)/" scheme="NAME" region00="Delimiter"/>
+	<block start="/\s*(?{PairStart}(\())/" end="/(?{PairEnd}\))/" scheme="arglist" region01="Delimiter" region10="Delimiter"/>
+	<block start="/\s*(?{PairStart}(\[))/" end="/(?{PairEnd}\])/" scheme="subscriptlist" region01="Delimiter" region10="Delimiter"/>
+</scheme>
+
+<!-- subscriptlist: subscript (',' subscript)* [','] -->
+<scheme name="subscriptlist">
+    <inherit scheme="comma_separated">
+		<virtual scheme="def:empty" subst-scheme="subscript"/>
+	</inherit>
+	<inherit scheme="Error"/>
+</scheme>
+
+<!-- subscript: test | [test] ':' [test] [sliceop] -->
+<scheme name="subscript">
+	<block start="/\s*(:)/" end="//" scheme="sliceop" region01="Delimiter"/>
+	<inherit scheme="test"/>
+</scheme>
+
+<!-- sliceop: ':' [test] -->
+<scheme name="sliceop">
+	<block start="/\s*(:)/" end="//" scheme="test" region01="Delimiter"/>
+	<inherit scheme="test"/>
+</scheme>
+
+<!-- exprlist: (expr|star_expr) (',' (expr|star_expr))* [','] -->
+<scheme name="exprlist">
+    <inherit scheme="comma_separated">
+		<virtual scheme="def:empty" subst-scheme="expr_star_expr"/>
+	</inherit>
+</scheme>
+
+<scheme name="expr_star_expr">
+	<inherit scheme="star_expr"/>
+	<inherit scheme="expr"/>
+</scheme>
+
+<!-- testlist: test (',' test)* [','] -->
+<scheme name="testlist">
+    <inherit scheme="comma_separated">
+		<virtual scheme="def:empty" subst-scheme="test"/>
+	</inherit>
+</scheme>
+
+<!-- dictorsetmaker: ( ((test ':' test | '**' expr)
+                   (comp_for | (',' (test ':' test | '**' expr))* [','])) |
+                  ((test | star_expr)
+                   (comp_for | (',' (test | star_expr))* [','])) ) -->
+<scheme name="dictorsetmaker">
+	<regexp match="/~(\{)?#1\s*,/" region="Error"/>
+	<block start="/\s*\M\*\*/" end="/\s*\M(,|\})/" scheme="dictorsetmakerdict2"/>
+	<block start="/~(\{)?#1\s*/" end="/\s*\M[:,\}]/" scheme="test"/>
+	<block start="/\M:/" end="/\s*\M(\})/" scheme="dictorsetmakerdict"/>
+	<block start="/\M,/" end="/\s*\M(\})/" scheme="dictorsetmakerset"/>
+</scheme>
+
+<scheme name="dictorsetmakerdict">
+	<block start="/(:)\s*/" end="/\s*\M[,\}]/" scheme="test" region01="Delimiter"/>
+	<block start="/(,)/" end="/\s*\M[\}]/" scheme="dictorsetmakerdict2" region01="Delimiter"/>
+</scheme>
+
+<scheme name="dictorsetmakerdict2">
+	<regexp match="/(:)\s*(\})/" region1="Delimiter" region2="Error"/>
+	<block start="/\s*(\*\*)/" end="/\s*\M(,|\})/" scheme="expr" region01="Operator"/>
+	<regexp match="/(?:,)?#1\s*([^:]*)\s*\M\}/" region1="Error"/>
+	<block start="/(:)\s*/" end="/\s*\M[,\}]/" scheme="test" region01="Delimiter"/>
+	<block start="/(,)/" end="/\s*\M[:\}]/" scheme="dictorsetmakerdict2" region01="Delimiter"/>
+	<inherit scheme="test"/>
+</scheme>
+
+<scheme name="dictorsetmakerset"> <!-- Not supported on Python 2.6.6? Supported on 2.7+ -->
+	<regexp match="/\s*(,)((?:\s*,)+)/" region1="Delimiter" region2="Error"/>
+	<block start="/(,)\s*/" end="/\s*\M(,|\})/" scheme="test" region01="Delimiter"/>
+</scheme>
+
+<!-- comp_iter: comp_for | comp_if -->
+<scheme name="comp_iter">
+	<inherit scheme="comp_for"/>
+	<inherit scheme="comp_if"/>
+</scheme>
+
+<!-- comp_for: [ASYNC] 'for' exprlist 'in' or_test [comp_iter] -->
+<scheme name="comp_for">
+	<block start="/\s*(?{Keyword}async)?\s*(for)/" end="//" scheme="comp_for_body" region01="Keyword"/>
+</scheme>
+
+<scheme name="comp_for_body">
+	<block start="/~(for)?#3/" end="/\s*\Min/" scheme="exprlist"/>
+	<block start="/(in)\s*/" end="//" scheme="or_test" region01="Keyword"/>
+	<inherit scheme="comp_iter"/>
+</scheme>
+
+<!-- comp_if: 'if' test_nocond [comp_iter] -->
+<scheme name="comp_if">
+	<block start="/\s*(if)/" end="//" scheme="comp_if_body" region01="Keyword"/>
+</scheme>
+
+<scheme name="comp_if_body">
+	<block start="/~(if)?#2\s*/" end="//" scheme="test_nocond"/>
+	<inherit scheme="comp_iter"/>
+</scheme>
+
+<!-- yield_expr: 'yield' [yield_arg] -->
+<scheme name="yield_expr">
+	<block start="/\s*(yield)\s*/" end="//" scheme="yield_arg" region01="Keyword"/>
+</scheme>
+
+<!-- yield_arg: 'from' test | testlist -->
+<scheme name="yield_arg">
+	<block start="/~(from)\s*/" end="//" scheme="test" region01="Keyword"/>
+	<inherit scheme="testlist"/>
+</scheme>

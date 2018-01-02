@@ -1,0 +1,5 @@
+.. code:: python
+    object.__name__
+
+.. code:: html
+    <span class='python36-BuiltinFunction def-FunctionKeyword def-Keyword'>object</span><span class='python36-Delimiter def-Symbol'>.</span><span class='python36-Special_Identifier def-Var'>__name__</span>

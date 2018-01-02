@@ -1,0 +1,155 @@
+<!-- compound_stmt: if_stmt | while_stmt | for_stmt | try_stmt | with_stmt | funcdef | classdef | decorated | async_stmt -->
+<scheme name="compound_stmt">
+	<inherit scheme="if_stmt"/>
+	<inherit scheme="while_stmt"/>
+	<inherit scheme="for_stmt"/>
+	<inherit scheme="try_stmt"/>
+	<inherit scheme="with_stmt"/>
+	<inherit scheme="funcdef"/>
+	<inherit scheme="classdef"/>
+	<inherit scheme="decorated"/>
+	<inherit scheme="async_stmt"/>
+	<inherit scheme="else_stmt"/>
+</scheme>
+
+<!-- if_stmt: 'if' test ':' suite ('elif' test ':' suite)* ['else' ':' suite] -->
+<scheme name="if_stmt">
+	<block start="/^(%INDENT;*)(?{PairStart}(if))\s*/" end="/\s*(:)/" scheme="test" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
+	<block start="/^(%INDENT;*)(?{PairStart}(elif))\s*/" end="/\s*(:)/" scheme="test" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
+</scheme>
+
+<scheme name="else_stmt">
+	<regexp match="/^(%INDENT;*)(else)\s*(:)/" region2="Keyword" region3="Delimiter"/>
+</scheme>
+
+<!-- while_stmt: 'while' test ':' suite ['else' ':' suite] -->
+<scheme name="while_stmt">
+	<block start="/^(%INDENT;*)(?{PairStart}(while))\s*/" end="/\s*(:)/" scheme="test" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
+</scheme>
+
+<!-- for_stmt: 'for' exprlist 'in' testlist ':' suite ['else' ':' suite] -->
+<scheme name="for_stmt">
+	<block start="/^(%INDENT;*)(?{PairStart}(for))/" end="/\s*(:)/" scheme="for_block" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
+</scheme>
+
+<scheme name="for_block">
+	<block start="/~(for)?#3\s*/" end="/\s*\M\bin\b/" scheme="exprlist"/>
+	<block start="/\b(in)\b\s*/" end="/\s*\M:/" scheme="testlist" region01="Keyword"/>
+</scheme>
+
+<!-- try_stmt: ('try' ':' suite
+           ((except_clause ':' suite)+
+            ['else' ':' suite]
+            ['finally' ':' suite] |
+           'finally' ':' suite)) -->
+<scheme name="try_stmt">
+	<regexp match="/^(%INDENT;*)(?{PairStart}(try))\s*(:)/" region2="Keyword" region3="Delimiter"/>
+	<block start="/^(%INDENT;*)\b(?{PairStart}(except))\b\s*/" end="/\s*(:)/" scheme="except_block" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
+	<regexp match="/^(%INDENT;*)(?{PairStart}(finally))\s*(:)/" region2="Keyword" region3="Delimiter"/>
+</scheme>
+
+<!--except_clause: 'except' [test ['as' NAME]]-->
+<scheme name="except_block">
+	<inherit scheme="as_separated">
+		<virtual scheme="def:empty" subst-scheme="test"/>
+	</inherit>
+</scheme>
+
+<!-- with_stmt: 'with' with_item (',' with_item)*  ':' suite -->
+<scheme name="with_stmt">
+	<block start="/^(%INDENT;*)(?{PairStart}(with))\s*/" end="/\s*(:)/" scheme="with_block" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
+</scheme>
+
+<scheme name="with_block">
+	<inherit scheme="comma_separated">
+		<virtual scheme="def:empty" subst-scheme="with_item"/>
+	</inherit>
+</scheme>
+
+<!-- with_item: test ['as' expr] -->
+<scheme name="with_item">
+	<inherit scheme="as_separated">
+		<virtual scheme="def:empty" subst-scheme="test"/>
+		<virtual scheme="NAME" subst-scheme="expr"/>
+	</inherit>
+</scheme>
+
+<!--
+funcdef: 'def' NAME parameters ['->' test] ':' suite
+
+parameters: '(' [typedargslist] ')'
+
+typedargslist:
+(
+	tfpdef ['=' test] ( ',' tfpdef ['=' test] )*
+	[
+		','
+		[
+			'*' [tfpdef] ( ',' tfpdef ['=' test] )* [',' ['**' tfpdef [',']]]
+			|
+			'**' tfpdef [',']
+		]
+	]
+  	|
+  	'*' [tfpdef] ( ',' tfpdef ['=' test] )* [',' ['**' tfpdef [',']]]
+  	|
+  	'**' tfpdef [',']
+)
+
+tfpdef: NAME [':' test]
+-->
+
+<scheme name="funcdef">
+	<block start="/^(%INDENT;*)(?{PairStart}(def))\s*/" end="/\s*(:)/" scheme="funcdef_block" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
+</scheme>
+
+<scheme name="funcdef_block">
+	<block start="/\(/" end="/\)/" scheme="typedargslist" region00="Delimiter" region10="Delimiter"/>
+	<inherit scheme="NAME"/>
+</scheme>
+
+<scheme name="typedargslist">
+	<block start="/\s*(\*\*)\s*/" end="//" scheme="tfpdef" region01="Operator"/>
+	<block start="/\s*(\*)\s*/" end="//" scheme="tfpdef" region01="Operator"/>
+	<block start="/\s*(=)\s*/" end="//" scheme="test" region01="Delimiter"/>
+	<block start="/\s*(,)\s*/" end="//" scheme="typedargslist" region01="Delimiter"/>
+	<inherit scheme="tfpdef"/>
+</scheme>
+
+<scheme name="tfpdef"> <!-- TODO -->
+	<block start="/\s*(:)\s*/" end="//" scheme="test" region01="Delimiter"/>
+	<inherit scheme="NAME"/>
+</scheme>
+
+<!-- classdef: 'class' NAME ['(' [arglist] ')'] ':' suite -->
+<scheme name="classdef">
+	<block start="/^(%INDENT;*)(?{PairStart}(class))\s*/" end="/\s*(:)/" scheme="classdef_block" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
+</scheme>
+
+<scheme name="classdef_block">
+	<block start="/\(/" end="/\)/" scheme="arglist" region00="Delimiter" region10="Delimiter"/>
+	<inherit scheme="NAME"/>
+</scheme>
+
+<!-- decorated: decorators (classdef | funcdef | async_funcdef) -->
+<scheme name="decorated">
+	<block start="/^(%INDENT;*)\M(?{PairStart}@)/" end="/^\M\y1(@)?!(class|def|async)/" scheme="decorator" region10="PairEnd"/>
+</scheme>
+
+<!-- decorator: '@' dotted_name [ '(' [arglist] ')' ] NEWLINE -->
+<!-- decorators: decorator+ -->
+<scheme name="decorator">
+	<block start="/\s*(@)/" end="/$/" scheme="decorator_body" region01="Operator"/>
+</scheme>
+
+<scheme name="decorator_body">
+	<block start="/~(@)?#1\s*/" end="/($|(\()?=)/" scheme="dotted_name"/>
+	<block start="/(\()\s*/" end="/\s*(\))/" scheme="arglist" region01="Delimiter" region11="Delimiter"/>
+</scheme>
+
+<!-- async_stmt: ASYNC (funcdef | with_stmt | for_stmt) -->
+<scheme name="async_stmt">
+	<block start="/^(%INDENT;*)((?{PairStart}async))\s*(def)/" end="/\s*(:)/" scheme="funcdef_block" region02="Keyword" region03="Keyword" region10="PairEnd" region11="Delimiter"/>
+	<block start="/^(%INDENT;*)((?{PairStart}async))\s*(with)/" end="/\s*(:)/" scheme="with_block" region02="Keyword" region03="Keyword" region10="PairEnd" region11="Delimiter"/>
+	<block start="/^(%INDENT;*)((?{PairStart}async))\s*(for)/" end="/\s*(:)/" scheme="for_block" region02="Keyword" region03="Keyword" region10="PairEnd" region11="Delimiter"/>
+</scheme>

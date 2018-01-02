@@ -1,0 +1,195 @@
+<region name="String" parent="def:String" description="Common string"/>
+<region name="StringEdge" parent="def:StringEdge" description="String edges"/>
+<region name="StringEscape" parent="def:StringContent" description="Tokens in String Content"/>
+<region name="StringPrefix" parent="def:Prefix"/>
+
+<entity name="strEscapeSequences" value="(?{NumberOct}%octdigit;{1,3})|x(?{NumberHex}%hexdigit;{2})"/>
+<entity name="unicodeEscapeCodes" value="u(?{NumberHex}%hexdigit;{4})|U(?{NumberHex}%hexdigit;{8})"/>
+<entity name="unicodeEscapeSequences" value="%strEscapeSequences;|N(?{Delimiter}\{)(?{identifier}%identifier;)(?{Delimiter}\})|%unicodeEscapeCodes;"/>
+
+<entity name="StringQuots" value="([&quot;'])(\2{2})?"/>
+<entity name="StringQuotDouble" value="(&quot;)(\2{2})?"/>
+<entity name="StringQuotSingle" value="(')(\2{2})?"/>
+
+<scheme name="STRINGS">
+	<block start="/\M(([uU]|[rR][bBfF]?|[bBfF][rR]?)?[&quot;'])/" end="/\M(\S|$)/" scheme="STRING"/>
+</scheme>
+
+<scheme name="STRINGSMulti">
+	<block start="/\M(([uU]|[rR][bBfF]?|[bBfF][rR]?)?[&quot;'])/" end="/\M(\S)/" scheme="STRING"/>
+</scheme>
+
+<scheme name="STRING">
+	<inherit scheme="COMMENT"/>
+	<inherit scheme="STRINGdouble"/>
+	<inherit scheme="STRINGsingle"/>
+</scheme>
+
+<scheme name="STRINGdouble">
+	<inherit scheme="stringliteraldouble"/>
+	<inherit scheme="bytesliteraldouble"/>
+	<inherit scheme="f_stringdouble"/>  <!-- Python 3 formatted string literal -->
+</scheme>
+
+<scheme name="STRINGsingle">
+	<inherit scheme="stringliteralsingle"/>
+	<inherit scheme="bytesliteralsingle"/>
+	<inherit scheme="f_stringsingle"/>  <!-- Python 3 formatted string literal -->
+</scheme>
+
+<scheme name="stringliteraldouble">
+	<block start="/(?{StringPrefix}\b[rR])(?{StringEdge}(%StringQuotDouble;))/" end="/(?{StringEdge}\y1)/" scheme="rawstrbody" region="String" region00="PairStart" region10="PairEnd"/>
+	<block start="/(?{StringPrefix}\b[uU])?(?{StringEdge}(%StringQuotDouble;))/" end="/(?{StringEdge}\y1)/" scheme="strbody" region="String" region00="PairStart" region10="PairEnd"/>
+</scheme>
+
+<scheme name="stringliteralsingle">
+	<block start="/(?{StringPrefix}\b[rR])(?{StringEdge}(%StringQuotSingle;))/" end="/(?{StringEdge}\y1)/" scheme="rawstrbody" region="String" region00="PairStart" region10="PairEnd"/>
+	<block start="/(?{StringPrefix}\b[uU])?(?{StringEdge}(%StringQuotSingle;))/" end="/(?{StringEdge}\y1)/" scheme="strbody" region="String" region00="PairStart" region10="PairEnd"/>
+</scheme>
+
+<scheme name="strbody">
+	<regexp match="/\\$/" region="StringEscape"/>
+	<inherit scheme="strbodyescapes"/>
+	<regexp match="/\\([\\'&quot;])/" region="StringEscape" region1="String"/>
+	<regexp match="/\\([abfnrtv])/" region="StringEscape" region1="Parameter"/>
+	<regexp match="/(\\.)/" region1="String" region="Deprecated"/>
+</scheme>
+
+<scheme name="strbodyescapes">
+	<regexp match="/\\(%unicodeEscapeSequences;)/" region="StringEscape" region1="Parameter"/>
+	<regexp match="/\\(x.{0,2}|N(\{.*?(\}|$))?|u.{0,4}|U.{0,8})/" region="StringEscape" region1="Error"/>
+</scheme>
+
+<scheme name="rawstrbody">
+	<regexp match="/\\./" region="String"/>
+</scheme>
+
+<scheme name="bytesliteraldouble">
+	<block start="/(?{StringPrefix}\b(?:[rR][bB]|[bB][rR]))(?{StringEdge}(%StringQuotDouble;))/" end="/(?{StringEdge}\y1)/" scheme="rawbytesbody" region="String" region00="PairStart" region10="PairEnd"/>
+	<block start="/(?{StringPrefix}\b[bB])(?{StringEdge}(%StringQuotDouble;))/" end="/(?{StringEdge}\y1)/" scheme="bytesbody" region="String" region00="PairStart" region10="PairEnd"/>
+</scheme>
+
+<scheme name="bytesliteralsingle">
+	<block start="/(?{StringPrefix}\b(?:[rR][bB]|[bB][rR]))(?{StringEdge}(%StringQuotSingle;))/" end="/(?{StringEdge}\y1)/" scheme="rawbytesbody" region="String" region00="PairStart" region10="PairEnd"/>
+	<block start="/(?{StringPrefix}\b[bB])(?{StringEdge}(%StringQuotSingle;))/" end="/(?{StringEdge}\y1)/" scheme="bytesbody" region="String" region00="PairStart" region10="PairEnd"/>
+</scheme>
+
+<scheme name="bytesbody">
+	<regexp match="/[^\x00-\x7F]/" region="Error"/>
+	<inherit scheme="strbody">
+		<virtual scheme="strbodyescapes" subst-scheme="bytesbodyescapes"/>
+	</inherit>
+</scheme>
+
+<scheme name="bytesbodyescapes">
+	<regexp match="/\\(%strEscapeSequences;)/" region="StringEscape" region1="Parameter"/>
+	<regexp match="/\\(x.{0,2})/" region="StringEscape" region1="Error"/>
+</scheme>
+
+<scheme name="rawbytesbody">
+	<regexp match="/[^\x00-\x7F]/" region="Error"/>
+	<inherit scheme="rawstrbody"/>
+</scheme>
+
+<scheme name="f_stringdouble">
+	<block start="/(?{StringPrefix}\b(?:[rR][fF]|[fF][rR]))(?{StringEdge}(%StringQuotDouble;))/" end="/(?{StringEdge}\y1)/" scheme="rawf_stringbodydouble" region="String" region00="PairStart" region10="PairEnd"/>
+	<block start="/(?{StringPrefix}\b[fF])(?{StringEdge}(%StringQuotDouble;))/" end="/(?{StringEdge}\y1)/" scheme="f_stringbodydouble" region="String" region00="PairStart" region10="PairEnd"/>
+</scheme>
+
+<scheme name="f_stringsingle">
+	<block start="/(?{StringPrefix}\b(?:[rR][fF]|[fF][rR]))(?{StringEdge}(%StringQuotSingle;))/" end="/(?{StringEdge}\y1)/" scheme="rawf_stringbodysingle" region="String" region00="PairStart" region10="PairEnd"/>
+	<block start="/(?{StringPrefix}\b[fF])(?{StringEdge}(%StringQuotSingle;))/" end="/(?{StringEdge}\y1)/" scheme="f_stringbodysingle" region="String" region00="PairStart" region10="PairEnd"/>
+</scheme>
+
+<scheme name="f_stringbody">
+	<regexp match="/([\{\}])\1/" region1="StringEscape" region="String"/>
+	<inherit scheme="replacement_field"/>
+	<inherit scheme="strbody"/>
+</scheme>
+
+<scheme name="f_stringbodydouble">
+	<inherit scheme="f_stringbody">
+		<virtual scheme="STRINGdouble" subst-scheme="def:empty"/>
+	</inherit>
+</scheme>
+
+<scheme name="f_stringbodysingle">
+	<inherit scheme="f_stringbody">
+		<virtual scheme="STRINGsingle" subst-scheme="def:empty"/>
+	</inherit>
+</scheme>
+
+<scheme name="rawf_stringbody">
+	<regexp match="/([\{\}])\1/" region1="StringEscape" region="String"/>
+	<inherit scheme="replacement_field"/>
+	<inherit scheme="rawstrbody"/>
+</scheme>
+
+<scheme name="rawf_stringbodydouble">
+	<inherit scheme="rawf_stringbody">
+		<virtual scheme="STRINGdouble" subst-scheme="def:empty"/>
+	</inherit>
+</scheme>
+
+<scheme name="rawf_stringbodysingle">
+	<inherit scheme="rawf_stringbody">
+		<virtual scheme="STRINGsingle" subst-scheme="def:empty"/>
+	</inherit>
+</scheme>
+
+<scheme name="replacement_field">
+	<block start="/(\{)/" end="/(\}|(['&quot;])?=)/" scheme="replacement_fieldbody" region="def:Text" region01="Delimiter" region11="Delimiter" region00="PairStart" region10="PairEnd" priority="low"/>
+</scheme>
+
+<scheme name="replacement_fieldbody">
+	<inherit scheme="NoEscape"/>
+	<regexp match="/(!)([sra])/" region1="Delimiter" region2="Parameter"/>
+	<block start="/(:)/" end="/\M\}/" scheme="format_spec" region01="Delimiter"/>
+	<inherit scheme="f_expression">
+		<virtual scheme="strbody" subst-scheme="NoEscape"/>
+		<virtual scheme="rawstrbody" subst-scheme="NoEscape"/>
+	</inherit>
+</scheme>
+
+<scheme name="NoEscape">
+	<regexp match="/\\/" region="Error"/>
+</scheme>
+
+<scheme name="format_spec">
+	<inherit scheme="replacement_field"/>
+	<regexp match="/[^\{\}]/" region="Parameter"/>
+</scheme>
+
+<!--
+(
+	test
+	|
+	star_expr
+)
+(
+	"," test
+	|
+	"," star_expr
+)* [","]
+|
+yield_expr
+-->
+<scheme name="f_expression">
+	<inherit scheme="yield_expr"/>
+    <inherit scheme="comma_separated">
+		<virtual scheme="def:empty" subst-scheme="test_star_expr"/>
+	</inherit>
+</scheme>
+
+<scheme name="DocString">
+	<block start="/~(%StringQuots;)/" end="/\y1/" scheme="DocStringBody" region="CommentDoc" region01="CommentDocEdge" region10="CommentDocEdge"/>
+	<inherit scheme="COMMENT"/>
+	<inherit scheme="StringAsComment"/>
+</scheme>
+
+<scheme name="DocStringBody">  <!-- TODO: implement -->
+</scheme>
+
+<scheme name="StringAsComment">
+	<block start="/(?:\b(?:[rR]|[uU]))?(%StringQuots;)/" end="/\y1/" scheme="def:Comment" region="Comment" region00="CommentEdge" region10="CommentEdge"/>
+</scheme>
