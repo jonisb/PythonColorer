@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE hrc PUBLIC "-//Cail Lomecb//DTD Colorer HRC take5//EN"
+  "http://colorer.sf.net/2003/hrc.dtd"[
+<!ENTITY py36NUMBER SYSTEM "py36NUMBER.ent.hrc">
+<!ENTITY py36NAME SYSTEM "py36NAME.ent.hrc">
+<!ENTITY py36STRING SYSTEM "py36STRING.ent.hrc">
+<!ENTITY py36COMMENT SYSTEM "py36COMMENT.ent.hrc">
+<!ENTITY py36SMALL SYSTEM "py36SMALL.ent.hrc">
+<!ENTITY py36COMPOUND SYSTEM "py36COMPOUND.ent.hrc">
+<!ENTITY py36EXPR SYSTEM "py36EXPR.ent.hrc">
+<!ENTITY py36MISC SYSTEM "py36MISC.ent.hrc">
+]>
+<hrc version="take5" xmlns="http://colorer.sf.net/2003/hrc"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://colorer.sf.net/2003/hrc http://colorer.sf.net/2003/hrc.xsd">
 <type name="python36">
     <region name="Error" parent="def:Error"/>
     <region name="Deprecated" parent="def:Debug" description="Show deprecated Python feature that will be removed in a later version"/>
@@ -84,3 +98,4 @@
       	<inherit scheme="small_stmt"/>
     </scheme>
 </type>
+</hrc>
