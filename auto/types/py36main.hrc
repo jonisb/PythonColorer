@@ -13,89 +13,89 @@
 <hrc version="take5" xmlns="http://colorer.sf.net/2003/hrc"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://colorer.sf.net/2003/hrc http://colorer.sf.net/2003/hrc.xsd">
-<type name="python36">
-    <region name="Error" parent="def:Error"/>
-    <region name="Deprecated" parent="def:Debug" description="Show deprecated Python feature that will be removed in a later version"/>
-    <region name="PEP8" parent="def:Debug" description="PEP 8 -- Style Guide for Python Code"/>
+	<type name="python36">
+		<region name="Error" parent="def:Error"/>
+		<region name="Deprecated" parent="def:Debug" description="Show deprecated Python feature that will be removed in a later version"/>
+		<region name="PEP8" parent="def:Debug" description="PEP 8 -- Style Guide for Python Code"/>
 
-    <region name="PairStart" parent="def:PairStart" description="Paired struct start"/>
-    <region name="PairEnd"  parent="def:PairEnd" description="Paired struct end"/>
-    <region name="Keyword" parent="def:Keyword"/>
-    <region name="Parameter" parent="def:Parameter" description="Parameter declaration"/>
-    <region name="Operator" parent="def:Operator" description="Symbolic or Literal Operator"/>
-    <region name="Delimiter" parent="def:Symbol"/>
-    <region name="Directive" parent="def:Directive" description="Compiler/Preprocessor directive"/>
-    <region name="DirectiveContent" parent="def:DirectiveContent" description="Internal directive text"/>
-    <region name="DirectiveEdge"    parent="def:DirectiveEdge" description="Directive edges"/>
+		<region name="PairStart" parent="def:PairStart" description="Paired struct start"/>
+		<region name="PairEnd"  parent="def:PairEnd" description="Paired struct end"/>
+		<region name="Keyword" parent="def:Keyword"/>
+		<region name="Parameter" parent="def:Parameter" description="Parameter declaration"/>
+		<region name="Operator" parent="def:Operator" description="Symbolic or Literal Operator"/>
+		<region name="Delimiter" parent="def:Symbol"/>
+		<region name="Directive" parent="def:Directive" description="Compiler/Preprocessor directive"/>
+		<region name="DirectiveContent" parent="def:DirectiveContent" description="Internal directive text"/>
+		<region name="DirectiveEdge"    parent="def:DirectiveEdge" description="Directive edges"/>
 
-    <entity name="INDENT" value="(?: {4})"/>
-    <entity name="code_end" value="\M(^\.\. code|%def:neverMatch;)"/>
+		<entity name="INDENT" value="(?: {4})"/>
+		<entity name="code_end" value="\M(^\.\. code|%def:neverMatch;)"/>
 
-	&py36COMMENT;
-	&py36NUMBER;
-	&py36NAME;
-	&py36STRING;
-	&py36MISC;
-	&py36SMALL;
-	&py36COMPOUND;
-	&py36EXPR;
+		&py36COMMENT;
+		&py36NUMBER;
+		&py36NAME;
+		&py36STRING;
+		&py36MISC;
+		&py36SMALL;
+		&py36COMPOUND;
+		&py36EXPR;
 
-	<scheme name="Error">
-		<regexp match="/\S/" region="Error" priority="low"/>
-	</scheme>
+		<scheme name="Error">
+			<regexp match="/\S/" region="Error" priority="low"/>
+		</scheme>
 
-	<scheme name="python36">
-      	<inherit scheme="Python_File_Header"/>
-      	<inherit scheme="code_body"/>
-	</scheme>
+		<scheme name="python36">
+			<inherit scheme="Python_File_Header"/>
+			<inherit scheme="code_body"/>
+		</scheme>
 
-    <scheme name="Python_File_Header">
-      	<inherit scheme="shebang"/>
-      	<inherit scheme="File_Encoding"/>
-      	<inherit scheme="Encoding"/>
-    </scheme>
+		<scheme name="Python_File_Header">
+			<inherit scheme="shebang"/>
+			<inherit scheme="File_Encoding"/>
+			<inherit scheme="Encoding"/>
+		</scheme>
 
-<!-- Shebang (Unix): https://en.wikipedia.org/wiki/Shebang_%28Unix%29 -->
-<!-- PEP 397: Python launcher for Windows: https://www.python.org/dev/peps/pep-0397/ -->
-    <scheme name="shebang">
-      	<block start="/\s*(#!)\s*(\S*)\s*(python(3(\.\d+(-32)?)?)?).*/" end="/%code_end;/" scheme="File_Encoding" region00="Directive" region01="DirectiveEdge" region03="DirectiveContent" content-priority="low"/>
-    </scheme>
+	<!-- Shebang (Unix): https://en.wikipedia.org/wiki/Shebang_%28Unix%29 -->
+	<!-- PEP 397: Python launcher for Windows: https://www.python.org/dev/peps/pep-0397/ -->
+		<scheme name="shebang">
+			<block start="/\s*(#!)\s*(\S*)\s*(python(3(\.\d+(-32)?)?)?).*/" end="/%code_end;/" scheme="File_Encoding" region00="Directive" region01="DirectiveEdge" region03="DirectiveContent" content-priority="low"/>
+		</scheme>
 
-<!-- PEP 263 : Defining Python Source Code Encodings : https://www.python.org/dev/peps/pep-0263/ -->
-<!-- Encoding declarations: https://docs.python.org/3/reference/lexical_analysis.html#encoding-declarations -->
-    <scheme name="File_Encoding">
-      	<block start="/^\s*(#).*(coding)([=:])\s*(ascii|utf-8).*$/" end="/%code_end;/" scheme="Encoding" region00="LineComment" region01="CommentEdge" region02="Keyword" region03="Delimiter" region04="Parameter" content-priority="low"/>
-    </scheme>
+	<!-- PEP 263 : Defining Python Source Code Encodings : https://www.python.org/dev/peps/pep-0263/ -->
+	<!-- Encoding declarations: https://docs.python.org/3/reference/lexical_analysis.html#encoding-declarations -->
+		<scheme name="File_Encoding">
+			<block start="/^\s*(#).*(coding)([=:])\s*(ascii|utf-8).*$/" end="/%code_end;/" scheme="Encoding" region00="LineComment" region01="CommentEdge" region02="Keyword" region03="Delimiter" region04="Parameter" content-priority="low"/>
+		</scheme>
 
-    <scheme name="Encoding">
-      	<block start="/^\s*([&quot;'])?=/" end="/^(\s*$|\s*#|\s*[&quot;'])?!/" scheme="DocString"/>
-      	<inherit scheme="code_body"/>
-    </scheme>
+		<scheme name="Encoding">
+			<block start="/^\s*([&quot;'])?=/" end="/^(\s*$|\s*#|\s*[&quot;'])?!/" scheme="DocString"/>
+			<inherit scheme="code_body"/>
+		</scheme>
 
-	<scheme name="code_body">
-		<block start="/^/" end="/%code_end;/" scheme="single_input"/>
-	</scheme>
+		<scheme name="code_body">
+			<block start="/^/" end="/%code_end;/" scheme="single_input"/>
+		</scheme>
 
-<!-- single_input: NEWLINE | simple_stmt | compound_stmt NEWLINE -->
-	<scheme name="single_input">
-		<inherit scheme="COMMENT"/>
-		<inherit scheme="compound_stmt"/>
-      	<block start="/(^|(:)?#1)\s*($)?!/" end="/$/" scheme="simple_stmt"/>
-		<inherit scheme="Error"/>
-	</scheme>
+	<!-- single_input: NEWLINE | simple_stmt | compound_stmt NEWLINE -->
+		<scheme name="single_input">
+			<inherit scheme="COMMENT"/>
+			<inherit scheme="compound_stmt"/>
+			<block start="/(^|(:)?#1)\s*($)?!/" end="/$/" scheme="simple_stmt"/>
+			<inherit scheme="Error"/>
+		</scheme>
 
-<!-- stmt: simple_stmt | compound_stmt -->
-	<scheme name="stmt">
-		<inherit scheme="COMMENT"/>
-		<inherit scheme="compound_stmt"/>
-		<inherit scheme="simple_stmt"/>
-	</scheme>
+	<!-- stmt: simple_stmt | compound_stmt -->
+		<scheme name="stmt">
+			<inherit scheme="COMMENT"/>
+			<inherit scheme="compound_stmt"/>
+			<inherit scheme="simple_stmt"/>
+		</scheme>
 
-<!-- simple_stmt: small_stmt (';' small_stmt)* [';'] NEWLINE -->
-    <scheme name="simple_stmt">
-		<inherit scheme="COMMENT"/>
-      	<block start="/\s*(;)\s*/" end="/$/" scheme="simple_stmt" region01="Delimiter"/>
-      	<inherit scheme="small_stmt"/>
-    </scheme>
-</type>
+	<!-- simple_stmt: small_stmt (';' small_stmt)* [';'] NEWLINE -->
+		<scheme name="simple_stmt">
+			<inherit scheme="COMMENT"/>
+			<block start="/\s*(;)\s*/" end="/$/" scheme="simple_stmt" region01="Delimiter"/>
+			<inherit scheme="small_stmt"/>
+		</scheme>
+	</type>
 </hrc>
