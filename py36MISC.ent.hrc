@@ -1,5 +1,6 @@
 <scheme name="comma_separated">
 	<block start="/\s*(,)\s*/" end="//" scheme="def:empty" region01="Delimiter"/>
+	<block start="/^\s+/" end="//" scheme="def:empty"/>
 	<inherit scheme="def:empty"/>
 </scheme>
 
