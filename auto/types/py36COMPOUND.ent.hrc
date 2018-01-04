@@ -104,6 +104,7 @@ tfpdef: NAME [':' test]
 </scheme>
 
 <scheme name="funcdef_block">
+	<block start="/(->)/" end="//" scheme="test" region01="Delimiter"/>
 	<block start="/\(/" end="/\)/" scheme="typedargslist" region00="Delimiter" region10="Delimiter"/>
 	<inherit scheme="NAME"/>
 </scheme>

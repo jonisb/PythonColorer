@@ -1,0 +1,7 @@
+.. code:: python
+    def kinetic_energy(mass: 'in kilograms', velocity: 'in meters per second') -> Stuff:
+        ...
+
+.. code:: html
+    <span class='python36-Keyword def-Keyword'>def</span> <span class='python36-Identifier def-Identifier'>kinetic_energy</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-Identifier def-Identifier'>mass</span><span class='python36-Delimiter def-Symbol'>:</span> <span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-String def-String'>in kilograms</span><span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-Delimiter def-Symbol'>,</span> <span class='python36-Identifier def-Identifier'>velocity</span><span class='python36-Delimiter def-Symbol'>:</span> <span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-String def-String'>in meters per second</span><span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-Delimiter def-Symbol'>)</span> <span class='python36-Delimiter def-Symbol'>-></span> <span class='python36-Identifier def-Identifier'>Stuff</span><span class='python36-Delimiter def-Symbol'>:</span>
+        <span class='python36-Constant def-Constant def-Keyword'>...</span>
