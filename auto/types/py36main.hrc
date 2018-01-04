@@ -80,7 +80,7 @@
 		<scheme name="single_input">
 			<inherit scheme="COMMENT"/>
 			<inherit scheme="compound_stmt"/>
-			<block start="/(^|(:)?#1)\s*($)?!/" end="/$/" scheme="simple_stmt"/>
+			<block start="/(^(.. code)?!|(:)?#1)\s*($)?!/" end="/$/" scheme="simple_stmt"/>
 			<inherit scheme="Error"/>
 		</scheme>
 
