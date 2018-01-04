@@ -2,7 +2,7 @@
 <entity name="comp_op" value="([=>!]=|&lt;[>=]?|>|(n\bot\b\s+)?\bin\b|\bis\b(\s+\bnot\b)?)"/>
 <!--augassign: ('+=' | '-=' | '*=' | '@=' | '/=' | '%=' | '&=' | '|=' | '^=' | '<<=' | '>>=' | '**=' | '//=')-->
 <entity name="augassign" value="([-+*@/&#37;&amp;|^]|&lt;&lt;|>>|\*\*|//)(=)"/>
-<entity name="all_symb" value="[-+~*@/;&#37;&lt;>&amp;=|:,.\s!()\{\}\[\]^]"/>
+<entity name="all_symb" value="(?:(\.)?~1\.(\.)?!)|[-+~*@/;&#37;&lt;>&amp;=|:,\s!()\{\}\[\]^]"/>
 
 <!-- expr_stmt:
 testlist_star_expr
