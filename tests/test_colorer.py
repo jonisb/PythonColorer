@@ -219,8 +219,11 @@ def build_tests():
                 continue
             break
         if VerifyData is not None:
-            if TestData.replace('\r\n', '\n') == VerifyData['html']:
-                continue
+            try:
+                if TestData.replace('\r\n', '\n') == VerifyData['html']:
+                    continue
+            except KeyError:
+                pass
         print(Filename)
         print(Syntax)
         WriteRst(Path(f"{'Pending'}/{pyver}/{testing}/{Filename}.rst"), Syntax, TestData)
