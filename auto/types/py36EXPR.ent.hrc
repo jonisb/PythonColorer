@@ -64,7 +64,7 @@ testlist_star_expr
 <!-- test: or_test ['if' or_test 'else' test] | lambdef -->
 <scheme name="test">
 	<regexp match="/\\$/" region="StringEscape"/>
-	<block start="/(if)/" end="//" scheme="if_body" region01="Keyword"/>
+	<block start="/(if)\b/" end="//" scheme="if_body" region01="Keyword"/>
 	<inherit scheme="lambdef"/>
 	<inherit scheme="or_test"/>
 </scheme>

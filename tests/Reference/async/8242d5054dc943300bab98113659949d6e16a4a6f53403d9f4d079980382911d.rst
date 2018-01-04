@@ -1,0 +1,9 @@
+.. code:: python
+    asyncdef some = elsedome
+    asyncwith some = elsedome
+    asyncfor some = elsedome
+
+.. code:: html
+    <span class='python36-Identifier def-Identifier'>asyncdef</span> some <span class='python36-Delimiter def-Symbol'>=</span> <span class='python36-Identifier def-Identifier'>elsedome</span>
+    <span class='python36-Identifier def-Identifier'>asyncwith</span> some <span class='python36-Delimiter def-Symbol'>=</span> <span class='python36-Identifier def-Identifier'>elsedome</span>
+    <span class='python36-Identifier def-Identifier'>asyncfor</span> some <span class='python36-Delimiter def-Symbol'>=</span> <span class='python36-Identifier def-Identifier'>elsedome</span>

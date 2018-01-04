@@ -1,0 +1,5 @@
+.. code:: python
+    classsome = elsedome
+
+.. code:: html
+    <span class='python36-Identifier def-Identifier'>classsome</span> <span class='python36-Delimiter def-Symbol'>=</span> <span class='python36-Identifier def-Identifier'>elsedome</span>
