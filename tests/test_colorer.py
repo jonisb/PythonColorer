@@ -16,7 +16,8 @@ testQueue = Queue()
 num_worker_threads = 16
 threads = []
 Format = "Python"
-ColorerCommand = ['colorer.exe', r'-cColorer\catalog.xml', '-ijonib', '-ht', '-dc', '-dh', '-db', '-en', '-elWARNING', '-t{0}'.format(Format)]
+#ColorerCommand = ['colorer.exe', r'-cColorer\catalog.xml', '-ijonib', '-ht', '-dc', '-dh', '-db', '-en', '-elWARNING', '-t{0}'.format(Format)]
+ColorerCommand = ['colorer.exe', '-ijonib', '-ht', '-dc', '-dh', '-db', '-en', '-elWARNING', '-t{0}'.format(Format)]
 
 
 def getTests():

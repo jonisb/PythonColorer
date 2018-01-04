@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function, unicode_literals, absolute_import
 
+import os
+import pathlib
 try:
     from HTMLParser import HTMLParser
 except:
@@ -134,10 +136,7 @@ class MyHTMLParser2(HTMLParser):
 
 def initColors():
     parser = MyHTMLParser2()
-    #parser.feed(open(r"D:\Colorer\hrd\console\jonib.hrd",'r').read())
-    parser.feed(open(r"Colorer\hrd\console\jonib.hrd",'r').read())
-    #import pprint
-    #pprint.pprint(ColorerColors)
+    parser.feed((pathlib.Path(os.environ['COLORER5CATALOG']).parent/'hrd'/'console'/'jonib.hrd').read_text())
 
 
 def SetAnsiColor(region):
