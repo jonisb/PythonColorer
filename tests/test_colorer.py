@@ -10,6 +10,7 @@ from html.parser import HTMLParser
 import regex
 import ColorerColors
 from ColorerColors import ResetAnsiColor
+import os
 
 testfileQueue = Queue()
 testQueue = Queue()
@@ -267,8 +268,27 @@ class MyHTMLParser(HTMLParser):
         self.Result += data
 
 
+def UpdateFiles():
+    src = Path('..') / 'auto'
+    dst = Path(os.environ['COLORER5CATALOG']).parent / 'hrc' / 'auto'
+    for file in src.glob('**/*.hrc'):
+        if file.is_file():
+            outfile = dst / file.relative_to(src)
+            try:
+                if not file.samefile(outfile):
+                    outfile.unlink()
+                else:
+                    continue
+            except FileNotFoundError:
+                pass
+            os.link(file, outfile)
+            print("File updated:", outfile)
+
+
 if __name__ == '__main__':
     ColorerColors.initColors()
+
+    UpdateFiles()
 
     build_tests()
     unittest.main()
