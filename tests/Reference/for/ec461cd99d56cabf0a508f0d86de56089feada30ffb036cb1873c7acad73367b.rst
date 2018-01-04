@@ -1,0 +1,5 @@
+.. code:: python
+    fore = int(_[1].strip('#'), 16)
+
+.. code:: html
+    <span class='python36-Identifier def-Identifier'>fore</span> <span class='python36-Delimiter def-Symbol'>=</span> <span class='python36-BuiltinFunction def-FunctionKeyword def-Keyword'>int</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-Identifier def-Identifier'>_</span><span class='python36-Delimiter def-Symbol'>[</span><span class='python36-NumberDec def-NumberDec def-Number'>1</span><span class='python36-Delimiter def-Symbol'>]</span><span class='python36-Delimiter def-Symbol'>.</span><span class='python36-Identifier def-Identifier'>strip</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-String def-String'>#</span><span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-Delimiter def-Symbol'>)</span><span class='python36-Delimiter def-Symbol'>,</span> <span class='python36-NumberDec def-NumberDec def-Number'>16</span><span class='python36-Delimiter def-Symbol'>)</span>

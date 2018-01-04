@@ -14,8 +14,8 @@
 
 <!-- if_stmt: 'if' test ':' suite ('elif' test ':' suite)* ['else' ':' suite] -->
 <scheme name="if_stmt">
-	<block start="/^(%INDENT;*)(?{PairStart}(if))\s*/" end="/\s*(:)/" scheme="test" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
-	<block start="/^(%INDENT;*)(?{PairStart}(elif))\s*/" end="/\s*(:)/" scheme="test" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
+	<block start="/^(%INDENT;*)(?{PairStart}(if))\b\s*/" end="/\s*(:)/" scheme="test" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
+	<block start="/^(%INDENT;*)(?{PairStart}(elif))\b\s*/" end="/\s*(:)/" scheme="test" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
 </scheme>
 
 <scheme name="else_stmt">
@@ -24,12 +24,12 @@
 
 <!-- while_stmt: 'while' test ':' suite ['else' ':' suite] -->
 <scheme name="while_stmt">
-	<block start="/^(%INDENT;*)(?{PairStart}(while))\s*/" end="/\s*(:)/" scheme="test" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
+	<block start="/^(%INDENT;*)(?{PairStart}(while))\b\s*/" end="/\s*(:)/" scheme="test" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
 </scheme>
 
 <!-- for_stmt: 'for' exprlist 'in' testlist ':' suite ['else' ':' suite] -->
 <scheme name="for_stmt">
-	<block start="/^(%INDENT;*)(?{PairStart}(for))/" end="/\s*(:)/" scheme="for_block" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
+	<block start="/^(%INDENT;*)(?{PairStart}(for))\b/" end="/\s*(:)/" scheme="for_block" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
 </scheme>
 
 <scheme name="for_block">
@@ -44,7 +44,7 @@
            'finally' ':' suite)) -->
 <scheme name="try_stmt">
 	<regexp match="/^(%INDENT;*)(?{PairStart}(try))\s*(:)/" region2="Keyword" region3="Delimiter"/>
-	<block start="/^(%INDENT;*)\b(?{PairStart}(except))\b\s*/" end="/\s*(:)/" scheme="except_block" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
+	<block start="/^(%INDENT;*)(?{PairStart}(except))\b\s*/" end="/\s*(:)/" scheme="except_block" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
 	<regexp match="/^(%INDENT;*)(?{PairStart}(finally))\s*(:)/" region2="Keyword" region3="Delimiter"/>
 </scheme>
 
@@ -57,7 +57,7 @@
 
 <!-- with_stmt: 'with' with_item (',' with_item)*  ':' suite -->
 <scheme name="with_stmt">
-	<block start="/^(%INDENT;*)(?{PairStart}(with))\s*/" end="/\s*(:)/" scheme="with_block" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
+	<block start="/^(%INDENT;*)(?{PairStart}(with))\b\s*/" end="/\s*(:)/" scheme="with_block" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
 </scheme>
 
 <scheme name="with_block">
@@ -100,7 +100,7 @@ tfpdef: NAME [':' test]
 -->
 
 <scheme name="funcdef">
-	<block start="/^(%INDENT;*)(?{PairStart}(def))\s*/" end="/\s*(:)/" scheme="funcdef_block" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
+	<block start="/^(%INDENT;*)(?{PairStart}(def))\b\s*/" end="/\s*(:)/" scheme="funcdef_block" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
 </scheme>
 
 <scheme name="funcdef_block">
@@ -123,7 +123,7 @@ tfpdef: NAME [':' test]
 
 <!-- classdef: 'class' NAME ['(' [arglist] ')'] ':' suite -->
 <scheme name="classdef">
-	<block start="/^(%INDENT;*)(?{PairStart}(class))\s*/" end="/\s*(:)/" scheme="classdef_block" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
+	<block start="/^(%INDENT;*)(?{PairStart}(class))\b\s*/" end="/\s*(:)/" scheme="classdef_block" region10="PairEnd" region02="Keyword" region11="Delimiter"/>
 </scheme>
 
 <scheme name="classdef_block">
@@ -149,7 +149,7 @@ tfpdef: NAME [':' test]
 
 <!-- async_stmt: ASYNC (funcdef | with_stmt | for_stmt) -->
 <scheme name="async_stmt">
-	<block start="/^(%INDENT;*)((?{PairStart}async))\s*(def)/" end="/\s*(:)/" scheme="funcdef_block" region02="Keyword" region03="Keyword" region10="PairEnd" region11="Delimiter"/>
-	<block start="/^(%INDENT;*)((?{PairStart}async))\s*(with)/" end="/\s*(:)/" scheme="with_block" region02="Keyword" region03="Keyword" region10="PairEnd" region11="Delimiter"/>
-	<block start="/^(%INDENT;*)((?{PairStart}async))\s*(for)/" end="/\s*(:)/" scheme="for_block" region02="Keyword" region03="Keyword" region10="PairEnd" region11="Delimiter"/>
+	<block start="/^(%INDENT;*)((?{PairStart}async))\s+(def)\b/" end="/\s*(:)/" scheme="funcdef_block" region02="Keyword" region03="Keyword" region10="PairEnd" region11="Delimiter"/>
+	<block start="/^(%INDENT;*)((?{PairStart}async))\s+(with)\b/" end="/\s*(:)/" scheme="with_block" region02="Keyword" region03="Keyword" region10="PairEnd" region11="Delimiter"/>
+	<block start="/^(%INDENT;*)((?{PairStart}async))\s+(for)\b/" end="/\s*(:)/" scheme="for_block" region02="Keyword" region03="Keyword" region10="PairEnd" region11="Delimiter"/>
 </scheme>
