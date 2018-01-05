@@ -1,5 +1,11 @@
+<region name="main" parent="def:Outlined" description="Function definition"/>
+<region name="function" parent="def:Outlined" description="Function definition"/>
+<region name="class" parent="def:Outlined" description="Class definition"/>
+<region name="method" parent="def:Outlined" description="Method definition"/>
+
 <!-- compound_stmt: if_stmt | while_stmt | for_stmt | try_stmt | with_stmt | funcdef | classdef | decorated | async_stmt -->
 <scheme name="compound_stmt">
+	<inherit scheme="Outlined"/>
 	<inherit scheme="if_stmt"/>
 	<inherit scheme="while_stmt"/>
 	<inherit scheme="for_stmt"/>
@@ -10,6 +16,13 @@
 	<inherit scheme="decorated"/>
 	<inherit scheme="async_stmt"/>
 	<inherit scheme="else_stmt"/>
+</scheme>
+
+<scheme name="Outlined">
+	<regexp match="/\M^(?{method}%INDENT;*)(?:def)\b\s*(?{method}(?:(?:__\S+__).*)|.*\(\s*(self|cls).*\)):/"/>
+	<regexp match="/\M^(?{function}%INDENT;*)(?:async\s+)?(?:def)\b\s*(?{function}(?:__\S+__)?![^(\s]*(\(\s*(self|cls)?![^)]*\))?):/"/>
+	<regexp match="/\M^(%INDENT;*)class\b\s*(.*):/" region1="class" region2="class"/>
+	<regexp match="/\M^(?{main}%INDENT;*if\s*__name__\s*==\s*([&quot;'])__main__\1\s*:)/"/>
 </scheme>
 
 <!-- if_stmt: 'if' test ':' suite ('elif' test ':' suite)* ['else' ':' suite] -->
