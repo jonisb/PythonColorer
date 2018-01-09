@@ -17,7 +17,6 @@ testQueue = Queue()
 num_worker_threads = 16
 threads = []
 Format = "Python"
-#ColorerCommand = ['colorer.exe', r'-cColorer\catalog.xml', '-ijonib', '-ht', '-dc', '-dh', '-db', '-en', '-elWARNING', '-t{0}'.format(Format)]
 ColorerCommand = ['colorer.exe', '-ijonib', '-ht', '-dc', '-dh', '-db', '-en', '-elWARNING', '-t{0}'.format(Format)]
 
 
@@ -73,8 +72,8 @@ def ReadRst(Filename):
 
 
 def CallColorer(VerifyData):
-    proc = subprocess.Popen(ColorerCommand, stdin=subprocess.PIPE, stdout=subprocess.PIPE, universal_newlines=True)
-    TestData = proc.communicate(VerifyData)[0] # TODO.replace('\r\n', '\n')
+    proc = subprocess.Popen(ColorerCommand, stdin=subprocess.PIPE, stdout=subprocess.PIPE, universal_newlines=False)
+    TestData = proc.communicate(VerifyData.encode('utf-8'))[0].decode('utf-8').replace('\r\n', '\n')
 
     return TestData
 
