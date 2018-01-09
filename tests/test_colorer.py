@@ -11,6 +11,8 @@ import regex
 import ColorerColors
 from ColorerColors import ResetAnsiColor
 import os
+import filecmp
+import shutil
 
 testfileQueue = Queue()
 testQueue = Queue()
@@ -268,20 +270,35 @@ class MyHTMLParser(HTMLParser):
 
 
 def UpdateFiles():
-    src = Path('..') / 'auto'
+    src = (Path('..') / 'auto').resolve()
     dst = Path(os.environ['COLORER5CATALOG']).parent / 'hrc' / 'auto'
     for file in src.glob('**/*.hrc'):
         if file.is_file():
             outfile = dst / file.relative_to(src)
             try:
-                if not file.samefile(outfile):
-                    outfile.unlink()
-                else:
+                if filecmp.cmp(file, outfile, shallow=True):
                     continue
+                else:
+                    print("Not a copy:", outfile)
+            except FileNotFoundError:
+                print("No copy found:", outfile)
+            try:
+                outfile.unlink()
+                print("Old file removed:", outfile)
             except FileNotFoundError:
                 pass
-            os.link(file, outfile)
-            print("File updated:", outfile)
+            if not outfile.parent.exists():
+                outfile.parent.mkdir(parents=True, exist_ok=True)
+            try:
+                outfile.symlink_to(file)
+                print("File updated(link):", outfile)
+            except Exception:
+                try:
+                    os.link(file, outfile)
+                    print("File updated(hardlink):", outfile)
+                except Exception:
+                    shutil.copy2(file, outfile)
+                    print("File updated(copy):", outfile)
 
 
 if __name__ == '__main__':
