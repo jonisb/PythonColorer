@@ -20,7 +20,7 @@
   <package name="python35" description="python 3.5 package">
   </package>
 	<package name="python36" description="python 3.6 package">
-    	<location link="Types\py36main.hrc"/>
+    	<location link="Types\PythonAdv\py\main.hrc"/>
 	</package>
   <type name="python26">
 
