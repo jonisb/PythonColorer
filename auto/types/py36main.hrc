@@ -79,6 +79,7 @@
 	<!-- single_input: NEWLINE | simple_stmt | compound_stmt NEWLINE -->
 		<scheme name="single_input">
 			<inherit scheme="COMMENT"/>
+			<inherit scheme="StringAsComment"/>
 			<inherit scheme="compound_stmt"/>
 			<block start="/(^(.. code)?!|(:)?#1)\s*($)?!/" end="/$/" scheme="simple_stmt"/>
 			<inherit scheme="Error"/>

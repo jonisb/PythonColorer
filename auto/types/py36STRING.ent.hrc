@@ -192,5 +192,5 @@ yield_expr
 </scheme>
 
 <scheme name="StringAsComment">
-	<block start="/(?:\b(?:[rR]|[uU]))?(%StringQuots;)/" end="/\y1/" scheme="def:Comment" region="Comment" region00="CommentEdge" region10="CommentEdge"/>
+	<block start="/\s*(?:\b(?:[rR]|[uU]))?(%StringQuots;)/" end="/\y1/" scheme="def:Comment" region="Comment" region00="CommentEdge" region10="CommentEdge"/>
 </scheme>
