@@ -2,4 +2,4 @@
     r"string"
 
 .. code:: html
-    <span class='python36-StringPrefix def-Prefix'>r</span><span class='python36-StringEdge def-StringEdge def-String'>"</span><span class='python36-String def-String'>string</span><span class='python36-StringEdge def-StringEdge def-String'>"</span>
+    <span class='python36-CommentEdge def-CommentEdge def-Comment def-Syntax'>r"</span><span class='python36-Comment def-Comment def-Syntax'>string</span><span class='python36-CommentEdge def-CommentEdge def-Comment def-Syntax'>"</span>
