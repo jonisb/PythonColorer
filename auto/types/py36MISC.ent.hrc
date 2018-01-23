@@ -19,6 +19,7 @@
 <!-- arglist: argument (',' argument)*  [','] -->
 <scheme name="arglist">
 	<block start="/\s*(,)\s*/" end="//" scheme="argument" region01="Delimiter"/>
+	<block start="/^\s+/" end="//" scheme="arglist"/>
 	<inherit scheme="argument"/>
 	<inherit scheme="Error"/>
 </scheme>
