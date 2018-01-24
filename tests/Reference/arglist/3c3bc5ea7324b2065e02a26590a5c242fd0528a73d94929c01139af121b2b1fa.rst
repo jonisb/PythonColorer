@@ -1,0 +1,7 @@
+.. code:: python
+    xbmcplugin.addDirectoryItem(handle=addon_handle, url=url,
+                                    listitem=li, isFolder=True)
+
+.. code:: html
+    <span class='python36-Identifier def-Identifier'>xbmcplugin</span><span class='python36-Delimiter def-Symbol'>.</span><span class='python36-Identifier def-Identifier'>addDirectoryItem</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-Identifier def-Identifier'>handle</span><span class='python36-Delimiter def-Symbol'>=</span><span class='python36-Identifier def-Identifier'>addon_handle</span><span class='python36-Delimiter def-Symbol'>,</span> <span class='python36-Identifier def-Identifier'>url</span><span class='python36-Delimiter def-Symbol'>=</span><span class='python36-Identifier def-Identifier'>url</span><span class='python36-Delimiter def-Symbol'>,</span>
+                                    <span class='python36-Identifier def-Identifier'>listitem</span><span class='python36-Delimiter def-Symbol'>=</span><span class='python36-Identifier def-Identifier'>li</span><span class='python36-Delimiter def-Symbol'>,</span> <span class='python36-Identifier def-Identifier'>isFolder</span><span class='python36-Delimiter def-Symbol'>=</span><span class='python36-BooleanConstant def-BooleanConstant def-Constant def-Keyword'>True</span><span class='python36-Delimiter def-Symbol'>)</span>
