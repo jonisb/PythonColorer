@@ -13,6 +13,7 @@ from ColorerColors import ResetAnsiColor
 import os
 import filecmp
 import shutil
+import tempfile
 
 testfileQueue = Queue()
 testQueue = Queue()
@@ -20,6 +21,7 @@ num_worker_threads = 16
 threads = []
 Format = "Python"
 ColorerCommand = ['colorer.exe', '-ijonib', '-ht', '-dc', '-dh', '-db', '-en', '-elWARNING', '-t{0}'.format(Format)]
+ColorerCommand2 = ['colorer.exe', '-ijonib', '-ht', '-dc', '-dh', '-db', '-en', '-eiutf-8', '-elWARNING', '-t{0}'.format(Format)]
 
 
 def getTests():
@@ -74,8 +76,17 @@ def ReadRst(Filename):
 
 
 def CallColorer(VerifyData):
-    proc = subprocess.Popen(ColorerCommand, stdin=subprocess.PIPE, stdout=subprocess.PIPE, universal_newlines=False)
-    TestData = proc.communicate(VerifyData.encode('utf-8'))[0].decode('utf-8').replace('\r\n', '\n')
+    try:
+        VerifyDataASCII = VerifyData.encode('ascii')
+        proc = subprocess.Popen(ColorerCommand, stdin=subprocess.PIPE, stdout=subprocess.PIPE, universal_newlines=False)
+        TestData = proc.communicate(VerifyDataASCII)[0].decode('ascii').replace('\r\n', '\n')
+    except (UnicodeEncodeError, UnicodeDecodeError):
+        with tempfile.NamedTemporaryFile(delete=False) as fp:
+            fp.write(VerifyData.encode('utf8'))
+            fp.close()
+            proc = subprocess.Popen(ColorerCommand2+[fp.name], stdout=subprocess.PIPE, universal_newlines=False)
+            TestData = proc.communicate()[0].decode('utf-8').replace('\r\n', '\n')
+            os.unlink(fp.name)
 
     return TestData
 
