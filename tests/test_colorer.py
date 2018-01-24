@@ -13,6 +13,7 @@ from ColorerColors import ResetAnsiColor
 import os
 import filecmp
 import shutil
+import tempfile
 
 testfileQueue = Queue()
 testQueue = Queue()
@@ -20,6 +21,7 @@ num_worker_threads = 16
 threads = []
 Format = "Python"
 ColorerCommand = ['colorer.exe', '-ijonib', '-ht', '-dc', '-dh', '-db', '-en', '-elWARNING', '-t{0}'.format(Format)]
+ColorerCommand2 = ['colorer.exe', '-ijonib', '-ht', '-dc', '-dh', '-db', '-en', '-eiutf-8', '-elWARNING', '-t{0}'.format(Format)]
 
 
 def getTests():
@@ -74,8 +76,17 @@ def ReadRst(Filename):
 
 
 def CallColorer(VerifyData):
-    proc = subprocess.Popen(ColorerCommand, stdin=subprocess.PIPE, stdout=subprocess.PIPE, universal_newlines=False)
-    TestData = proc.communicate(VerifyData.encode('utf-8'))[0].decode('utf-8').replace('\r\n', '\n')
+    try:
+        VerifyDataASCII = VerifyData.encode('ascii')
+        proc = subprocess.Popen(ColorerCommand, stdin=subprocess.PIPE, stdout=subprocess.PIPE, universal_newlines=False)
+        TestData = proc.communicate(VerifyDataASCII)[0].decode('ascii').replace('\r\n', '\n')
+    except (UnicodeEncodeError, UnicodeDecodeError):
+        with tempfile.NamedTemporaryFile(delete=False) as fp:
+            fp.write(VerifyData.encode('utf8'))
+            fp.close()
+            proc = subprocess.Popen(ColorerCommand2+[fp.name], stdout=subprocess.PIPE, universal_newlines=False)
+            TestData = proc.communicate()[0].decode('utf-8').replace('\r\n', '\n')
+            os.unlink(fp.name)
 
     return TestData
 
@@ -126,7 +137,7 @@ class TestSequenceMeta(type):
                     self.longMessage = False
                     self.assertEqual(TestData, VerifyData, DisplayError(TestData, VerifyData, ver, group, Syntax))
                     #self.assertEqual(TestData, VerifyData)
-            test.__doc__ = f"Test: '{group or 'generic'}' with Python {ver or 3.6}"
+            test.__doc__ = f"Test: '{group or 'generic'}' with Python {ver or 2}"
             return test
 
         for (ver, group, file) in getTests():
@@ -161,19 +172,50 @@ def ReadTestSyntax():
     with Path("Syntax_test.py").open('r', encoding='utf8') as f:
         buffer = None
         for line in f:
-            result = regex.match(r"^#\s*(?<test>Testing:\s*(?<testing>\S+)?\s*(?:pyver:\s*(?<pyver>\S+))?)", line)
+            result = regex.match(r"^#\s*(?<test>Testing:\s*(?<testing>\S+)?\s*(?:pyver:\s*(?<pyver>\S+))?\s*(?:enc:\s*(?<enc>\S+))?)", line)
             if result is not None:
                 if result.group('test') is not None:
                     if buffer:
-                        yield buffer, testing, pyver
+                        if pyver:
+                            if pyver == 'all':
+                                for pyver in ('3.6', '3.5', '2.7', '2.6'):
+                                    buffer2 = f"#! python{pyver}\n"
+                                    if enc and ((pyver[0] == '2' and enc != 'ascii') or (pyver[0] == '3' and enc != 'utf-8')):
+                                        buffer2 += f"# -*- coding: {enc} -*-\n"
+                                    buffer2 += buffer
+                                    yield buffer2, testing, pyver
+                            else:
+                                buffer2 = f"#! python{pyver}\n"
+                                if enc and ((pyver[0] == '2' and enc != 'ascii') or (pyver[0] == '3' and enc != 'utf-8')):
+                                    buffer2 += f"# -*- coding: {enc} -*-\n"
+                                buffer2 += buffer
+                            yield buffer2, testing, pyver
+                        else:
+                            yield buffer, testing, pyver
                     buffer = ""
                     testing = result.group('testing') or ''
                     pyver = result.group('pyver') or ''
+                    enc = result.group('enc') or ''
                     continue
             if buffer is not None:
                 buffer += line
         if buffer:
-            yield buffer, testing, pyver
+            if pyver:
+                if pyver == 'all':
+                    for pyver in ('3.6', '3.5', '2.7', '2.6'):
+                        buffer2 = f"#! python{pyver}\n"
+                        if enc and ((pyver[0] == '2' and enc != 'ascii') or (pyver[0] == '3' and enc != 'utf-8')):
+                            buffer2 += f"# -*- coding: {enc} -*-\n"
+                        buffer2 += buffer
+                        yield buffer2, testing, pyver
+                else:
+                    buffer2 = f"#! python{pyver}\n"
+                    if enc and ((pyver[0] == '2' and enc != 'ascii') or (pyver[0] == '3' and enc != 'utf-8')):
+                        buffer2 += f"# -*- coding: {enc} -*-\n"
+                    buffer2 += buffer
+                yield buffer2, testing, pyver
+            else:
+                yield buffer, testing, pyver
 
 
 def WriteRst(Filename, Python, HTML):
