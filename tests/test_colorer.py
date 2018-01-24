@@ -137,7 +137,7 @@ class TestSequenceMeta(type):
                     self.longMessage = False
                     self.assertEqual(TestData, VerifyData, DisplayError(TestData, VerifyData, ver, group, Syntax))
                     #self.assertEqual(TestData, VerifyData)
-            test.__doc__ = f"Test: '{group or 'generic'}' with Python {ver or 3.6}"
+            test.__doc__ = f"Test: '{group or 'generic'}' with Python {ver or 2}"
             return test
 
         for (ver, group, file) in getTests():
