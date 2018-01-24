@@ -172,19 +172,50 @@ def ReadTestSyntax():
     with Path("Syntax_test.py").open('r', encoding='utf8') as f:
         buffer = None
         for line in f:
-            result = regex.match(r"^#\s*(?<test>Testing:\s*(?<testing>\S+)?\s*(?:pyver:\s*(?<pyver>\S+))?)", line)
+            result = regex.match(r"^#\s*(?<test>Testing:\s*(?<testing>\S+)?\s*(?:pyver:\s*(?<pyver>\S+))?\s*(?:enc:\s*(?<enc>\S+))?)", line)
             if result is not None:
                 if result.group('test') is not None:
                     if buffer:
-                        yield buffer, testing, pyver
+                        if pyver:
+                            if pyver == 'all':
+                                for pyver in ('3.6', '3.5', '2.7', '2.6'):
+                                    buffer2 = f"#! python{pyver}\n"
+                                    if enc and ((pyver[0] == '2' and enc != 'ascii') or (pyver[0] == '3' and enc != 'utf-8')):
+                                        buffer2 += f"# -*- coding: {enc} -*-\n"
+                                    buffer2 += buffer
+                                    yield buffer2, testing, pyver
+                            else:
+                                buffer2 = f"#! python{pyver}\n"
+                                if enc and ((pyver[0] == '2' and enc != 'ascii') or (pyver[0] == '3' and enc != 'utf-8')):
+                                    buffer2 += f"# -*- coding: {enc} -*-\n"
+                                buffer2 += buffer
+                            yield buffer2, testing, pyver
+                        else:
+                            yield buffer, testing, pyver
                     buffer = ""
                     testing = result.group('testing') or ''
                     pyver = result.group('pyver') or ''
+                    enc = result.group('enc') or ''
                     continue
             if buffer is not None:
                 buffer += line
         if buffer:
-            yield buffer, testing, pyver
+            if pyver:
+                if pyver == 'all':
+                    for pyver in ('3.6', '3.5', '2.7', '2.6'):
+                        buffer2 = f"#! python{pyver}\n"
+                        if enc and ((pyver[0] == '2' and enc != 'ascii') or (pyver[0] == '3' and enc != 'utf-8')):
+                            buffer2 += f"# -*- coding: {enc} -*-\n"
+                        buffer2 += buffer
+                        yield buffer2, testing, pyver
+                else:
+                    buffer2 = f"#! python{pyver}\n"
+                    if enc and ((pyver[0] == '2' and enc != 'ascii') or (pyver[0] == '3' and enc != 'utf-8')):
+                        buffer2 += f"# -*- coding: {enc} -*-\n"
+                    buffer2 += buffer
+                yield buffer2, testing, pyver
+            else:
+                yield buffer, testing, pyver
 
 
 def WriteRst(Filename, Python, HTML):
