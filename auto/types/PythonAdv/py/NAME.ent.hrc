@@ -227,7 +227,7 @@ A non-normative HTML file listing all valid identifier characters for Unicode 4.
 		<word name="help"/>
 		<word name="hex"/>
 		<word name="id"/>
-		<word name="import__"/>
+		<word name="__import__"/>
 		<word name="input"/>
 		<word name="int"/>
 		<word name="isinstance"/>
