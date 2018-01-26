@@ -323,7 +323,9 @@ testlist_star_expr
 	<regexp match="/(?:,)?#1\s*([^:]*)\s*\M\}/" region1="Error"/>
 	<block start="/(:)\s*/" end="/\s*\M[,\}]/" scheme="test" region01="Delimiter"/>
 	<block start="/(,)/" end="/\s*\M[:\}]/" scheme="dictorsetmakerdict2" region01="Delimiter"/>
+	<block start="/^\s+/" end="/\s*\M[:\}]/" scheme="dictorsetmakerdict2" region01="Delimiter"/>
 	<inherit scheme="test"/>
+	<inherit scheme="Error"/>
 </scheme>
 
 <scheme name="dictorsetmakerset"> <!-- Not supported on Python 2.6.6? Supported on 2.7+ -->
