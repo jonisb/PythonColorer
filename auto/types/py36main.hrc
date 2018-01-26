@@ -65,6 +65,7 @@
 	<!-- Encoding declarations: https://docs.python.org/3/reference/lexical_analysis.html#encoding-declarations -->
 		<scheme name="File_Encoding">
 			<block start="/^\s*(#).*(coding)([=:])\s*(ascii|utf-8).*$/" end="/%code_end;/" scheme="Encoding" region00="LineComment" region01="CommentEdge" region02="Keyword" region03="Delimiter" region04="Parameter" content-priority="low"/>
+			<inherit scheme="Encoding"/>
 		</scheme>
 
 		<scheme name="Encoding">
