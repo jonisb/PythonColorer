@@ -1,0 +1,27 @@
+name: Syntax Test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: suisei-cn/actions-download-file@v1
+        name: Download the base
+        with:
+          url: "https://github.com/colorer/Colorer-schemes/releases/download/v1.0.0/colorer-base.packed.v1.0.0.zip"
+          target: public/
+    - uses: suisei-cn/actions-download-file@v1
+        name: Download colorer.exe
+        with:
+          url: "https://github.com/colorer/Colorer-library/releases/download/v1.2.0/colorer.v.1.2.0x64.zip"
+          target: public/
+    - run: 7z x public/colorer-base.packed.v1.0.0.zip
+    - run: 7z x public/colorer.v.1.2.0x64.zip
+    - run: dir
+    - run: dir public
