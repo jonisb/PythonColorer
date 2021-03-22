@@ -70,7 +70,7 @@ def ReadRst(Filename):
             if buffer is not None:
                 buffer += line[4:]
         if buffer:
-            Code[Format] = buffer
+            Code[Format] = buffer.rstrip()
     return Code
 
 
@@ -78,7 +78,7 @@ def CallColorer(VerifyData):
     proc = subprocess.Popen(ColorerCommand, stdin=subprocess.PIPE, stdout=subprocess.PIPE, universal_newlines=False)
     TestData = proc.communicate(VerifyData.encode('utf8'))[0].decode('utf-8').replace('\r\n', '\n')
 
-    return TestData
+    return TestData.rstrip()
 
 
 def getTestData():
@@ -125,7 +125,7 @@ class TestSequenceMeta(type):
                 else:
                     #print(TestData, VerifyData)
                     self.longMessage = False
-                    self.assertEqual(TestData, VerifyData, DisplayError(TestData, VerifyData, ver, group, Syntax))
+                    self.assertEqual(TestData.rstrip(), VerifyData.rstrip(), DisplayError(TestData, VerifyData, ver, group, Syntax))
                     #self.assertEqual(TestData, VerifyData)
             test.__doc__ = f"Test: '{group or 'generic'}' with Python {ver or 2}"
             return test
