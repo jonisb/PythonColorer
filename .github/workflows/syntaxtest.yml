@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: windows-latest
     env:
-      COLORER5CATALOG: production
+      COLORER5CATALOG: D:\a\PythonColorer\PythonColorer\colorer\catalog.xml
     steps:
     - uses: actions/checkout@v2
     - name: Cache base
@@ -37,4 +37,5 @@ jobs:
         target: public/
     - run: 7z x public/colorer-base.packed.v1.0.0.zip -ocolorer
     - run: 7z x public/colorer.v.1.2.0x64.zip -otests
-    - run: dir ~\
+    - run: dir ${env:COLORER5CATALOG}
+      working-directory: D:\a\PythonColorer\PythonColorer\tests
