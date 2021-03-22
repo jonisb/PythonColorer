@@ -21,8 +21,8 @@ jobs:
       with:
         url: "https://github.com/colorer/Colorer-library/releases/download/v1.2.0/colorer.v.1.2.0x64.zip"
         target: public/
-    - run: 7z x public/colorer-base.packed.v1.0.0.zip colorer\
-    - run: 7z x public/colorer.v.1.2.0x64.zip colorer\
+    - run: 7z x public/colorer-base.packed.v1.0.0.zip -o colorer\
+    - run: 7z x public/colorer.v.1.2.0x64.zip -o colorer\
     - run: dir
     - run: dir colorer
     - run: dir public
