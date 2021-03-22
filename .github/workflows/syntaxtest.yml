@@ -11,24 +11,24 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
-		- name: Cache base
+    - name: Cache base
       uses: actions/cache@v2
       with:
         path: public/colorer-base.packed.v1.0.0.zip
-				key: ${{ runner.os }}-build-${{ env.cache-name }}-colorer-base.packed.v1.0.0.zip
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-colorer-base.packed.v1.0.0.zip
     - uses: suisei-cn/actions-download-file@v1
-			if: hashFiles('public/colorer-base.packed.v1.0.0.zip') == ''
+      if: hashFiles('public/colorer-base.packed.v1.0.0.zip') == ''
       name: Download the base
       with:
         url: "https://github.com/colorer/Colorer-schemes/releases/download/v1.0.0/colorer-base.packed.v1.0.0.zip"
         target: public/
-		- name: Cache colorer
+    - name: Cache colorer
       uses: actions/cache@v2
       with:
         path: public/colorer.v.1.2.0x64.zip
-				key: ${{ runner.os }}-build-${{ env.cache-name }}-colorer.v.1.2.0x64.zip
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-colorer.v.1.2.0x64.zip
     - uses: suisei-cn/actions-download-file@v1
-			if: hashFiles('public/colorer.v.1.2.0x64.zip') == ''
+      if: hashFiles('public/colorer.v.1.2.0x64.zip') == ''
       name: Download colorer.exe
       with:
         url: "https://github.com/colorer/Colorer-library/releases/download/v1.2.0/colorer.v.1.2.0x64.zip"
