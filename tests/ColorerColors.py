@@ -136,7 +136,10 @@ class MyHTMLParser2(HTMLParser):
 
 def initColors():
     parser = MyHTMLParser2()
-    parser.feed((pathlib.Path(os.environ['COLORER5CATALOG']).parent/'hrd'/'console'/'jonib.hrd').read_text())
+    try:
+        parser.feed((pathlib.Path(os.environ['COLORER5CATALOG']).parent/'hrd'/'console'/'jonib.hrd').read_text())
+    except KeyError:
+        parser.feed((pathlib.Path(pathlib.Path(r"C:\Users\jonib\.colorer5catalog").read_text()).parent/'hrd'/'console'/'jonib.hrd').read_text())
 
 
 def SetAnsiColor(region):
