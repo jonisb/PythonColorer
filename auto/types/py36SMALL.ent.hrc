@@ -144,7 +144,7 @@
 
 <!-- raise_stmt: 'raise' [test ['from' test]] -->
 <scheme name="raise_stmt">
-	<block start="/\s*(raise)\s*/" end="//" scheme="raise_stmt_body" region01="Keyword"/>
+	<block start="/\s*\b(raise)\b\s*/" end="//" scheme="raise_stmt_body" region01="Keyword"/>
 </scheme>
 
 <scheme name="raise_stmt_body">

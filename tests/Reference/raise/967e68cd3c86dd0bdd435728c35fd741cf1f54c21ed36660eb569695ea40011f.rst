@@ -1,0 +1,21 @@
+.. code:: python
+    # Python 2 and 3:
+    from future.utils import raise_from
+    
+    class FileDatabase:
+        def __init__(self, filename):
+            try:
+                self.file = open(filename)
+            except IOError as exc:
+                raise_from(DatabaseError('failed to open'), exc)
+
+.. code:: html
+    <span class='python36-CommentEdge def-CommentEdge def-Comment def-Syntax'>#</span><span class='python36-LineComment def-LineComment def-Comment def-Syntax'> Python 2 and 3:</span>
+    <span class='python36-Keyword def-Keyword'>from</span> <span class='python36-Identifier def-Identifier'>future</span><span class='python36-Delimiter def-Symbol'>.</span><span class='python36-Identifier def-Identifier'>utils</span> <span class='python36-Keyword def-Keyword'>import</span> <span class='python36-Identifier def-Identifier'>raise_from</span>
+    
+    <span class='python36-Keyword def-Keyword'>class</span> <span class='python36-Identifier def-Identifier'>FileDatabase</span><span class='python36-Delimiter def-Symbol'>:</span>
+        <span class='python36-Keyword def-Keyword'>def</span> <span class='python36-Special_Identifier def-Var'>__init__</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-Special_Identifier def-Var'>self</span><span class='python36-Delimiter def-Symbol'>,</span> <span class='python36-Identifier def-Identifier'>filename</span><span class='python36-Delimiter def-Symbol'>)</span><span class='python36-Delimiter def-Symbol'>:</span>
+            <span class='python36-Keyword def-Keyword'>try</span><span class='python36-Delimiter def-Symbol'>:</span>
+                <span class='python36-Special_Identifier def-Var'>self</span><span class='python36-Delimiter def-Symbol'>.</span><span class='python36-Identifier def-Identifier'>file</span> <span class='python36-Delimiter def-Symbol'>=</span> <span class='python36-BuiltinFunction def-FunctionKeyword def-Keyword'>open</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-Identifier def-Identifier'>filename</span><span class='python36-Delimiter def-Symbol'>)</span>
+            <span class='python36-Keyword def-Keyword'>except</span> <span class='python36-BuiltinException def-Var'>IOError</span> <span class='python36-Keyword def-Keyword'>as</span> <span class='python36-Identifier def-Identifier'>exc</span><span class='python36-Delimiter def-Symbol'>:</span>
+                <span class='python36-Identifier def-Identifier'>raise_from</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-Identifier def-Identifier'>DatabaseError</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-String def-String'>failed to open</span><span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-Delimiter def-Symbol'>)</span><span class='python36-Delimiter def-Symbol'>,</span> <span class='python36-Identifier def-Identifier'>exc</span><span class='python36-Delimiter def-Symbol'>)</span>

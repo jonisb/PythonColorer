@@ -1,0 +1,9 @@
+.. code:: python
+    # Python 2 and 3: option 2
+    from future.utils import raise_with_traceback
+    raise_with_traceback(ValueError("dodgy value"))
+
+.. code:: html
+    <span class='python36-CommentEdge def-CommentEdge def-Comment def-Syntax'>#</span><span class='python36-LineComment def-LineComment def-Comment def-Syntax'> Python 2 and 3: option 2</span>
+    <span class='python36-Keyword def-Keyword'>from</span> <span class='python36-Identifier def-Identifier'>future</span><span class='python36-Delimiter def-Symbol'>.</span><span class='python36-Identifier def-Identifier'>utils</span> <span class='python36-Keyword def-Keyword'>import</span> <span class='python36-Identifier def-Identifier'>raise_with_traceback</span>
+    <span class='python36-Identifier def-Identifier'>raise_with_traceback</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-BuiltinException def-Var'>ValueError</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-StringEdge def-StringEdge def-String'>"</span><span class='python36-String def-String'>dodgy value</span><span class='python36-StringEdge def-StringEdge def-String'>"</span><span class='python36-Delimiter def-Symbol'>)</span><span class='python36-Delimiter def-Symbol'>)</span>
