@@ -1,0 +1,11 @@
+.. code:: python
+    #! python3
+    # Python 3 only:
+    for myint in b'byte-string with high-bit chars like \xf9':
+        bytechar = bytes([myint])
+
+.. code:: html
+    <span class='python36-DirectiveEdge def-DirectiveEdge def-DirectiveContent def-Directive'>#!</span><span class='python36-Directive def-Directive'> </span><span class='python36-DirectiveContent def-DirectiveContent def-Directive'>python3</span>
+    <span class='python36-CommentEdge def-CommentEdge def-Comment def-Syntax'>#</span><span class='python36-LineComment def-LineComment def-Comment def-Syntax'> Python 3 only:</span>
+    <span class='python36-Keyword def-Keyword'>for</span> <span class='python36-Identifier def-Identifier'>myint</span> <span class='python36-Keyword def-Keyword'>in</span> <span class='python36-StringPrefix def-Prefix'>b</span><span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-String def-String'>byte-string with high-bit chars like </span><span class='python36-StringEscape def-StringContent def-String'>\</span><span class='python36-Parameter def-Parameter'>x</span><span class='python36-NumberHex def-NumberHex def-Number'>f9</span><span class='python36-StringEdge def-StringEdge def-String'>'</span><span class='python36-Delimiter def-Symbol'>:</span>
+        <span class='python36-Identifier def-Identifier'>bytechar</span> <span class='python36-Delimiter def-Symbol'>=</span> <span class='python36-BuiltinFunction def-FunctionKeyword def-Keyword'>bytes</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-Delimiter def-Symbol'>[</span><span class='python36-Identifier def-Identifier'>myint</span><span class='python36-Delimiter def-Symbol'>]</span><span class='python36-Delimiter def-Symbol'>)</span>

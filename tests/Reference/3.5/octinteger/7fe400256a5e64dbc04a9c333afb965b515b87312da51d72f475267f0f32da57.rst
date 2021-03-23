@@ -1,0 +1,7 @@
+.. code:: python
+    #! python3.5
+    0777
+
+.. code:: html
+    <span class='python36-DirectiveEdge def-DirectiveEdge def-DirectiveContent def-Directive'>#!</span><span class='python36-Directive def-Directive'> </span><span class='python36-DirectiveContent def-DirectiveContent def-Directive'>python3.5</span>
+    <span class='python36-NumberPrefix def-NumberPrefix def-Number'>0</span><span class='python36-NumberOct def-NumberOct def-Number'>777</span>

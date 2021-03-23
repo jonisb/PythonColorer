@@ -1,0 +1,7 @@
+.. code:: python
+    #! python3.6
+    100_000_000_000
+
+.. code:: html
+    <span class='python36-DirectiveEdge def-DirectiveEdge def-DirectiveContent def-Directive'>#!</span><span class='python36-Directive def-Directive'> </span><span class='python36-DirectiveContent def-DirectiveContent def-Directive'>python3.6</span>
+    <span class='python36-NumberDec def-NumberDec def-Number'>100_000_000_000</span>

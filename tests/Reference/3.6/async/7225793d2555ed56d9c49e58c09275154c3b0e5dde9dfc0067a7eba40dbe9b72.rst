@@ -1,0 +1,7 @@
+.. code:: python
+    #! python3.6
+    result = [i async for i in aiter() if i % 2]
+
+.. code:: html
+    <span class='python36-DirectiveEdge def-DirectiveEdge def-DirectiveContent def-Directive'>#!</span><span class='python36-Directive def-Directive'> </span><span class='python36-DirectiveContent def-DirectiveContent def-Directive'>python3.6</span>
+    <span class='python36-Identifier def-Identifier'>result</span> <span class='python36-Delimiter def-Symbol'>=</span> <span class='python36-Delimiter def-Symbol'>[</span><span class='python36-Identifier def-Identifier'>i</span> <span class='python36-Keyword def-Keyword'>async</span> <span class='python36-Keyword def-Keyword'>for</span> <span class='python36-Identifier def-Identifier'>i</span> <span class='python36-Keyword def-Keyword'>in</span> <span class='python36-Identifier def-Identifier'>aiter</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-Delimiter def-Symbol'>)</span> <span class='python36-Keyword def-Keyword'>if</span> <span class='python36-Identifier def-Identifier'>i</span> <span class='python36-Operator def-Operator def-Symbol'>%</span> <span class='python36-NumberDec def-NumberDec def-Number'>2</span><span class='python36-Delimiter def-Symbol'>]</span>

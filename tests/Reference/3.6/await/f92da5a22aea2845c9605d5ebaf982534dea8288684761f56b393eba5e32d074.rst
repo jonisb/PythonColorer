@@ -1,0 +1,7 @@
+.. code:: python
+    #! python3.6
+    result = [await fun() for fun in funcs]
+
+.. code:: html
+    <span class='python36-DirectiveEdge def-DirectiveEdge def-DirectiveContent def-Directive'>#!</span><span class='python36-Directive def-Directive'> </span><span class='python36-DirectiveContent def-DirectiveContent def-Directive'>python3.6</span>
+    <span class='python36-Identifier def-Identifier'>result</span> <span class='python36-Delimiter def-Symbol'>=</span> <span class='python36-Delimiter def-Symbol'>[</span><span class='python36-Keyword def-Keyword'>await</span> <span class='python36-Identifier def-Identifier'>fun</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-Delimiter def-Symbol'>)</span> <span class='python36-Keyword def-Keyword'>for</span> <span class='python36-Identifier def-Identifier'>fun</span> <span class='python36-Keyword def-Keyword'>in</span> <span class='python36-Identifier def-Identifier'>funcs</span><span class='python36-Delimiter def-Symbol'>]</span>

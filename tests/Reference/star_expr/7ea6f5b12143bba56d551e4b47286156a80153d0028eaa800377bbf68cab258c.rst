@@ -1,0 +1,5 @@
+.. code:: python
+    (a, *rest, b) = range(5)
+
+.. code:: html
+    <span class='python36-Delimiter def-Symbol'>(</span><span class='python36-Identifier def-Identifier'>a</span><span class='python36-Delimiter def-Symbol'>,</span> <span class='python36-Operator def-Operator def-Symbol'>*</span><span class='python36-Identifier def-Identifier'>rest</span><span class='python36-Delimiter def-Symbol'>,</span> <span class='python36-Identifier def-Identifier'>b</span><span class='python36-Delimiter def-Symbol'>)</span> <span class='python36-Delimiter def-Symbol'>=</span> <span class='python36-BuiltinFunction def-FunctionKeyword def-Keyword'>range</span><span class='python36-Delimiter def-Symbol'>(</span><span class='python36-NumberDec def-NumberDec def-Number'>5</span><span class='python36-Delimiter def-Symbol'>)</span>
