@@ -342,5 +342,8 @@ if __name__ == '__main__':
 
     UpdateFiles()
 
-    build_tests()
+    try:
+        build_tests()
+    except FileNotFoundError:
+        pass
     unittest.main()
