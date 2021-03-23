@@ -37,5 +37,6 @@ jobs:
         target: public/
     - run: 7z x public/colorer-base.packed.v1.0.0.zip -ocolorer
     - run: 7z x public/colorer.v.1.2.0x64.zip -otests
+    - run: pip install -r requirements.txt
     - run: python test_colorer.py
       working-directory: D:\a\PythonColorer\PythonColorer\tests
