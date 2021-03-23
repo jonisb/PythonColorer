@@ -10,6 +10,7 @@ from html.parser import HTMLParser
 import regex
 import ColorerColors
 from ColorerColors import ResetAnsiColor
+from colorerlib import getcolorerpath
 import os
 import filecmp
 import shutil
@@ -304,10 +305,7 @@ class MyHTMLParser(HTMLParser):
 
 def UpdateFiles():
     src = (Path('..') / 'auto').resolve()
-    try:
-        dst = Path(os.environ['COLORER5CATALOG']).parent / 'hrc' / 'auto'
-    except KeyError:
-        dst = Path(Path(r"C:\Users\jonib\.colorer5catalog").read_text()).parent / 'hrc' / 'auto'
+    dst = getcolorerpath() / 'hrc' / 'auto'
     for file in src.glob('**/*.hrc'):
         if file.is_file():
             outfile = dst / file.relative_to(src)
